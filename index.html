@@ -21,9 +21,14 @@ nav{
  padding:18px 40px;
  display:flex;
  align-items:center;
- background:linear-gradient(90deg,#000000dd,#111827dd);
+ background:rgba(0,0,0,0.4);
  backdrop-filter: blur(6px);
+ transition:0.3s;
  z-index:1000;
+}
+
+nav.scrolled{
+ background:rgba(0,0,0,0.9);
 }
 
 .nav-center{
@@ -44,6 +49,34 @@ nav a{
  text-decoration:none;
  margin-left:22px;
  font-weight:bold;
+}
+.nav-center a{
+ position:relative;
+ padding-bottom:5px;
+ transition:0.3s;
+}
+
+.nav-center a::after{
+ content:"";
+ position:absolute;
+ left:0;
+ bottom:0;
+ width:0%;
+ height:2px;
+ background:#ff1e00;
+ transition:0.3s;
+}
+
+.nav-center a:hover::after{
+ width:100%;
+}
+ 
+.nav-center a.active{
+ color:#ff1e00;
+}
+
+.nav-center a.active::after{
+ width:100%;
 }
 
 .langbtn{
@@ -567,10 +600,20 @@ async function checkLiveStatus(){
 setInterval(checkLiveStatus, 30000);
 checkLiveStatus();
 
+ window.addEventListener("scroll", function(){
+ const nav = document.querySelector("nav");
+ if(window.scrollY > 50){
+   nav.classList.add("scrolled");
+ } else {
+   nav.classList.remove("scrolled");
+ }
+});
+
 </script>
 
 </body>
 </html>
+
 
 
 
