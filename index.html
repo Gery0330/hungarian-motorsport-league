@@ -61,20 +61,24 @@ nav a{
  overflow:hidden;
 }
 
-.hero::before{
- content:"";
+.bgVideo{
  position:absolute;
- width:110%;
- height:110%;
- background:
- linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.85)),
- url("https://www.youtube.com/watch?v=qEAzIPKqKP0") center/cover;
- animation: zoombg 20s linear infinite;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ object-fit:cover;
+ z-index:-2;
 }
 
-@keyframes zoombg{
- from{ transform:scale(1); }
- to{ transform:scale(1.15); }
+.videoOverlay{
+ position:absolute;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ background:linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.85));
+ z-index:-1;
 }
 
 .heroContent{
@@ -254,7 +258,15 @@ form button{
 
 <!-- HERO -->
 <div class="hero">
+
+<video autoplay muted loop playsinline class="bgVideo">
+  <source src="https://cdn.coverr.co/videos/coverr-formula-racing-1591/1080p.mp4" type="video/mp4">
+</video>
+
+<div class="videoOverlay"></div>
+
 <div class="lightbar"></div>
+
 <div class="heroContent">
 <h1>Hungarian Motorsport League</h1>
 <p id="heroText">
@@ -262,6 +274,7 @@ A magyar szimulátor versenyzés otthona. Ha érzed a tempót —
 itt a helyed a rajtrácson.
 </p>
 </div>
+
 </div>
  
 <!-- LIVE STREAM SECTION -->
@@ -548,6 +561,7 @@ checkLiveStatus();
 
 </body>
 </html>
+
 
 
 
