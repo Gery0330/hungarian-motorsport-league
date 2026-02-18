@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<title>Rólunk — Hungarian Motorsport League</title>
+
+<style>
+
+body{
+ margin:0;
+ font-family:Arial, Helvetica, sans-serif;
+ background:#05070c;
+ color:white;
+}
+
+/* NAV */
+nav{
+ position:fixed;
+ top:0;
+ width:100%;
+ padding:18px 40px;
+ display:flex;
+ align-items:center;
+ background:rgba(0,0,0,0.4);
+ backdrop-filter: blur(6px);
+ transition:0.3s;
+ z-index:1000;
+}
+
+nav.scrolled{
+ background:rgba(0,0,0,0.9);
+}
+
+.logo{
+ font-size:22px;
+ font-weight:bold;
+ color:#ff1e00;
+}
+
+.nav-center{
+ flex:1;
+ display:flex;
+ justify-content:center;
+ gap:30px;
+}
+
+.nav-center a{
+ color:white;
+ text-decoration:none;
+ font-weight:bold;
+ position:relative;
+ padding-bottom:5px;
+ transition:0.3s;
+}
+
+.nav-center a::after{
+ content:"";
+ position:absolute;
+ left:0;
+ bottom:0;
+ width:0%;
+ height:2px;
+ background:#ff1e00;
+ transition:0.3s;
+}
+
+.nav-center a:hover::after{
+ width:100%;
+}
+
+.nav-center a.active{
+ color:#ff1e00;
+}
+
+.nav-center a.active::after{
+ width:100%;
+}
+
+/* HERO SECTION */
+.hero{
+ height:60vh;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ text-align:center;
+ background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.9)),
+ url("https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=1920") center/cover;
+}
+
+.hero h1{
+ font-size:50px;
+ text-shadow:0 0 20px #ff1e00;
+}
+
+/* CONTENT */
+section{
+ padding:100px 40px;
+ max-width:1000px;
+ margin:auto;
+}
+
+h2{
+ font-size:36px;
+ margin-bottom:20px;
+ color:#ff1e00;
+}
+
+p{
+ font-size:20px;
+ line-height:1.7;
+ margin-bottom:25px;
+}
+
+/* FOOTER */
+footer{
+ background:#0d1117;
+ padding:40px;
+ text-align:center;
+ margin-top:60px;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+<div class="logo">HML</div>
+
+<div class="nav-center">
+<a href="index.html">Főoldal</a>
+<a href="rolunk.html" class="active">Rólunk</a>
+<a href="live.html">Live</a>
+</div>
+</nav>
+
+<div class="hero">
+<h1>Rólunk</h1>
+</div>
+
+<section>
+
+<h2>Kik vagyunk?</h2>
+
+<p>
+A Hungarian Motorsport League egy dinamikusan fejlődő magyar szimulátor
+verseny liga, amely a motorsport iránti szenvedélyre és a professzionális
+versenyzésre épül.
+</p>
+
+<p>
+Célunk egy olyan közösség létrehozása, ahol a tehetség, a fegyelem és a
+sportszerűség találkozik a modern szimulátor technológiával.
+</p>
+
+<h2>Küldetésünk</h2>
+
+<p>
+Olyan bajnokságok szervezése, amelyek valódi versenyélményt nyújtanak —
+stratégia, tempó, kitartás és mentális erő kombinációjával.
+</p>
+
+<p>
+Ligánkban helyet kapnak:
+F1 23, F1 24, F1 25, Le Mans Ultimate és Assetto Corsa Competizione
+bajnokságok.
+</p>
+
+<h2>Miért csatlakozz?</h2>
+
+<p>
+✔ Professzionális szervezés  
+✔ Stabil versenynaptár  
+✔ Élő közvetítések  
+✔ Aktív Discord közösség  
+✔ Fejlődési lehetőség minden szinten  
+</p>
+
+<p>
+Ha érzed magadban a tempót és a versenyszellemet —
+a rajtrácson a helyed.
+</p>
+
+</section>
+
+<footer>
+© 2025 Hungarian Motorsport League
+</footer>
+
+<script>
+window.addEventListener("scroll", function(){
+ const nav = document.querySelector("nav");
+ if(window.scrollY > 50){
+   nav.classList.add("scrolled");
+ } else {
+   nav.classList.remove("scrolled");
+ }
+});
+</script>
+
+</body>
+</html>
