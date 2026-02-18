@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<title>HML — Hungarian Motorsport League</title>
+
+<style>
+body{
+ margin:0;
+ font-family:Arial, Helvetica, sans-serif;
+ color:white;
+ background:#05070c;
+ overflow-x:hidden;
+}
+
+/* NAV */
+nav{
+ position:fixed;
+ top:0;
+ width:100%;
+ padding:18px 40px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ background:linear-gradient(90deg,#000000dd,#111827dd);
+ backdrop-filter: blur(6px);
+ z-index:1000;
+}
+
+.logo{
+ font-size:22px;
+ font-weight:bold;
+ color:#ff1e00;
+}
+
+nav a{
+ color:white;
+ text-decoration:none;
+ margin-left:22px;
+ font-weight:bold;
+}
+
+.langbtn{
+ background:#ff1e00;
+ border:none;
+ padding:8px 14px;
+ color:white;
+ border-radius:6px;
+ cursor:pointer;
+ font-weight:bold;
+}
+
+/* HERO */
+.hero{
+ height:100vh;
+ position:relative;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ text-align:center;
+ overflow:hidden;
+}
+
+.hero::before{
+ content:"";
+ position:absolute;
+ width:110%;
+ height:110%;
+ background:
+ linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.85)),
+ url("https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=1920") center/cover;
+ animation: zoombg 20s linear infinite;
+}
+
+@keyframes zoombg{
+ from{ transform:scale(1); }
+ to{ transform:scale(1.15); }
+}
+
+.heroContent{
+ position:relative;
+ z-index:2;
+ max-width:900px;
+}
+
+.hero h1{
+ font-size:58px;
+ text-shadow:0 0 20px #ff1e00;
+}
+
+/* SPEED LIGHT */
+.lightbar{
+ position:absolute;
+ top:0;
+ left:-200px;
+ width:200px;
+ height:100%;
+ background:linear-gradient(90deg,transparent,#ff1e0033,transparent);
+ transform:skewX(-20deg);
+ animation:sweep 6s linear infinite;
+}
+
+@keyframes sweep{
+ to{ left:120%; }
+}
+
+/* SECTIONS */
+section{
+ padding:90px 30px;
+ text-align:center;
+}
+
+h2{
+ font-size:38px;
+ margin-bottom:30px;
+}
+
+/* IMAGE SECTIONS */
+.imageSection{
+ background-size:cover;
+ background-position:center;
+ background-attachment:fixed;
+}
+
+.overlay{
+ background:rgba(0,0,0,.75);
+ padding:60px 20px;
+}
+
+/* GAMES */
+.games{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+ gap:22px;
+ max-width:1100px;
+ margin:auto;
+}
+
+.card{
+ background:#111827;
+ padding:30px;
+ border-radius:14px;
+ font-size:20px;
+ font-weight:bold;
+ transition:.3s;
+ border:1px solid #222;
+}
+
+.card:hover{
+ transform:translateY(-8px) scale(1.05);
+ box-shadow:0 0 25px #ff1e0044;
+}
+
+/* COUNTDOWN */
+.countbox{
+ font-size:42px;
+ font-weight:bold;
+ text-shadow:0 0 12px #ff1e00;
+}
+
+/* CTA */
+.cta{
+ background:linear-gradient(90deg,#aa0000,#ff1e00);
+}
+
+.btn{
+ display:inline-block;
+ margin:12px;
+ padding:18px 28px;
+ background:black;
+ color:white;
+ text-decoration:none;
+ border-radius:10px;
+ font-weight:bold;
+ transition:.3s;
+}
+
+.btn:hover{
+ transform:scale(1.1);
+ box-shadow:0 0 18px #ffffff55;
+}
+
+/* FOOTER */
+footer{
+ background:#0d1117;
+ padding:40px;
+ opacity:.8;
+}
+
+.spacer{height:70px;}
+form input, form select{
+ width:100%;
+ padding:12px;
+ margin:10px 0 20px 0;
+ border-radius:6px;
+ border:none;
+ background:#111827;
+ color:white;
+}
+
+form label{
+ font-weight:bold;
+}
+
+form button{
+ background:#ff1e00;
+ border:none;
+}
+form input, form select{
+ width:100%;
+ padding:12px;
+ margin:10px 0 20px 0;
+ border-radius:6px;
+ border:none;
+ background:#111827;
+ color:white;
+}
+
+form label{
+ font-weight:bold;
+}
+
+form button{
+ background:#ff1e00;
+ border:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+<div class="logo">HML</div>
+<div>
+<a href="#about" data-hu="Liga" data-en="League">Liga</a>
+<a href="#games" data-hu="Játékok" data-en="Games">Games</a>
+<a href="#event" data-hu="Esemény" data-en="Event">Event</a>
+<button class="langbtn" onclick="toggleLang()">HU / EN</button>
+</div>
+</nav>
+
+<div class="spacer"></div>
+
+<!-- HERO -->
+<div class="hero">
+<div class="lightbar"></div>
+<div class="heroContent">
+<h1>Hungarian Motorsport League</h1>
+<p id="heroText">
+A magyar szimulátor versenyzés otthona. Ha érzed a tempót —
+itt a helyed a rajtrácson.
+</p>
+</div>
+</div>
+
+<!-- ABOUT -->
+<section class="imageSection"
+style="background-image:url('https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1920');">
+<div class="overlay">
+<h2 data-hu="Mi az a HML?" data-en="What is HML?">Mi az a HML?</h2>
+<p id="aboutText">
+Versenyek, bajnokságok, közvetítések és profi közösség.
+</p>
+</div>
+</section>
+
+<!-- GAMES -->
+<section id="games">
+<h2 data-hu="Támogatott játékok" data-en="Supported Games">
+Támogatott játékok
+</h2>
+
+<div class="games">
+<div class="card">F1 23</div>
+<div class="card">F1 24</div>
+<div class="card">F1 25</div>
+<div class="card">Le Mans Ultimate</div>
+<div class="card">Assetto Corsa Competizione</div>
+</div>
+</section>
+
+<!-- LE MANS EVENT — kifejezetten Le Mans prototípus autó háttér -->
+<section id="event" class="imageSection"
+style="background-image:url('https://images.unsplash.com/photo-1629394177427-3d3c7f2b8f7d?q=80&w=1920');">
+<div class="overlay">
+
+<h2 data-hu="12 órás jótékonysági Le Mans futam"
+data-en="12 Hour Charity Le Mans Event">
+12 órás jótékonysági Le Mans futam
+</h2>
+
+<div id="countdown" class="countbox">Betöltés…</div>
+
+</div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+<h2 data-hu="Csatlakozz a közösséghez!"
+data-en="Join the community!">
+Csatlakozz a közösséghez!
+</h2>
+
+<a class="btn" href="https://discord.gg/IDE_LINK" target="_blank">Discord</a>
+<a class="btn" href="https://youtube.com/" target="_blank">YouTube</a>
+<a class="btn" href="https://tiktok.com/@" target="_blank">TikTok</a>
+
+</section>
+
+<!-- REGISTRATION SYSTEM -->
+<section id="register" style="background:#0b0f18;">
+<h2>Nevezési rendszer</h2>
+
+<div id="limitInfo" style="margin-bottom:20px;font-weight:bold;"></div>
+
+<form id="regForm" style="max-width:800px;margin:auto;text-align:left;">
+
+<label>Bajnokság</label>
+<select id="championship" required>
+<option value="">Válassz...</option>
+<option value="F1 23">F1 23</option>
+<option value="F1 24">F1 24</option>
+<option value="F1 25">F1 25</option>
+<option value="Le Mans Ultimate">Le Mans Ultimate</option>
+<option value="ACC">Assetto Corsa Competizione</option>
+</select>
+
+<label>Teljes név</label>
+<input type="text" required>
+
+<label>GamerTag</label>
+<input type="text" required>
+
+<label>Email</label>
+<input type="email" required>
+
+<label>Platform</label>
+<select required>
+<option>PC</option>
+<option>PlayStation</option>
+<option>Xbox</option>
+</select>
+
+<label>
+<input type="checkbox" required>
+Elfogadom a szabályzatot
+</label>
+
+<button type="submit" class="btn" style="width:100%;margin-top:20px;">
+Nevezés elküldése
+</button>
+
+<div id="successMsg" style="display:none;margin-top:20px;
+padding:15px;background:#00aa55;border-radius:8px;">
+Sikeres nevezés! Átirányítás Discordra...
+</div>
+
+<div id="limitMsg" style="display:none;margin-top:20px;
+padding:15px;background:#aa0000;border-radius:8px;">
+Betelt a bajnokság!
+</div>
+
+</form>
+</section>
+
+<footer>
+© Hungarian Motorsport League
+</footer>
+
+<script>
+/* COUNTDOWN */
+const targetDate = new Date("April 3, 2026 18:00:00").getTime();
+
+setInterval(()=>{
+ const now=new Date().getTime();
+ const d=targetDate-now;
+ if(d<=0){ countdown.innerHTML="RAJT!"; return; }
+ const nap=Math.floor(d/86400000);
+ const ora=Math.floor((d%86400000)/3600000);
+ const perc=Math.floor((d%3600000)/60000);
+ const mp=Math.floor((d%60000)/1000);
+ countdown.innerHTML=`${nap} nap ${ora} óra ${perc} perc ${mp} mp`;
+},1000);
+
+
+/* LANGUAGE */
+let lang="hu";
+function toggleLang(){
+ lang = lang==="hu" ? "en":"hu";
+
+ document.querySelectorAll("[data-hu]").forEach(el=>{
+  el.innerText = el.getAttribute("data-"+lang);
+ });
+
+ heroText.innerText = lang==="hu"
+ ? "A magyar szimulátor versenyzés otthona."
+ : "Home of Hungarian sim racing.";
+
+ aboutText.innerText = lang==="hu"
+ ? "Versenyek és profi közösség."
+ : "Championships and pro community.";
+}
+
+/* FORM SUBMIT */
+document.getElementById("regForm").addEventListener("submit", function(e){
+ e.preventDefault();
+ document.getElementById("successMsg").style.display="block";
+ this.reset();
+});
+/* LIMIT SYSTEM */
+let limits = {
+ "F1 23": 20,
+ "F1 24": 20,
+ "F1 25": 20,
+ "Le Mans Ultimate": Infinity,
+ "ACC": Infinity
+};
+
+let currentCounts = {
+ "F1 23": 0,
+ "F1 24": 0,
+ "F1 25": 0,
+ "Le Mans Ultimate": 0,
+ "ACC": 0
+};
+
+const champSelect = document.getElementById("championship");
+const limitInfo = document.getElementById("limitInfo");
+const limitMsg = document.getElementById("limitMsg");
+
+champSelect.addEventListener("change", function(){
+ updateLimitInfo();
+});
+
+function updateLimitInfo(){
+ const selected = champSelect.value;
+ if(!selected) return;
+
+ if(limits[selected] === Infinity){
+  limitInfo.innerHTML = "Nincs nevezési limit.";
+ } else {
+  limitInfo.innerHTML = 
+   `Szabad helyek: ${limits[selected]-currentCounts[selected]} / ${limits[selected]}`;
+ }
+}
+
+document.getElementById("regForm").addEventListener("submit", function(e){
+ e.preventDefault();
+
+ const selected = champSelect.value;
+ if(!selected) return;
+
+ if(limits[selected] !== Infinity &&
+    currentCounts[selected] >= limits[selected]){
+     limitMsg.style.display="block";
+     return;
+ }
+
+ currentCounts[selected]++;
+
+ document.getElementById("successMsg").style.display="block";
+ updateLimitInfo();
+
+ setTimeout(()=>{
+   window.location.href="https://discord.gg/IDE_LINK";
+ },2000);
+
+ this.reset();
+});
+
+</script>
+
+</body>
+</html>
