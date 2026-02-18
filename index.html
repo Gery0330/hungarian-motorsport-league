@@ -318,34 +318,6 @@ itt a helyed a rajtrácson.
 </div>
 
 </div>
- 
-<!-- LIVE STREAM SECTION -->
-<section id="live" class="imageSection"
-style="background-image:url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=1920');">
-<div class="overlay">
-
-<h2 data-hu="Élő közvetítés"
-data-en="Live Broadcast">
-Élő közvetítés
-</h2>
-
-<div id="liveStatus" style="font-size:22px;margin-bottom:20px;"></div>
-
-<div id="liveContainer" style="max-width:900px;margin:auto;">
-<iframe id="liveFrame"
-width="100%" height="500"
-src="https://www.youtube.com/embed/UCJAnYRXk3HpfmXItsvMCxtQ"
-frameborder="0"
-allowfullscreen>
-</iframe>
-</div>
-
-<div id="nextLiveCountdown"
-style="margin-top:25px;font-size:24px;font-weight:bold;">
-</div>
-
-</div>
-</section>
 
 <!-- GAMES -->
 <section id="games">
@@ -547,39 +519,6 @@ document.getElementById("regForm").addEventListener("submit", function(e){
 
  this.reset();
 });
- 
-/* ===== AUTO LIVE DETECTION ===== */
-
-const API_KEY = "AIzaSyAVffHyaZgIznwbnTDSGs_Z-rgzpGFlqIk";
-const CHANNEL_ID = "UCJAnYRXk3HpfmXItsvMCxtQ";
-const liveStatus = document.getElementById("liveStatus");
-const nextLiveCountdown = document.getElementById("nextLiveCountdown");
-const liveFrame = document.getElementById("liveFrame");
-
-async function checkLiveStatus(){
- try{
-   const response = await fetch(
-   `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&eventType=live&type=video&key=${API_KEY}`
-   );
-
-   const data = await response.json();
-
-   if(data.items && data.items.length > 0){
-      const liveVideoId = data.items[0].id.videoId;
-
-      liveFrame.src = `https://www.youtube.com/embed/${liveVideoId}`;
-      liveStatus.innerHTML = "🔴 LIVE NOW";
-      liveStatus.classList.add("liveNow");
-      nextLiveCountdown.innerHTML = "";
-   } else {
-      liveStatus.innerHTML = "Jelenleg nincs élő közvetítés.";
-      liveStatus.classList.remove("liveNow");
-   }
-
- } catch(error){
-   console.error("Live check error:", error);
- }
-}
 
 /* 30 másodpercenként ellenőriz */
 setInterval(checkLiveStatus, 30000);
@@ -598,6 +537,7 @@ checkLiveStatus();
 
 </body>
 </html>
+
 
 
 
