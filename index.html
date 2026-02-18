@@ -224,6 +224,16 @@ form button{
  background:#ff1e00;
  border:none;
 }
+ 
+#liveStatus.liveNow{
+ color:#ff0000;
+ font-weight:bold;
+ animation: blink 1s infinite;
+}
+
+@keyframes blink{
+ 50%{ opacity:0.4; }
+}
 
 </style>
 </head>
@@ -253,6 +263,34 @@ itt a helyed a rajtrácson.
 </p>
 </div>
 </div>
+ 
+<!-- LIVE STREAM SECTION -->
+<section id="live" class="imageSection"
+style="background-image:url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=1920');">
+<div class="overlay">
+
+<h2 data-hu="Élő közvetítés"
+data-en="Live Broadcast">
+Élő közvetítés
+</h2>
+
+<div id="liveStatus" style="font-size:22px;margin-bottom:20px;"></div>
+
+<div id="liveContainer" style="max-width:900px;margin:auto;">
+<iframe id="liveFrame"
+width="100%" height="500"
+src="https://www.youtube.com/embed/YOUR_STREAM_ID"
+frameborder="0"
+allowfullscreen>
+</iframe>
+</div>
+
+<div id="nextLiveCountdown"
+style="margin-top:25px;font-size:24px;font-weight:bold;">
+</div>
+
+</div>
+</section>
 
 <!-- ABOUT -->
 <section class="imageSection"
@@ -399,7 +437,7 @@ function toggleLang(){
 
  aboutText.innerText = lang==="hu"
  ? "Versenyek és profi közösség."
- : "Championships and pro community.";
+ : "Races and pro community.";
 }
 
 /* FORM SUBMIT */
@@ -468,11 +506,52 @@ document.getElementById("regForm").addEventListener("submit", function(e){
 
  this.reset();
 });
+ 
+/* LIVE SYSTEM */
+
+// Állítsd be a következő stream időpontját:
+const nextStreamDate = new Date("April 10, 2026 19:00:00").getTime();
+
+// Ha most live van, állítsd true-ra
+let isLiveNow = false;
+
+const liveStatus = document.getElementById("liveStatus");
+const nextLiveCountdown = document.getElementById("nextLiveCountdown");
+const liveFrame = document.getElementById("liveFrame");
+
+function updateLive(){
+ if(isLiveNow){
+   liveStatus.innerHTML = "🔴 LIVE NOW";
+   liveStatus.classList.add("liveNow");
+   nextLiveCountdown.innerHTML = "";
+ } else {
+   liveStatus.innerHTML = "Következő közvetítés:";
+   liveStatus.classList.remove("liveNow");
+
+   const now = new Date().getTime();
+   const diff = nextStreamDate - now;
+
+   if(diff > 0){
+     const d = Math.floor(diff/86400000);
+     const h = Math.floor((diff%86400000)/3600000);
+     const m = Math.floor((diff%3600000)/60000);
+     const s = Math.floor((diff%60000)/1000);
+     nextLiveCountdown.innerHTML =
+     `${d} nap ${h} óra ${m} perc ${s} mp`;
+   } else {
+     nextLiveCountdown.innerHTML = "A közvetítés hamarosan indul.";
+   }
+ }
+}
+
+setInterval(updateLive,1000);
+updateLive();
 
 </script>
 
 </body>
 </html>
+
 
 
 
