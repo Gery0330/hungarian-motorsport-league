@@ -507,50 +507,48 @@ document.getElementById("regForm").addEventListener("submit", function(e){
  this.reset();
 });
  
-/* LIVE SYSTEM */
+/* ===== AUTO LIVE DETECTION ===== */
 
-// Állítsd be a következő stream időpontját:
-const nextStreamDate = new Date("April 10, 2026 19:00:00").getTime();
-
-// Ha most live van, állítsd true-ra
-let isLiveNow = false;
-
+const API_KEY = "AIzaSyAVffHyaZgIznwbnTDSGs_Z-rgzpGFlqIk";
+const CHANNEL_ID = "UCJAnYRXk3HpfmXItsvMCxtQ";
 const liveStatus = document.getElementById("liveStatus");
 const nextLiveCountdown = document.getElementById("nextLiveCountdown");
 const liveFrame = document.getElementById("liveFrame");
 
-function updateLive(){
- if(isLiveNow){
-   liveStatus.innerHTML = "🔴 LIVE NOW";
-   liveStatus.classList.add("liveNow");
-   nextLiveCountdown.innerHTML = "";
- } else {
-   liveStatus.innerHTML = "Következő közvetítés:";
-   liveStatus.classList.remove("liveNow");
+async function checkLiveStatus(){
+ try{
+   const response = await fetch(
+   `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&eventType=live&type=video&key=${API_KEY}`
+   );
 
-   const now = new Date().getTime();
-   const diff = nextStreamDate - now;
+   const data = await response.json();
 
-   if(diff > 0){
-     const d = Math.floor(diff/86400000);
-     const h = Math.floor((diff%86400000)/3600000);
-     const m = Math.floor((diff%3600000)/60000);
-     const s = Math.floor((diff%60000)/1000);
-     nextLiveCountdown.innerHTML =
-     `${d} nap ${h} óra ${m} perc ${s} mp`;
+   if(data.items && data.items.length > 0){
+      const liveVideoId = data.items[0].id.videoId;
+
+      liveFrame.src = `https://www.youtube.com/embed/${liveVideoId}`;
+      liveStatus.innerHTML = "🔴 LIVE NOW";
+      liveStatus.classList.add("liveNow");
+      nextLiveCountdown.innerHTML = "";
    } else {
-     nextLiveCountdown.innerHTML = "A közvetítés hamarosan indul.";
+      liveStatus.innerHTML = "Jelenleg nincs élő közvetítés.";
+      liveStatus.classList.remove("liveNow");
    }
+
+ } catch(error){
+   console.error("Live check error:", error);
  }
 }
 
-setInterval(updateLive,1000);
-updateLive();
+/* 30 másodpercenként ellenőriz */
+setInterval(checkLiveStatus, 30000);
+checkLiveStatus();
 
 </script>
 
 </body>
 </html>
+
 
 
 
