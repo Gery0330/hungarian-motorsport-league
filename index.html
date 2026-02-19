@@ -431,7 +431,12 @@ A magyar szimulátor versenyzés otthona. Ha érzed a tempót —
 itt a helyed a rajtrácson.
 </p>
  
-<a href="#nevezes" class="cta-hero-btn">Jelentkezz</a>
+<a href="#nevezes"
+   class="cta-hero-btn"
+   data-hu="Jelentkezz"
+   data-en="Register">
+Jelentkezz
+</a>
  
 </div>
 
@@ -741,9 +746,14 @@ function toggleRules(){
  rules.classList.toggle("open");
 }
 
+ document.querySelectorAll("[data-hu]").forEach(el=>{
+  el.innerHTML = el.getAttribute("data-"+lang);
+});
+
 </script>
 
 </body>
 </html>
+
 
 
