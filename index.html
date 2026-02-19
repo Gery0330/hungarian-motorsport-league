@@ -504,7 +504,7 @@ Nevezési rendszer
 Bajnokság
 </label>
 
-<select id="championship" required>
+<select id="championship" name="championship" required>
 <option value="">Válassz...</option>
 <option value="F1 23">F1 23</option>
 <option value="F1 24">F1 24</option>
@@ -517,25 +517,25 @@ Bajnokság
        data-en="Full Name">
 Teljes név
 </label>
-<input type="text" required>
+<input type="text" name="fullName" required>
 
 <label data-hu="GamerTag"
        data-en="GamerTag">
 GamerTag
 </label>
-<input type="text" required>
+<input type="text" name="gamerTag" required>
 
 <label data-hu="Email"
        data-en="Email">
 Email
 </label>
-<input type="email" required>
+<input type="email" name="email" required>
 
 <label data-hu="Platform"
        data-en="Platform">
 Platform
 </label>
-<select required>
+<select name="platform" required>
 <option>PC</option>
 <option>PlayStation</option>
 <option>Xbox</option>
@@ -695,7 +695,6 @@ document.getElementById("regForm").addEventListener("submit", function(e){
     });
 });
 
-});
 /* LIMIT SYSTEM */
 let limits = {
  "F1 23": 20,
@@ -779,6 +778,7 @@ function toggleRules(){
 
 </body>
 </html>
+
 
 
 
