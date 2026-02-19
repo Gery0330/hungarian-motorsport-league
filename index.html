@@ -171,19 +171,27 @@ h2{
 /* GAMES */
 .games{
  display:flex;
- justify-content:center;
- align-items:center;
  gap:40px;
- flex-wrap:nowrap;
  margin-top:50px;
+ overflow-x:auto;
+ padding-bottom:20px;
+}
+
+.games::-webkit-scrollbar{
+ height:8px;
+}
+
+.games::-webkit-scrollbar-thumb{
+ background:#ff1e00;
+ border-radius:10px;
 }
 
 .card{
- min-width:260px;
- padding:60px 70px;
+ min-width:220px;
+ padding:40px 50px;
  background:linear-gradient(145deg,#111827,#0f172a);
  border-radius:18px;
- font-size:24px;
+ font-size:22px;
  font-weight:bold;
  text-align:center;
  transition:.3s;
@@ -544,5 +552,6 @@ checkLiveStatus();
 
 </body>
 </html>
+
 
 
