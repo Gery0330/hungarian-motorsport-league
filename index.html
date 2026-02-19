@@ -664,6 +664,23 @@ function toggleLang(){
  ? "A magyar szimulátor versenyzés otthona."
  : "Home of Hungarian sim racing.";
 }
+ 
+/* LIMIT SYSTEM */
+let limits = {
+ "F1 23": 20,
+ "F1 24": 20,
+ "F1 25": 20,
+ "Le Mans Ultimate": Infinity,
+ "ACC": 30
+};
+
+let currentCounts = {
+ "F1 23": 0,
+ "F1 24": 0,
+ "F1 25": 0,
+ "Le Mans Ultimate": 0,
+ "ACC": 0
+};
 
 /* FORM SUBMIT */
 document.getElementById("regForm").addEventListener("submit", function(e){
@@ -722,23 +739,6 @@ champSelect.addEventListener("change", function(){
  updateLimitInfo();
 });
  
-/* LIMIT SYSTEM */
-let limits = {
- "F1 23": 20,
- "F1 24": 20,
- "F1 25": 20,
- "Le Mans Ultimate": Infinity,
- "ACC": 30
-};
-
-let currentCounts = {
- "F1 23": 0,
- "F1 24": 0,
- "F1 25": 0,
- "Le Mans Ultimate": 0,
- "ACC": 0
-};
-
 function updateLimitInfo(){
  const selected = champSelect.value;
  if(!selected) return;
@@ -767,6 +767,7 @@ function toggleRules(){
 </script>
 </body>
 </html>
+
 
 
 
