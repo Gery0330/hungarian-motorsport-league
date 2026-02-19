@@ -732,30 +732,6 @@ function updateLimitInfo(){
  }
 }
 
-document.getElementById("regForm").addEventListener("submit", function(e){
- e.preventDefault();
-
- const selected = champSelect.value;
- if(!selected) return;
-
- if(limits[selected] !== Infinity &&
-    currentCounts[selected] >= limits[selected]){
-     limitMsg.style.display="block";
-     return;
- }
-
- currentCounts[selected]++;
-
- document.getElementById("successMsg").style.display="block";
- updateLimitInfo();
-
- setTimeout(()=>{
-   window.location.href="https://discord.gg/IDE_LINK";
- },2000);
-
- this.reset();
-});
-
  window.addEventListener("scroll", function(){
  const nav = document.querySelector("nav");
  if(window.scrollY > 50){
@@ -778,6 +754,7 @@ function toggleRules(){
 
 </body>
 </html>
+
 
 
 
