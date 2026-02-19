@@ -239,7 +239,7 @@ function toggleLang(){
  lang = lang==="hu" ? "en":"hu";
 
  document.querySelectorAll("[data-hu]").forEach(el=>{
-  el.innerText = el.getAttribute("data-"+lang);
+  el.innerHTML = el.getAttribute("data-"+lang);
  });
 }
 
@@ -247,6 +247,7 @@ function toggleLang(){
 
 </body>
 </html>
+
 
 
 
