@@ -328,6 +328,55 @@ form button{
  100%{ box-shadow:0 0 15px #6a000080; }
 }
 
+.rules-wrapper{
+ margin:30px 0;
+ text-align:left;
+}
+
+.rules-toggle{
+ background:#6a0000;
+ color:white;
+ border:none;
+ padding:12px 25px;
+ border-radius:8px;
+ font-weight:bold;
+ cursor:pointer;
+ transition:.3s;
+}
+
+.rules-toggle:hover{
+ background:#8b0000;
+}
+
+.rules-content{
+ max-height:0;
+ overflow:hidden;
+ transition:max-height .6s ease;
+ background:#111827;
+ padding:0 20px;
+ border-radius:10px;
+ margin-top:15px;
+ font-size:14px;
+ line-height:1.6;
+}
+
+.rules-content.open{
+ max-height:2000px;
+ padding:20px;
+}
+
+.rules-content h3{
+ color:#ff1e00;
+ margin-top:20px;
+}
+
+.rules-accept{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ margin-top:20px;
+}
+
 </style>
 </head>
 
@@ -453,8 +502,69 @@ Csatlakozz a közösséghez!
 </select>
 
 <label>
+<div class="rules-wrapper">
+
+<button type="button" class="rules-toggle" onclick="toggleRules()">
+📜 Szabályzat megtekintése
+</button>
+
+<div class="rules-content" id="rulesContent">
+
+<h3>I. ÁLTALÁNOS ELVEK</h3>
+<p><b>Professzionális viselkedés</b><br>
+- Minden tag köteles sportszerűen, kulturáltan viselkedni<br>
+- Sértés, zaklatás, fenyegetés, megfélemlítés SZIGORÚAN TILOS<br>
+- Gyűlöletbeszéd AZONNALI KIZÁRÁS
+</p>
+
+<p><b>Kommunikáció</b><br>
+- Toxic, provokatív kommunikáció TILOS<br>
+- Verseny utáni balhé TILOS<br>
+- Vitás ügy HML Crew jelenlétében intézhető
+</p>
+
+<h3>II. DISCORD HASZNÁLAT</h3>
+<p>
+- Csatornák rendeltetésszerű használata kötelező<br>
+- Spam, reklám, scam AZONNALI BAN<br>
+- Indokolatlan pingelés büntethető
+</p>
+
+<h3>III. VOICE / STREAM</h3>
+<p>
+- Zavaró zajkeltés TILOS<br>
+- Engedély nélküli felvétel TILOS<br>
+- Szerver hírnevét sértő tartalom TILOS
+</p>
+
+<h3>IV. LIGA ÉS VERSENYSZABÁLYOK</h3>
+<p>
+- Cheat, bug abuse AZONNALI KIZÁRÁS<br>
+- Griefelés, trollkodás TILOS<br>
+- Trash talk TILOS
+</p>
+
+<h3>V. BÜNTETÉSEK</h3>
+<p>
+- Figyelmeztetés<br>
+- Discord némítás<br>
+- Ideiglenes vagy végleges kizárás
+</p>
+
+<h3>VI. ELFOGADÁS</h3>
+<p>
+A ligában való részvétellel kijelented, hogy elfogadod a szabályzatot.
+</p>
+
+</div>
+
+<label class="rules-accept">
 <input type="checkbox" required>
 Elfogadom a szabályzatot
+</label>
+
+</div>
+
 </label>
 
 <button type="submit" class="btn" style="width:100%;margin-top:20px;">
@@ -589,10 +699,16 @@ document.getElementById("regForm").addEventListener("submit", function(e){
  }
 });
 
+function toggleRules(){
+ const rules=document.getElementById("rulesContent");
+ rules.classList.toggle("open");
+}
+
 </script>
 
 </body>
 </html>
+
 
 
 
