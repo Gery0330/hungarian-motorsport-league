@@ -664,89 +664,8 @@ function toggleLang(){
  ? "A magyar szimulátor versenyzés otthona."
  : "Home of Hungarian sim racing.";
 }
- 
-/* LIMIT SYSTEM */
-let limits = {
- "F1 23": 20,
- "F1 24": 20,
- "F1 25": 20,
- "Le Mans Ultimate": Infinity,
- "ACC": 30
-};
 
-let currentCounts = {
- "F1 23": 0,
- "F1 24": 0,
- "F1 25": 0,
- "Le Mans Ultimate": 0,
- "ACC": 0
-};
-
-/* FORM SUBMIT */
-document.getElementById("regForm").addEventListener("submit", function(e){
-    e.preventDefault();
-
-    const selected = champSelect.value;
-    if(!selected) return;
-
-    if(limits[selected] !== Infinity &&
-       currentCounts[selected] >= limits[selected]){
-        limitMsg.style.display="block";
-        return;
-    }
-
-    const formData = {
-        championship: document.querySelector("[name='championship']").value,
-        fullName: document.querySelector("[name='fullName']").value,
-        gamerTag: document.querySelector("[name='gamerTag']").value,
-        email: document.querySelector("[name='email']").value,
-        platform: document.querySelector("[name='platform']").value
-    };
-
-fetch("https://script.google.com/macros/s/AKfycbxeh3_II8bcaPVGB48pyiSrEKEvCGZEB3Qf0QnHtJKmot7MKBLjhBMc3GqPt-s85hLw/exec", {
-    method: "POST",
-    body: new URLSearchParams(formData)
-})
-.then(response => response.text())
-.then(text => {
-    console.log(text);
-    currentCounts[selected]++;
-
-    document.getElementById("successMsg").style.display="block";
-    updateLimitInfo();
-
-    setTimeout(()=>{
-        window.location.href="https://discord.gg/mRB24ZRwFr";
-    },2000);
-
-    document.getElementById("regForm").reset();
-})
-.catch(error => {
-    alert("Hiba történt a nevezés során!");
-    console.error(error);
 });
- 
-});
-
-const champSelect = document.getElementById("championship");
-const limitInfo = document.getElementById("limitInfo");
-const limitMsg = document.getElementById("limitMsg");
-
-champSelect.addEventListener("change", function(){
- updateLimitInfo();
-});
- 
-function updateLimitInfo(){
- const selected = champSelect.value;
- if(!selected) return;
-
- if(limits[selected] === Infinity){
-  limitInfo.innerHTML = "Nincs nevezési limit.";
- } else {
-  limitInfo.innerHTML = 
-   `Szabad helyek: ${limits[selected]-currentCounts[selected]} / ${limits[selected]}`;
- }
-}
 
  window.addEventListener("scroll", function(){
  const nav = document.querySelector("nav");
@@ -764,6 +683,7 @@ function toggleRules(){
 </script>
 </body>
 </html>
+
 
 
 
