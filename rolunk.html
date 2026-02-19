@@ -118,6 +118,15 @@ footer{
  text-align:center;
  margin-top:60px;
 }
+ .langbtn{
+ background:#ff1e00;
+ border:none;
+ padding:8px 14px;
+ color:white;
+ border-radius:6px;
+ cursor:pointer;
+ font-weight:bold;
+}
 
 </style>
 </head>
@@ -132,6 +141,8 @@ footer{
 <a href="rolunk.html" class="active">Rólunk</a>
 <a href="live.html">Live</a>
 </div>
+
+<button class="langbtn" onclick="toggleLang()">HU / EN</button>
 </nav>
 
 <div class="hero">
@@ -196,8 +207,20 @@ window.addEventListener("scroll", function(){
    nav.classList.remove("scrolled");
  }
 });
+
+ let lang="hu";
+
+function toggleLang(){
+ lang = lang==="hu" ? "en":"hu";
+
+ document.querySelectorAll("[data-hu]").forEach(el=>{
+  el.innerText = el.getAttribute("data-"+lang);
+ });
+}
+
 </script>
 
 </body>
 </html>
+
 
