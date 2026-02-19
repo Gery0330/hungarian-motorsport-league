@@ -703,11 +703,8 @@ document.getElementById("regForm").addEventListener("submit", function(e){
         platform: document.querySelector("[name='platform']").value
     };
 
-fetch("https://script.google.com/macros/s/AKfycbxYehWkO34_qJJzl1_Rv6Bhv3fGfpSmdxJER0qmTxhrw9f2ZWw1wgs6A94DlPJmpVZp/exec", {
+fetch("https://script.google.com/macros/s/AKfycby0vq-fUVK46OJ4BuH7l6pI_JkzIuTTA_xF9NlRUxAEVywarLi-D0Cx6Us9AisZmrXE/exec", {
     method: "POST",
-    headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-    },
     body: new URLSearchParams(formData)
 })
 .then(response => response.text())
@@ -767,6 +764,7 @@ function toggleRules(){
 </script>
 </body>
 </html>
+
 
 
 
