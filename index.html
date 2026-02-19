@@ -693,19 +693,21 @@ document.getElementById("regForm").addEventListener("submit", function(e){
             "Content-Type": "application/json"
         }
     })
-    .then(response => response.json())
-    .then(data => {
-        currentCounts[selected]++;
+.then(response => response.text())
+.then(text => {
+    console.log(text);
+    currentCounts[selected]++;
 
-        document.getElementById("successMsg").style.display="block";
-        updateLimitInfo();
+    document.getElementById("successMsg").style.display="block";
+    updateLimitInfo();
 
-        setTimeout(()=>{
-          window.location.href="https://discord.gg/mRB24ZRwFr";
-        },2000);
+    setTimeout(()=>{
+      window.location.href="https://discord.gg/mRB24ZRwFr";
+    },2000);
 
-        document.getElementById("regForm").reset();
-    })
+    document.getElementById("regForm").reset();
+})
+
     .catch(error => {
         alert("Hiba történt a nevezés során!");
         console.error(error);
