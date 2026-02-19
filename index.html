@@ -171,10 +171,11 @@ h2{
 /* GAMES */
 .games{
  display:flex;
+ justify-content:center;   /* középre */
+ align-items:center;
  gap:40px;
- margin-top:50px;
- overflow-x:auto;
- padding-bottom:20px;
+ margin:100px auto 0 auto; /* lejjebb */
+ max-width:1200px;
 }
 
 .games::-webkit-scrollbar{
@@ -571,6 +572,7 @@ document.getElementById("regForm").addEventListener("submit", function(e){
 
 </body>
 </html>
+
 
 
 
