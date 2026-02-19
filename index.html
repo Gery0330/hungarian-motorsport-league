@@ -667,9 +667,34 @@ function toggleLang(){
 
 /* FORM SUBMIT */
 document.getElementById("regForm").addEventListener("submit", function(e){
- e.preventDefault();
- document.getElementById("successMsg").style.display="block";
- this.reset();
+    e.preventDefault();
+
+    const formData = {
+        championship: document.querySelector("[name='championship']").value,
+        fullName: document.querySelector("[name='fullName']").value,
+        gamerTag: document.querySelector("[name='gamerTag']").value,
+        email: document.querySelector("[name='email']").value,
+        platform: document.querySelector("[name='platform']").value
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbwKAH_6-_FMoWRFNudzBwXGffgZmH8aPeypCkrp0jHdtoOaIZNU3gOn3fZF6RQqWE0i/exec", {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert("Nevezés sikeresen elküldve!");
+        document.getElementById("regForm").reset();
+    })
+    .catch(error => {
+        alert("Hiba történt a nevezés során!");
+        console.error(error);
+    });
+});
+
 });
 /* LIMIT SYSTEM */
 let limits = {
@@ -754,6 +779,7 @@ function toggleRules(){
 
 </body>
 </html>
+
 
 
 
