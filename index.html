@@ -629,7 +629,7 @@ Sikeres nevezés! Átirányítás Discordra...
 const supabaseUrl = "https://mdhbillpmxvsesjrcsmf.supabase.co";
 const supabaseKey = "sb_publishable_tiJI-G3q-P-zHR7-dISVgQ_dG5MZXHi";
 
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+window.supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 /* COUNTDOWN */
 const targetDate = new Date("April 3, 2026 18:00:00").getTime();
@@ -690,7 +690,7 @@ function toggleRules(){
         platform: document.querySelector("[name='platform']").value
     };
 
-    const { data, error } = await supabase
+    const { data, error } = await window.supabaseClient
         .from("registrations")
         .insert([formData]);
 
@@ -713,6 +713,7 @@ function toggleRules(){
  
 </body>
 </html>
+
 
 
 
