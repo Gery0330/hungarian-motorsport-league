@@ -373,8 +373,20 @@ form button{
 .rules-accept{
  display:flex;
  align-items:center;
- gap:10px;
+ gap:12px;
  margin-top:20px;
+ width:auto;
+}
+
+.rules-accept input{
+ width:18px;
+ height:18px;
+ cursor:pointer;
+}
+
+.rules-accept label{
+ cursor:pointer;
+ white-space:nowrap;
 }
 
 </style>
@@ -558,10 +570,10 @@ A ligában való részvétellel kijelented, hogy elfogadod a szabályzatot.
 
 </div>
 
-<label class="rules-accept">
-<input type="checkbox" required>
-Elfogadom a szabályzatot
-</label>
+<div class="rules-accept">
+<input type="checkbox" id="acceptRules" required>
+<label for="acceptRules">Elfogadom a szabályzatot</label>
+</div>
 
 </div>
 
@@ -708,6 +720,7 @@ function toggleRules(){
 
 </body>
 </html>
+
 
 
 
