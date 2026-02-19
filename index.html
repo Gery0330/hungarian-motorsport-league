@@ -686,13 +686,13 @@ document.getElementById("regForm").addEventListener("submit", function(e){
         platform: document.querySelector("[name='platform']").value
     };
 
-    fetch("https://script.google.com/macros/s/AKfycbwKAH_6-_FMoWRFNudzBwXGffgZmH8aPeypCkrp0jHdtoOaIZNU3gOn3fZF6RQqWE0i/exec", {
-        method: "POST",
-        body: JSON.stringify(formData),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
+fetch("https://script.google.com/macros/s/AKfycbxYehWkO34_qJJzl1_Rv6Bhv3fGfpSmdxJER0qmTxhrw9f2ZWw1wgs6A94DlPJmpVZp/exec", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: new URLSearchParams(formData)
+})
 .then(response => response.text())
 .then(text => {
     console.log(text);
@@ -702,16 +702,14 @@ document.getElementById("regForm").addEventListener("submit", function(e){
     updateLimitInfo();
 
     setTimeout(()=>{
-      window.location.href="https://discord.gg/mRB24ZRwFr";
+        window.location.href="https://discord.gg/mRB24ZRwFr";
     },2000);
 
     document.getElementById("regForm").reset();
 })
-
-    .catch(error => {
-        alert("Hiba történt a nevezés során!");
-        console.error(error);
-    });
+.catch(error => {
+    alert("Hiba történt a nevezés során!");
+    console.error(error);
 });
 
 /* LIMIT SYSTEM */
@@ -773,6 +771,7 @@ function toggleRules(){
 
 </body>
 </html>
+
 
 
 
