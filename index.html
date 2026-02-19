@@ -669,6 +669,15 @@ function toggleLang(){
 document.getElementById("regForm").addEventListener("submit", function(e){
     e.preventDefault();
 
+    const selected = champSelect.value;
+    if(!selected) return;
+
+    if(limits[selected] !== Infinity &&
+       currentCounts[selected] >= limits[selected]){
+        limitMsg.style.display="block";
+        return;
+    }
+
     const formData = {
         championship: document.querySelector("[name='championship']").value,
         fullName: document.querySelector("[name='fullName']").value,
@@ -686,7 +695,15 @@ document.getElementById("regForm").addEventListener("submit", function(e){
     })
     .then(response => response.json())
     .then(data => {
-        alert("Nevezés sikeresen elküldve!");
+        currentCounts[selected]++;
+
+        document.getElementById("successMsg").style.display="block";
+        updateLimitInfo();
+
+        setTimeout(()=>{
+          window.location.href="https://discord.gg/mRB24ZRwFr";
+        },2000);
+
         document.getElementById("regForm").reset();
     })
     .catch(error => {
@@ -754,6 +771,7 @@ function toggleRules(){
 
 </body>
 </html>
+
 
 
 
