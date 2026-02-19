@@ -623,7 +623,14 @@ Sikeres nevezés! Átirányítás Discordra...
 © 2025 Hungarian Motorsport League
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
+const supabaseUrl = "https://mdhbillpmxvsesjrcsmf.supabase.co";
+const supabaseKey = "sb_publishable_tiJI-G3q-P-zHR7-dISVgQ_dG5MZXHi";
+
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
 /* COUNTDOWN */
 const targetDate = new Date("April 3, 2026 18:00:00").getTime();
 
@@ -658,8 +665,6 @@ function toggleLang(){
  : "Home of Hungarian sim racing.";
 }
 
-});
-
  window.addEventListener("scroll", function(){
  const nav = document.querySelector("nav");
  if(window.scrollY > 50){
@@ -673,9 +678,42 @@ function toggleRules(){
  const rules=document.getElementById("rulesContent");
  rules.classList.toggle("open");
 }
+ 
+ document.getElementById("regForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const formData = {
+        championship: document.querySelector("[name='championship']").value,
+        full_name: document.querySelector("[name='fullName']").value,
+        gamer_tag: document.querySelector("[name='gamerTag']").value,
+        email: document.querySelector("[name='email']").value,
+        platform: document.querySelector("[name='platform']").value
+    };
+
+    const { data, error } = await supabase
+        .from("registrations")
+        .insert([formData]);
+
+    if (error) {
+        alert("Hiba történt a nevezés során!");
+        console.error(error);
+        return;
+    }
+
+    document.getElementById("successMsg").style.display = "block";
+
+    setTimeout(() => {
+        window.location.href = "https://discord.gg/mRB24ZRwFr";
+    }, 2000);
+
+    document.getElementById("regForm").reset();
+});
+ 
 </script>
+ 
 </body>
 </html>
+
 
 
 
