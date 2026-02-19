@@ -222,15 +222,29 @@ h2{
  padding:130px 20px;
  text-align:center;
 }
+ 
+.cta h2{
+ font-size:64px;
+ font-weight:900;
+ margin-bottom:70px;
+}
+
+ .cta-buttons{
+ display:flex;
+ justify-content:center;
+ gap:50px;
+ flex-wrap:nowrap;
+}
 
 .btn{
  display:inline-block;
- margin:12px;
- padding:18px 28px;
+ margin:0 25px;
+ padding:26px 60px;
  background:black;
  color:white;
  text-decoration:none;
- border-radius:10px;
+ border-radius:16px;
+ font-size:22px;
  font-weight:bold;
  transition:.3s;
 }
@@ -373,10 +387,12 @@ data-en="Join the community!">
 Csatlakozz a közösséghez!
 </h2>
 
+<div class="cta-buttons">
 <a class="btn" href="https://discord.gg/mRB24ZRwFr" target="_blank">Discord</a>
 <a class="btn" href="https://www.youtube.com/@HungarianMLesport" target="_blank">YouTube</a>
 <a class="btn" href="https://www.tiktok.com/@hungarianml" target="_blank">TikTok</a>
 <a class="btn" href="https://www.facebook.com/share/1GG8cPRhkG/?mibextid=wwXIfr" target="_blank">Facebook</a>
+</div>
 
 </section>
 
@@ -537,10 +553,6 @@ document.getElementById("regForm").addEventListener("submit", function(e){
  this.reset();
 });
 
-/* 30 másodpercenként ellenőriz */
-setInterval(checkLiveStatus, 30000);
-checkLiveStatus();
-
  window.addEventListener("scroll", function(){
  const nav = document.querySelector("nav");
  if(window.scrollY > 50){
@@ -554,6 +566,7 @@ checkLiveStatus();
 
 </body>
 </html>
+
 
 
 
