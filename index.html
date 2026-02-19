@@ -711,7 +711,17 @@ fetch("https://script.google.com/macros/s/AKfycbxYehWkO34_qJJzl1_Rv6Bhv3fGfpSmdx
     alert("Hiba történt a nevezés során!");
     console.error(error);
 });
+ 
+});
 
+const champSelect = document.getElementById("championship");
+const limitInfo = document.getElementById("limitInfo");
+const limitMsg = document.getElementById("limitMsg");
+
+champSelect.addEventListener("change", function(){
+ updateLimitInfo();
+});
+ 
 /* LIMIT SYSTEM */
 let limits = {
  "F1 23": 20,
@@ -728,14 +738,6 @@ let currentCounts = {
  "Le Mans Ultimate": 0,
  "ACC": 0
 };
-
-const champSelect = document.getElementById("championship");
-const limitInfo = document.getElementById("limitInfo");
-const limitMsg = document.getElementById("limitMsg");
-
-champSelect.addEventListener("change", function(){
- updateLimitInfo();
-});
 
 function updateLimitInfo(){
  const selected = champSelect.value;
@@ -765,6 +767,7 @@ function toggleRules(){
 </script>
 </body>
 </html>
+
 
 
 
