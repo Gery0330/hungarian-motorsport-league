@@ -747,6 +747,7 @@ const limitInfo = document.getElementById("limitInfo");
 champSelect.addEventListener("change", async function() {
 
     const championship = this.value;
+
     if (!championship) {
         limitInfo.style.display = "none";
         return;
@@ -763,17 +764,36 @@ champSelect.addEventListener("change", async function() {
     }
 
     limitInfo.style.display = "block";
+    limitInfo.style.background = "#111827";
 
     if (championship.includes("F1")) {
-        const remaining = 20 - count;
-        limitInfo.innerHTML = `Szabad helyek: ${remaining} / 20`;
-    }
+
+        const remaining = Math.max(0, 20 - count);
+
+        if (remaining === 0) {
+            limitInfo.innerHTML = "BETELT!";
+            limitInfo.style.background = "#6a0000";
+        } else {
+            limitInfo.innerHTML = `Szabad helyek: ${remaining} / 20`;
+        }
+
+    } 
     else if (championship === "ACC") {
-        const remaining = 30 - count;
-        limitInfo.innerHTML = `Szabad helyek: ${remaining} / 30`;
-    }
+
+        const remaining = Math.max(0, 30 - count);
+
+        if (remaining === 0) {
+            limitInfo.innerHTML = "BETELT!";
+            limitInfo.style.background = "#6a0000";
+        } else {
+            limitInfo.innerHTML = `Szabad helyek: ${remaining} / 30`;
+        }
+
+    } 
     else {
+
         limitInfo.innerHTML = "Nincs nevezési limit";
+
     }
 });
  
@@ -781,6 +801,7 @@ champSelect.addEventListener("change", async function() {
  
 </body>
 </html>
+
 
 
 
