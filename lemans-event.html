@@ -3,14 +3,172 @@
 <head>
 <meta charset="UTF-8">
 <title>12H Le Mans Event Registration</title>
+
+<style>
+body{
+background:#0b0f18;
+color:white;
+font-family:Arial;
+margin:0;
+padding:40px;
+}
+
+h1{
+text-align:center;
+margin-bottom:40px;
+}
+
+form{
+max-width:1000px;
+margin:auto;
+}
+
+.section{
+background:#111827;
+padding:25px;
+border-radius:12px;
+margin-bottom:30px;
+}
+
+.section h2{
+margin-top:0;
+color:#ff1e00;
+}
+
+input, select{
+width:100%;
+padding:12px;
+margin:10px 0 20px 0;
+border-radius:6px;
+border:none;
+background:#1f2937;
+color:white;
+}
+
+button{
+width:100%;
+padding:18px;
+background:#ff1e00;
+border:none;
+border-radius:10px;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+background:#c40000;
+}
+</style>
 </head>
 
-<body style="background:#0b0f18;color:white;font-family:Arial;padding:40px;text-align:center;">
+<body>
 
-<h1>12 órás Le Mans jótékonysági futam</h1>
-<p>Itt fogod majd kitölteni a speciális nevezési űrlapot.</p>
+<h1>12 órás Le Mans Ultimate Event</h1>
 
-<a href="index.html" style="color:#ff1e00;">Vissza a főoldalra</a>
+<form id="lemansForm">
+
+<div class="section">
+<h2>Csapat adatok</h2>
+<label>Csapatnév</label>
+<input type="text" name="team_name" required>
+
+<label>Autó választás</label>
+<select name="car" required>
+<option value="">Válassz autót...</option>
+<option>Ferrari 499P</option>
+<option>Toyota GR010 Hybrid</option>
+<option>Porsche 963</option>
+<option>Peugeot 9X8</option>
+<option>Cadillac V-Series.R</option>
+<option>Lamborghini SC63</option>
+<option>BMW M Hybrid V8</option>
+</select>
+</div>
+
+<!-- DRIVER 1 -->
+<div class="section">
+<h2>Pilóta 1</h2>
+<input type="text" name="driver1_full_name" placeholder="Teljes név" required>
+<input type="text" name="driver1_gamer_tag" placeholder="Gamer Tag" required>
+<input type="text" name="driver1_discord" placeholder="Discord név" required>
+</div>
+
+<!-- DRIVER 2 -->
+<div class="section">
+<h2>Pilóta 2</h2>
+<input type="text" name="driver2_full_name" placeholder="Teljes név" required>
+<input type="text" name="driver2_gamer_tag" placeholder="Gamer Tag" required>
+<input type="text" name="driver2_discord" placeholder="Discord név" required>
+</div>
+
+<!-- DRIVER 3 -->
+<div class="section">
+<h2>Pilóta 3</h2>
+<input type="text" name="driver3_full_name" placeholder="Teljes név" required>
+<input type="text" name="driver3_gamer_tag" placeholder="Gamer Tag" required>
+<input type="text" name="driver3_discord" placeholder="Discord név" required>
+</div>
+
+<!-- DRIVER 4 -->
+<div class="section">
+<h2>Pilóta 4</h2>
+<input type="text" name="driver4_full_name" placeholder="Teljes név" required>
+<input type="text" name="driver4_gamer_tag" placeholder="Gamer Tag" required>
+<input type="text" name="driver4_discord" placeholder="Discord név" required>
+</div>
+
+<button type="submit">Nevezés elküldése</button>
+
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabaseUrl = "https://mdhbillpmxvsesjrcsmf.supabase.co";
+const supabaseKey = "sb_publishable_tiJI-G3q-P-zHR7-dISVgQ_dG5MZXHi";
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+document.getElementById("lemansForm").addEventListener("submit", async function(e){
+e.preventDefault();
+
+const form = e.target;
+
+const formData = {
+team_name: form.team_name.value,
+car: form.car.value,
+
+driver1_full_name: form.driver1_full_name.value,
+driver1_gamer_tag: form.driver1_gamer_tag.value,
+driver1_discord: form.driver1_discord.value,
+
+driver2_full_name: form.driver2_full_name.value,
+driver2_gamer_tag: form.driver2_gamer_tag.value,
+driver2_discord: form.driver2_discord.value,
+
+driver3_full_name: form.driver3_full_name.value,
+driver3_gamer_tag: form.driver3_gamer_tag.value,
+driver3_discord: form.driver3_discord.value,
+
+driver4_full_name: form.driver4_full_name.value,
+driver4_gamer_tag: form.driver4_gamer_tag.value,
+driver4_discord: form.driver4_discord.value
+};
+
+const { error } = await supabase
+.from("lemans_event_registrations")
+.insert([formData]);
+
+if(error){
+alert("Hiba történt a nevezés során!");
+console.error(error);
+return;
+}
+
+alert("Sikeres nevezés!");
+form.reset();
+});
+</script>
 
 </body>
 </html>
