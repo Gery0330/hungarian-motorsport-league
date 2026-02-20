@@ -502,6 +502,15 @@ Nevezési rendszer
 Bajnokság
 </label>
 
+<div id="limitInfo" style="
+margin:10px 0 20px 0;
+padding:12px;
+background:#111827;
+border-radius:8px;
+display:none;
+font-weight:bold;
+"></div>
+
 <select id="championship" name="championship" required>
 <option value="">Válassz...</option>
 <option value="F1 23">F1 23</option>
@@ -731,12 +740,48 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
     }, 2000);
 
     document.getElementById("regForm").reset();
+
+const champSelect = document.getElementById("championship");
+const limitInfo = document.getElementById("limitInfo");
+
+champSelect.addEventListener("change", async function() {
+
+    const championship = this.value;
+    if (!championship) {
+        limitInfo.style.display = "none";
+        return;
+    }
+
+    const { count, error } = await window.supabaseClient
+        .from("registrations")
+        .select("*", { count: "exact", head: true })
+        .eq("championship", championship);
+
+    if (error) {
+        console.error(error);
+        return;
+    }
+
+    limitInfo.style.display = "block";
+
+    if (championship.includes("F1")) {
+        const remaining = 20 - count;
+        limitInfo.innerHTML = `Szabad helyek: ${remaining} / 20`;
+    }
+    else if (championship === "ACC") {
+        const remaining = 30 - count;
+        limitInfo.innerHTML = `Szabad helyek: ${remaining} / 30`;
+    }
+    else {
+        limitInfo.innerHTML = "Nincs nevezési limit";
+    }
 });
  
 </script>
  
 </body>
 </html>
+
 
 
 
