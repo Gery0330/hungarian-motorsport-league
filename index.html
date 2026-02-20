@@ -703,6 +703,70 @@ Sikeres nevezés! Átirányítás Discordra...
 
 <footer>
 © 2025 Hungarian Motorsport League
+<div id="discordModal" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.8);
+backdrop-filter:blur(6px);
+align-items:center;
+justify-content:center;
+z-index:2000;
+">
+
+<div style="
+background:#0f172a;
+padding:40px;
+border-radius:15px;
+max-width:500px;
+text-align:center;
+box-shadow:0 0 40px #000;
+">
+
+<h2 data-hu="Tovább a Discordra?"
+    data-en="Continue to Discord?">
+Tovább a Discordra?
+</h2>
+
+<p data-hu="A bajnokságokkal kapcsolatos információkat, időpontokat és eredményeket a Discord szerveren találod. Kérjük csatlakozz!"
+   data-en="All championship information, schedules and results are shared on our Discord server. Please join!">
+A bajnokságokkal kapcsolatos információkat, időpontokat és eredményeket a Discord szerveren találod. Kérjük csatlakozz!
+</p>
+
+<a href="https://discord.gg/mRB24ZRwFr"
+   target="_blank"
+   style="
+   display:inline-block;
+   margin-top:20px;
+   padding:16px 40px;
+   background:#5865F2;
+   color:white;
+   text-decoration:none;
+   border-radius:10px;
+   font-weight:bold;
+   ">
+   Discord meghívó
+</a>
+
+<br><br>
+
+<button onclick="closeModal()" style="
+background:none;
+border:none;
+color:#aaa;
+cursor:pointer;
+margin-top:10px;
+"
+data-hu="Bezárás"
+data-en="Close">
+Bezárás
+</button>
+
+</div>
+</div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -860,18 +924,18 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
     }
 
     document.getElementById("successMsg").style.display = "block";
-
-    setTimeout(() => {
-        window.location.href = "https://discord.gg/mRB24ZRwFr";
-    }, 2000);
-
+    document.getElementById("discordModal").style.display = "flex";
     document.getElementById("regForm").reset();
 });
-
+ 
+ function closeModal(){
+ document.getElementById("discordModal").style.display = "none";
+}
 </script>
  
 </body>
 </html>
+
 
 
 
