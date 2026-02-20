@@ -390,6 +390,25 @@ form button{
  white-space:nowrap;
 }
 
+.lemans-btn{
+ display:inline-block;
+ margin-top:40px;
+ padding:18px 50px;
+ font-size:20px;
+ font-weight:bold;
+ text-decoration:none;
+ color:white;
+ background:linear-gradient(90deg,#ff1e00,#8b0000);
+ border-radius:12px;
+ box-shadow:0 0 25px #ff1e0080;
+ transition:.3s;
+}
+
+.lemans-btn:hover{
+ transform:scale(1.08);
+ box-shadow:0 0 40px #ff1e00;
+}
+
 </style>
 </head>
 
@@ -470,6 +489,13 @@ data-en="12 Hour Charity Le Mans Event">
 
 <div id="countdown" class="countbox">Betöltés…</div>
 
+ <a href="lemans-event.html"
+   class="lemans-btn"
+   data-hu="Jelentkezés a 12 órás Le Mans futamra"
+   data-en="Register for the 12 Hour Le Mans Event">
+Jelentkezés a 12 órás Le Mans futamra
+</a>
+ 
 </div>
 </section>
 
@@ -942,6 +968,7 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
+
 
 
 
