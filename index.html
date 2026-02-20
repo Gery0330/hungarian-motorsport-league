@@ -687,59 +687,6 @@ function toggleRules(){
  const rules=document.getElementById("rulesContent");
  rules.classList.toggle("open");
 }
- 
-document.getElementById("regForm").addEventListener("submit", async function(e) {
-    e.preventDefault();
-
-    const championship = document.querySelector("[name='championship']").value;
-
-    const formData = {
-        championship: championship,
-        full_name: document.querySelector("[name='full_name']").value,
-        gamer_tag: document.querySelector("[name='gamer_tag']").value,
-        email: document.querySelector("[name='email']").value,
-        platform: document.querySelector("[name='platform']").value
-    };
-
-    // 🔎 Megszámoljuk hány nevező van már
-    const { count, error: countError } = await window.supabaseClient
-        .from("registrations")
-        .select("*", { count: "exact", head: true })
-        .eq("championship", championship);
-
-    if (countError) {
-        alert("Hiba a létszám ellenőrzésekor!");
-        console.error(countError);
-        return;
-    }
-
-    // 🎯 LIMIT LOGIKA
-    if (
-        (championship.includes("F1") && count >= 20) ||
-        (championship === "ACC" && count >= 30)
-    ) {
-        alert("Erre a bajnokságra betelt a nevezési limit!");
-        return;
-    }
-
-    // 💾 Mentés
-    const { error } = await window.supabaseClient
-        .from("registrations")
-        .insert([formData]);
-
-    if (error) {
-        alert("Hiba történt a nevezés során!");
-        console.error(error);
-        return;
-    }
-
-    document.getElementById("successMsg").style.display = "block";
-
-    setTimeout(() => {
-        window.location.href = "https://discord.gg/mRB24ZRwFr";
-    }, 2000);
-
-    document.getElementById("regForm").reset();
 
 const champSelect = document.getElementById("championship");
 const limitInfo = document.getElementById("limitInfo");
@@ -836,32 +783,4 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
