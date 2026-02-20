@@ -767,40 +767,76 @@ champSelect.addEventListener("change", async function() {
     limitInfo.style.background = "#111827";
 
     if (championship.includes("F1")) {
-
         const remaining = Math.max(0, 20 - count);
-
-        if (remaining === 0) {
-            limitInfo.innerHTML = "BETELT!";
-            limitInfo.style.background = "#6a0000";
-        } else {
-            limitInfo.innerHTML = `Szabad helyek: ${remaining} / 20`;
-        }
-
-    } 
+        limitInfo.innerHTML = remaining === 0
+            ? "BETELT!"
+            : `Szabad helyek: ${remaining} / 20`;
+    }
     else if (championship === "ACC") {
-
         const remaining = Math.max(0, 30 - count);
-
-        if (remaining === 0) {
-            limitInfo.innerHTML = "BETELT!";
-            limitInfo.style.background = "#6a0000";
-        } else {
-            limitInfo.innerHTML = `Szabad helyek: ${remaining} / 30`;
-        }
-
-    } 
+        limitInfo.innerHTML = remaining === 0
+            ? "BETELT!"
+            : `Szabad helyek: ${remaining} / 30`;
+    }
     else {
-
         limitInfo.innerHTML = "Nincs nevezési limit";
-
     }
 });
- 
+
+document.getElementById("regForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const championship = document.querySelector("[name='championship']").value;
+
+    const formData = {
+        championship: championship,
+        full_name: document.querySelector("[name='full_name']").value,
+        gamer_tag: document.querySelector("[name='gamer_tag']").value,
+        email: document.querySelector("[name='email']").value,
+        platform: document.querySelector("[name='platform']").value
+    };
+
+    const { count, error: countError } = await window.supabaseClient
+        .from("registrations")
+        .select("*", { count: "exact", head: true })
+        .eq("championship", championship);
+
+    if (countError) {
+        alert("Hiba a létszám ellenőrzésekor!");
+        return;
+    }
+
+    if (
+        (championship.includes("F1") && count >= 20) ||
+        (championship === "ACC" && count >= 30)
+    ) {
+        alert("Erre a bajnokságra betelt a nevezési limit!");
+        return;
+    }
+
+    const { error } = await window.supabaseClient
+        .from("registrations")
+        .insert([formData]);
+
+    if (error) {
+        alert("Hiba történt a nevezés során!");
+        return;
+    }
+
+    document.getElementById("successMsg").style.display = "block";
+
+    setTimeout(() => {
+        window.location.href = "https://discord.gg/mRB24ZRwFr";
+    }, 2000);
+
+    document.getElementById("regForm").reset();
+});
+
 </script>
  
 </body>
 </html>
+
 
 
 
