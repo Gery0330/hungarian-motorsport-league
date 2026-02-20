@@ -155,7 +155,7 @@ driver4_gamer_tag: form.driver4_gamer_tag.value,
 driver4_discord: form.driver4_discord.value
 };
 
-const { error } = await supabase
+const { error } = await window.supabaseClient
 .from("lemans_event_registrations")
 .insert([formData]);
 
@@ -172,4 +172,5 @@ form.reset();
 
 </body>
 </html>
+
 
