@@ -77,10 +77,37 @@ z-index:1000;
 .back-btn:hover{
 background:#ff1e00;
 }
+
+.lang-switch {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    display: flex;
+    gap: 10px;
+}
+
+.lang-switch button {
+    background: #111;
+    color: white;
+    border: 1px solid #444;
+    padding: 5px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.lang-switch button:hover {
+    background: #5865F2;
+}
+
 </style>
 </head>
 
 <body>
+
+<div class="lang-switch">
+    <button onclick="setLanguage('hu')">HU</button>
+    <button onclick="setLanguage('en')">EN</button>
+</div>
 
 <a href="index.html" class="back-btn">
 ← Vissza a főoldalra
@@ -259,10 +286,25 @@ form.reset();
 
 });
 
+function setLanguage(lang) {
+    document.querySelectorAll("[data-hu]").forEach(el => {
+        el.textContent = el.getAttribute("data-" + lang);
+    });
+
+    localStorage.setItem("lang", lang);
+}
+
+// oldal betöltéskor mentett nyelv
+document.addEventListener("DOMContentLoaded", () => {
+    const savedLang = localStorage.getItem("lang") || "hu";
+    setLanguage(savedLang);
+});
+
 </script>
 
 </body>
 </html>
+
 
 
 
