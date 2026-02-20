@@ -402,9 +402,9 @@ form button{
 </div>
 
 <div class="nav-center">
-<a href="index.html">Főoldal</a>
-<a href="rolunk.html">Rólunk</a>
-<a href="live.html">Live</a>
+<a href="index.html" data-hu="Főoldal" data-en="Home">Főoldal</a>
+<a href="rolunk.html" data-hu="Rólunk" data-en="About">Rólunk</a>
+<a href="live.html" data-hu="Live" data-en="Live">Live</a>
 </div>
 
 <button class="langbtn" onclick="toggleLang()">HU / EN</button>
@@ -512,7 +512,7 @@ font-weight:bold;
 "></div>
 
 <select id="championship" name="championship" required>
-<option value="">Válassz...</option>
+<option value="" data-hu="Válassz..." data-en="Select...">Válassz...</option>
 <option value="F1 23">F1 23</option>
 <option value="F1 24">F1 24</option>
 <option value="F1 25">F1 25</option>
@@ -551,7 +551,11 @@ Platform
 <label>
 <div class="rules-wrapper">
 
-<button type="button" class="rules-toggle" onclick="toggleRules()">
+<button type="button"
+        class="rules-toggle"
+        onclick="toggleRules()"
+        data-hu="📜 Szabályzat megtekintése"
+        data-en="📜 View Rules">
 📜 Szabályzat megtekintése
 </button>
 
@@ -607,7 +611,11 @@ A ligában való részvétellel kijelented, hogy elfogadod a szabályzatot.
 
 <div class="rules-accept">
 <input type="checkbox" id="acceptRules" required>
-<label for="acceptRules">Elfogadom a szabályzatot</label>
+<label for="acceptRules"
+       data-hu="Elfogadom a szabályzatot"
+       data-en="I accept the rules">
+Elfogadom a szabályzatot
+</label>
 </div>
 
 </div>
@@ -620,7 +628,10 @@ A ligában való részvétellel kijelented, hogy elfogadod a szabályzatot.
 Nevezés elküldése
 </button>
 
-<div id="successMsg" style="display:none;margin-top:20px;
+<div id="successMsg"
+     data-hu="Sikeres nevezés! Átirányítás Discordra..."
+     data-en="Registration successful! Redirecting to Discord..."
+     style="display:none;margin-top:20px;
 padding:15px;background:#00aa55;border-radius:8px;">
 Sikeres nevezés! Átirányítás Discordra...
 </div>
@@ -715,18 +726,30 @@ champSelect.addEventListener("change", async function() {
 
     if (championship.includes("F1")) {
         const remaining = Math.max(0, 20 - count);
-        limitInfo.innerHTML = remaining === 0
-            ? "BETELT!"
-            : `Szabad helyek: ${remaining} / 20`;
+
+        if (remaining === 0) {
+            limitInfo.innerHTML = lang === "hu" ? "BETELT!" : "FULL!";
+        } else {
+            limitInfo.innerHTML = lang === "hu"
+                ? `Szabad helyek: ${remaining} / 20`
+                : `Remaining slots: ${remaining} / 20`;
+        }
     }
     else if (championship === "ACC") {
         const remaining = Math.max(0, 30 - count);
-        limitInfo.innerHTML = remaining === 0
-            ? "BETELT!"
-            : `Szabad helyek: ${remaining} / 30`;
+
+        if (remaining === 0) {
+            limitInfo.innerHTML = lang === "hu" ? "BETELT!" : "FULL!";
+        } else {
+            limitInfo.innerHTML = lang === "hu"
+                ? `Szabad helyek: ${remaining} / 30`
+                : `Remaining slots: ${remaining} / 30`;
+        }
     }
     else {
-        limitInfo.innerHTML = "Nincs nevezési limit";
+        limitInfo.innerHTML = lang === "hu"
+            ? "Nincs nevezési limit"
+            : "No registration limit";
     }
 });
 
@@ -757,7 +780,9 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
         (championship.includes("F1") && count >= 20) ||
         (championship === "ACC" && count >= 30)
     ) {
-        alert("Erre a bajnokságra betelt a nevezési limit!");
+        alert(lang === "hu"
+            ? "Erre a bajnokságra betelt a nevezési limit!"
+            : "This championship is full!");
         return;
     }
 
@@ -766,7 +791,9 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
         .insert([formData]);
 
     if (error) {
-        alert("Hiba történt a nevezés során!");
+        alert(lang === "hu"
+            ? "Hiba történt a nevezés során!"
+            : "An error occurred during registration!");
         return;
     }
 
@@ -783,4 +810,5 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
+
 
