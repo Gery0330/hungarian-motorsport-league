@@ -127,7 +127,7 @@ background:#c40000;
 <script>
 const supabaseUrl = "https://mdhbillpmxvsesjrcsmf.supabase.co";
 const supabaseKey = "sb_publishable_tiJI-G3q-P-zHR7-dISVgQ_dG5MZXHi";
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+window.supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 document.getElementById("lemansForm").addEventListener("submit", async function(e){
 e.preventDefault();
@@ -172,3 +172,4 @@ form.reset();
 
 </body>
 </html>
+
