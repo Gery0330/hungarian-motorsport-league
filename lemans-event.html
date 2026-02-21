@@ -80,6 +80,16 @@ z-index:1000;
 background:#ff1e00;
 }
 
+.langbtn{
+ background:#ff1e00;
+ border:none;
+ padding:8px 14px;
+ color:white;
+ border-radius:6px;
+ cursor:pointer;
+ font-weight:bold;
+}
+
 .lang-switch {
     position: absolute;
     top: 20px;
@@ -158,10 +168,9 @@ background:#ff1e00;
 
 <body>
 
-<div class="lang-switch">
-    <button onclick="setLanguage('hu')">HU</button>
-    <button onclick="setLanguage('en')">EN</button>
-</div>
+<button class="langbtn" onclick="toggleLang()" style="position:fixed; top:20px; right:30px; z-index:1000;">
+HU / EN
+</button>
 
 <a href="index.html" class="back-btn">
 ← Vissza a főoldalra
@@ -340,24 +349,28 @@ form.reset();
 
 });
 
-function setLanguage(lang) {
-    document.querySelectorAll("[data-hu]").forEach(el => {
-        el.textContent = el.getAttribute("data-" + lang);
-    });
+let lang = localStorage.getItem("lang") || "hu";
 
-    localStorage.setItem("lang", lang);
+function toggleLang(){
+ lang = lang === "hu" ? "en" : "hu";
+ localStorage.setItem("lang", lang);
+
+ document.querySelectorAll("[data-hu]").forEach(el=>{
+  el.innerHTML = el.getAttribute("data-"+lang);
+ });
 }
 
-// oldal betöltéskor mentett nyelv
-document.addEventListener("DOMContentLoaded", () => {
-    const savedLang = localStorage.getItem("lang") || "hu";
-    setLanguage(savedLang);
+document.addEventListener("DOMContentLoaded", ()=>{
+ document.querySelectorAll("[data-hu]").forEach(el=>{
+  el.innerHTML = el.getAttribute("data-"+lang);
+ });
 });
 
 </script>
 
 </body>
 </html>
+
 
 
 
