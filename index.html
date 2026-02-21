@@ -897,6 +897,7 @@ champSelect.addEventListener("change", async function() {
 
     if (!championship) {
         limitInfo.style.display = "none";
+        f1ExtraSection.style.display = "none";
         return;
     }
 
@@ -914,7 +915,9 @@ champSelect.addEventListener("change", async function() {
     limitInfo.style.background = "#111827";
 
     if (championship.includes("F1")) {
+
         f1ExtraSection.style.display = "block";
+
         const remaining = Math.max(0, 20 - count);
 
         if (remaining === 0) {
@@ -924,13 +927,11 @@ champSelect.addEventListener("change", async function() {
                 ? `Szabad helyek: ${remaining} / 20`
                 : `Remaining slots: ${remaining} / 20`;
         }
-    }
-     
-    else {
-        f1ExtraSection.style.display = "none";
-    }
 
-    else if (championship === "ACC") {
+    } else if (championship === "ACC") {
+
+        f1ExtraSection.style.display = "none";
+
         const remaining = Math.max(0, 30 - count);
 
         if (remaining === 0) {
@@ -940,8 +941,11 @@ champSelect.addEventListener("change", async function() {
                 ? `Szabad helyek: ${remaining} / 30`
                 : `Remaining slots: ${remaining} / 30`;
         }
-    }
-    else {
+
+    } else {
+
+        f1ExtraSection.style.display = "none";
+
         limitInfo.innerHTML = lang === "hu"
             ? "Nincs nevezési limit"
             : "No registration limit";
@@ -1008,6 +1012,7 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
+
 
 
 
