@@ -175,20 +175,45 @@ background:#ff1e00;
 HU / EN
 </button>
 
-<a href="index.html" class="back-btn">
+<a href="index.html" class="back-btn"
+data-hu="← Vissza a főoldalra"
+data-en="← Back to homepage">
 ← Vissza a főoldalra
 </a>
 
-<h1>12 órás Le Mans Ultimate Event</h1>
+<h1 
+data-hu="12 órás Le Mans Ultimate Event"
+data-en="12 Hour Le Mans Ultimate Event">
+12 órás Le Mans Ultimate Event
+</h1>
 
 <form id="lemansForm">
 
 <div class="section">
-<h2>Csapat adatok</h2>
-<label>Csapatnév</label>
-<input type="text" name="team_name" required>
 
-<label>Autó választás</label>
+<h2 
+data-hu="Csapat adatok"
+data-en="Team Information">
+Csapat adatok
+</h2>
+
+<label 
+data-hu="Csapatnév"
+data-en="Team Name">
+Csapatnév
+</label>
+
+<label 
+data-hu="Autó választás"
+data-en="Car Selection">
+Autó választás
+</label>
+
+<option value="" 
+data-hu="Válassz autót..."
+data-en="Select a car...">
+Válassz autót...
+</option>
 <select name="car" required>
 <option value="">Válassz autót...</option>
 <option>Aston Martin Vantage AMR LMGT3</option>
@@ -206,34 +231,82 @@ HU / EN
 
 <!-- DRIVER 1 -->
 <div class="section">
-<h2>Pilóta 1</h2>
-<input type="text" name="driver1_full_name" placeholder="Teljes név" required>
-<input type="text" name="driver1_gamer_tag" placeholder="Gamer Tag" required>
-<input type="text" name="driver1_discord" placeholder="Discord név" required>
+<h2 data-hu="Pilóta 1" data-en="Driver 1">Pilóta 1</h2>
+<input type="text" name="driver1_full_name"
+placeholder="Teljes név"
+data-hu-placeholder="Teljes név"
+data-en-placeholder="Full name"
+required>
+<input type="text" name="driver1_gamer_tag"
+placeholder="Gamer Tag"
+data-hu-placeholder="Gamer Tag"
+data-en-placeholder="Gamer Tag"
+required>
+<input type="text" name="driver1_discord"
+placeholder="Discord név"
+data-hu-placeholder="Discord név"
+data-en-placeholder="Discord username"
+required>
 </div>
 
 <!-- DRIVER 2 -->
 <div class="section">
-<h2>Pilóta 2</h2>
-<input type="text" name="driver2_full_name" placeholder="Teljes név" required>
-<input type="text" name="driver2_gamer_tag" placeholder="Gamer Tag" required>
-<input type="text" name="driver2_discord" placeholder="Discord név" required>
+<h2 data-hu="Pilóta 2" data-en="Driver 2">Pilóta 2</h2>
+<input type="text" name="driver2_full_name"
+placeholder="Teljes név"
+data-hu-placeholder="Teljes név"
+data-en-placeholder="Full name"
+required>
+<input type="text" name="driver2_gamer_tag"
+placeholder="Gamer Tag"
+data-hu-placeholder="Gamer Tag"
+data-en-placeholder="Gamer Tag"
+required>
+<input type="text" name="driver2_discord"
+placeholder="Discord név"
+data-hu-placeholder="Discord név"
+data-en-placeholder="Discord username"
+required>
 </div>
 
 <!-- DRIVER 3 -->
 <div class="section">
-<h2>Pilóta 3</h2>
-<input type="text" name="driver3_full_name" placeholder="Teljes név" required>
-<input type="text" name="driver3_gamer_tag" placeholder="Gamer Tag" required>
-<input type="text" name="driver3_discord" placeholder="Discord név" required>
+<h2 data-hu="Pilóta 3" data-en="Driver 3">Pilóta 3</h2>
+<input type="text" name="driver3_full_name"
+placeholder="Teljes név"
+data-hu-placeholder="Teljes név"
+data-en-placeholder="Full name"
+required>
+<input type="text" name="driver3_gamer_tag"
+placeholder="Gamer Tag"
+data-hu-placeholder="Gamer Tag"
+data-en-placeholder="Gamer Tag"
+required>
+<input type="text" name="driver3_discord"
+placeholder="Discord név"
+data-hu-placeholder="Discord név"
+data-en-placeholder="Discord username"
+required>
 </div>
 
 <!-- DRIVER 4 -->
 <div class="section">
-<h2>Pilóta 4</h2>
-<input type="text" name="driver4_full_name" placeholder="Teljes név" required>
-<input type="text" name="driver4_gamer_tag" placeholder="Gamer Tag" required>
-<input type="text" name="driver4_discord" placeholder="Discord név" required>
+<h2 data-hu="Pilóta 4" data-en="Driver 4">Pilóta 4</h2>
+<input type="text" name="driver4_full_name"
+placeholder="Teljes név"
+data-hu-placeholder="Teljes név"
+data-en-placeholder="Full name"
+required>
+<input type="text" name="driver4_gamer_tag"
+placeholder="Gamer Tag"
+data-hu-placeholder="Gamer Tag"
+data-en-placeholder="Gamer Tag"
+required>
+<input type="text" name="driver4_discord"
+placeholder="Discord név"
+data-hu-placeholder="Discord név"
+data-en-placeholder="Discord username"
+required>
 </div>
 
 <button type="submit">Nevezés elküldése</button>
@@ -263,15 +336,22 @@ text-align:center;
 box-shadow:0 0 40px #000;
 ">
 
-<h2 style="color:#00ff88;">Sikeres nevezés!</h2>
+<h2 style="color:#00ff88;"
+data-hu="Sikeres nevezés!"
+data-en="Registration Successful!">
+Sikeres nevezés!
+</h2>
 
-<p>
-A 12 órás Spa-Francorchamps eventtel kapcsolatos információkat, időpontokat és beosztásokat a Discord szerveren találod.
-Kérjük csatlakozz a szerverhez!
+<p
+data-hu="A 12 órás Spa-Francorchamps eventtel kapcsolatos információkat, időpontokat és beosztásokat a Discord szerveren találod. Kérjük csatlakozz a szerverhez!"
+data-en="All information, schedules and driver stints for the 12 Hour Spa-Francorchamps event are available on our Discord server. Please join the server!">
+A 12 órás Spa-Francorchamps eventtel kapcsolatos információkat...
 </p>
 
 <a href="https://discord.gg/mRB24ZRwFr"
    target="_blank"
+   data-hu="Belépés Discordra"
+   data-en="Join Discord">
    style="
    display:inline-block;
    margin-top:20px;
@@ -357,13 +437,20 @@ let lang = localStorage.getItem("lang") || "hu";
 function toggleLang(){
  lang = lang === "hu" ? "en" : "hu";
  localStorage.setItem("lang", lang);
-
+ 
+ document.querySelectorAll("[data-hu-placeholder]").forEach(el=>{
+  el.placeholder = el.getAttribute("data-"+lang+"-placeholder");
+ });
+ 
  document.querySelectorAll("[data-hu]").forEach(el=>{
   el.innerHTML = el.getAttribute("data-"+lang);
  });
 }
 
 document.addEventListener("DOMContentLoaded", ()=>{
+ document.querySelectorAll("[data-hu-placeholder]").forEach(el=>{
+ el.placeholder = el.getAttribute("data-"+lang+"-placeholder");
+});
  document.querySelectorAll("[data-hu]").forEach(el=>{
   el.innerHTML = el.getAttribute("data-"+lang);
  });
@@ -373,6 +460,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
 </body>
 </html>
+
 
 
 
