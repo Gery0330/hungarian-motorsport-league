@@ -2,6 +2,7 @@
 <html lang="hu">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HML — Hungarian Motorsport League</title>
 
 <link rel="icon" type="image/png" href="favicon.png">
@@ -409,6 +410,63 @@ form button{
 .lemans-btn:hover{
  transform:scale(1.08);
  box-shadow:0 0 40px #ff1e00;
+}
+
+/* ========================= */
+/* MOBILE OPTIMIZATION */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+  nav{
+    padding:15px 20px;
+  }
+
+  .nav-center{
+    gap:15px;
+    font-size:14px;
+  }
+
+  .hero h1{
+    font-size:38px;
+  }
+
+  .heroContent{
+    transform:translateY(-60px);
+    padding:0 15px;
+  }
+
+  .games{
+    flex-direction:column;
+    gap:20px;
+  }
+
+  .card{
+    width:90%;
+  }
+
+  .cta h2{
+    font-size:36px;
+  }
+
+  .cta-buttons{
+    flex-direction:column;
+    gap:20px;
+  }
+
+  .btn{
+    width:90%;
+    margin:0 auto;
+  }
+
+  form{
+    padding:0 10px;
+  }
+
+  h2{
+    font-size:28px;
+  }
+
 }
 
 </style>
@@ -1012,6 +1070,7 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
+
 
 
 
