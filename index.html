@@ -239,7 +239,7 @@ h2{
  display:flex;
  justify-content:center;
  gap:50px;
- flex-wrap:wrap;
+ flex-wrap:nowrap;
 }
 
 .btn{
@@ -413,35 +413,58 @@ form button{
 }
 
 /* ========================= */
-/* MOBILE FIX */
+/* MOBILE OPTIMIZATION */
 /* ========================= */
 
-@media (max-width:768px){
+@media (max-width: 768px) {
 
   nav{
-    padding:15px;
-    flex-wrap:wrap;
+    padding:15px 20px;
   }
 
   .nav-center{
-    flex-wrap:wrap;
     gap:15px;
-    justify-content:center;
+    font-size:14px;
   }
 
-  .langbtn{
-    margin-right:0;
-    margin-top:10px;
+  .hero h1{
+    font-size:38px;
+  }
+
+  .heroContent{
+    transform:translateY(-60px);
+    padding:0 15px;
+  }
+
+  .games{
+    flex-direction:column;
+    gap:20px;
+  }
+
+  .card{
+    width:90%;
+  }
+
+  .cta h2{
+    font-size:36px;
   }
 
   .cta-buttons{
     flex-direction:column;
-    align-items:center;
     gap:20px;
   }
 
   .btn{
     width:90%;
+    margin:0 auto;
+  }
+
+  form{
+    padding:0 10px;
+  }
+
+  h2{
+    font-size:28px;
   }
 
 }
