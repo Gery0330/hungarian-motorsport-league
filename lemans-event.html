@@ -191,29 +191,25 @@ data-en="12 Hour Le Mans Ultimate Event">
 
 <div class="section">
 
-<h2 
-data-hu="Csapat adatok"
-data-en="Team Information">
+<h2 data-hu="Csapat adatok" data-en="Team Information">
 Csapat adatok
 </h2>
 
-<label 
-data-hu="Csapatnév"
-data-en="Team Name">
+<label data-hu="Csapatnév" data-en="Team Name">
 Csapatnév
 </label>
 
-<label 
-data-hu="Autó választás"
-data-en="Car Selection">
+<input type="text" 
+name="team_name" 
+placeholder="Csapatnév"
+data-hu-placeholder="Csapatnév"
+data-en-placeholder="Team name"
+required>
+
+<label data-hu="Autó választás" data-en="Car Selection">
 Autó választás
 </label>
 
-<option value="" 
-data-hu="Válassz autót..."
-data-en="Select a car...">
-Válassz autót...
-</option>
 <select name="car" required>
 <option value="">Válassz autót...</option>
 <option>Aston Martin Vantage AMR LMGT3</option>
@@ -458,6 +454,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
 </body>
 </html>
+
 
 
 
