@@ -2,7 +2,7 @@
 <html lang="hu">
 <head>
 <meta charset="UTF-8">
-<title>12H Le Mans Event Registration</title>
+<title id="pageTitle">12 órás Le Mans Ultimate Event</title>
 
 <link rel="icon" type="image/png" href="favicon.png">
 
@@ -211,7 +211,11 @@ Autó választás
 </label>
 
 <select name="car" required>
-<option value="">Válassz autót...</option>
+<option value=""
+data-hu="Válassz autót..."
+data-en="Select a car...">
+Válassz autót...
+</option>
 <option>Aston Martin Vantage AMR LMGT3</option>
 <option>BMW M4 GT3</option>
 <option>Corvette Z06 GT3R</option>
@@ -305,7 +309,11 @@ data-en-placeholder="Discord username"
 required>
 </div>
 
-<button type="submit">Nevezés elküldése</button>
+<button type="submit"
+data-hu="Nevezés elküldése"
+data-en="Submit Registration">
+Nevezés elküldése
+</button>
 
 </form>
 
@@ -345,34 +353,20 @@ A 12 órás Spa-Francorchamps eventtel kapcsolatos információkat...
 </p>
 
 <a href="https://discord.gg/mRB24ZRwFr"
-   target="_blank"
-   style="
-   display:inline-block;
-   margin-top:20px;
-   padding:16px 40px;
-   background:#5865F2;
-   color:white;
-   text-decoration:none;
-   border-radius:10px;
-   font-weight:bold;
-   ">
-   Belépés Discordra
+target="_blank"
+data-hu="Belépés Discordra"
+data-en="Join Discord"
+style="background:#5865F2;color:white;padding:12px 20px;border-radius:6px;text-decoration:none;display:inline-block;margin-top:15px;">
+Belépés Discordra
 </a>
 
 <br><br>
 
 <a href="index.html"
-   style="
-   display:inline-block;
-   margin-top:15px;
-   padding:12px 30px;
-   background:#111827;
-   color:white;
-   text-decoration:none;
-   border-radius:8px;
-   font-weight:bold;
-   ">
-   Vissza a főoldalra
+data-hu="Vissza a főoldalra"
+data-en="Back to homepage"
+style="display:block;margin-top:15px;">
+Vissza a főoldalra
 </a>
 
 </div>
@@ -416,7 +410,11 @@ const { error } = await window.supabaseClient
 .insert([formData]);
 
 if(error){
-alert("Hiba történt a nevezés során!");
+alert(
+ lang === "hu"
+ ? "Hiba történt a nevezés során!"
+ : "An error occurred during registration!"
+);
 console.error(error);
 return;
 }
@@ -431,6 +429,7 @@ let lang = localStorage.getItem("lang") || "hu";
 function toggleLang(){
  lang = lang === "hu" ? "en" : "hu";
  localStorage.setItem("lang", lang);
+ updateTitle();
  
  document.querySelectorAll("[data-hu-placeholder]").forEach(el=>{
   el.placeholder = el.getAttribute("data-"+lang+"-placeholder");
@@ -444,16 +443,25 @@ function toggleLang(){
 document.addEventListener("DOMContentLoaded", ()=>{
  document.querySelectorAll("[data-hu-placeholder]").forEach(el=>{
  el.placeholder = el.getAttribute("data-"+lang+"-placeholder");
+ updateTitle();
 });
  document.querySelectorAll("[data-hu]").forEach(el=>{
   el.innerHTML = el.getAttribute("data-"+lang);
  });
 });
 
+function updateTitle(){
+ const title = document.getElementById("pageTitle");
+ title.textContent = lang === "hu"
+  ? "12 órás Le Mans Ultimate Event"
+  : "12 Hour Le Mans Ultimate Event";
+}
+
 </script>
 
 </body>
 </html>
+
 
 
 
