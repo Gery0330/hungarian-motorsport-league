@@ -2,6 +2,7 @@
 <html lang="hu">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rólunk — Hungarian Motorsport League</title>
 
 <link rel="icon" type="image/png" href="favicon.png">
@@ -139,40 +140,52 @@ footer{
 @media (max-width:768px){
 
   nav{
-    padding:15px 20px;
-    flex-wrap:wrap;
+    padding:15px 15px;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
   }
 
   .nav-center{
-    gap:15px;
     flex-wrap:wrap;
-    justify-content:center;
+    gap:12px;
     font-size:14px;
   }
 
+  .nav-center a{
+    padding:5px 0;
+  }
+
   .langbtn{
-    margin-right:0;
-    margin-top:10px;
+    margin:0;
+    font-size:13px;
+    padding:6px 12px;
   }
 
   .hero{
-    height:40vh;
+    height:35vh;
+    padding:20px;
   }
 
   .hero h1{
-    font-size:28px;
+    font-size:26px;
   }
 
   section{
-    padding:60px 20px;
+    padding:50px 18px;
   }
 
   h2{
-    font-size:24px;
+    font-size:22px;
   }
 
   p{
-    font-size:16px;
+    font-size:15px;
+    line-height:1.6;
+  }
+
+  footer{
+    font-size:13px;
   }
 
 }
@@ -296,6 +309,7 @@ function toggleLang(){
 
 </body>
 </html>
+
 
 
 
