@@ -634,28 +634,34 @@ Email
 <div id="f1ExtraSection" style="display:none;">
 
 <p style="font-size:14px; opacity:0.8;"
-   data-hu="Formátum példa: Pálya: 0:00.000"
-   data-en="Example format: Track: 0:00.000">
-Formátum példa: Pálya: 0:00.000
+   data-hu="Add meg a legjobb köridődet az alábbi pályákon (formátum: 0:00.000)"
+   data-en="Enter your best lap time on the following tracks (format: 0:00.000)">
+Add meg a legjobb köridődet az alábbi pályákon (formátum: 0:00.000)
 </p>
 
-<label data-hu="Kedvenc pálya 1 + legjobb köridő"
-       data-en="Favorite track 1 + best lap time">
-Kedvenc pálya 1 + legjobb köridő
+<label data-hu="Bahrain – Legjobb köridő"
+       data-en="Bahrain – Best Lap Time">
+Bahrain – Legjobb köridő
 </label>
-<input type="text" name="fav_track_1">
+<input type="text" name="bahrain_time">
 
-<label data-hu="Kedvenc pálya 2 + legjobb köridő"
-       data-en="Favorite track 2 + best lap time">
-Kedvenc pálya 2 + legjobb köridő
+<label data-hu="Spa-Francorchamps – Legjobb köridő"
+       data-en="Spa-Francorchamps – Best Lap Time">
+Spa-Francorchamps – Legjobb köridő
 </label>
-<input type="text" name="fav_track_2">
+<input type="text" name="spa_time">
 
-<label data-hu="Kedvenc pálya 3 + legjobb köridő"
-       data-en="Favorite track 3 + best lap time">
-Kedvenc pálya 3 + legjobb köridő
+<label data-hu="Imola – Legjobb köridő"
+       data-en="Imola – Best Lap Time">
+Imola – Legjobb köridő
 </label>
-<input type="text" name="fav_track_3">
+<input type="text" name="imola_time">
+
+<label data-hu="Jeddah – Legjobb köridő"
+       data-en="Jeddah – Best Lap Time">
+Jeddah – Legjobb köridő
+</label>
+<input type="text" name="jeddah_time">
 
 </div>
 
@@ -1022,9 +1028,10 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
         discord_name: document.querySelector("[name='discord_name']").value,
         email: document.querySelector("[name='email']").value,
         platform: document.querySelector("[name='platform']").value,
-        fav_track_1: document.querySelector("[name='fav_track_1']")?.value || null,
-        fav_track_2: document.querySelector("[name='fav_track_2']")?.value || null,
-        fav_track_3: document.querySelector("[name='fav_track_3']")?.value || null
+        bahrain_time: document.querySelector("[name='bahrain_time']")?.value || null,
+        spa_time: document.querySelector("[name='spa_time']")?.value || null,
+        imola_time: document.querySelector("[name='imola_time']")?.value || null,
+        jeddah_time: document.querySelector("[name='jeddah_time']")?.value || null,
     };
  
     const { count, error: countError } = await window.supabaseClient
@@ -1070,4 +1077,5 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
+
 
