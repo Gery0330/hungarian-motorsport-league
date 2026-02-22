@@ -639,12 +639,6 @@ Email
 Add meg a legjobb köridődet az alábbi pályákon (formátum: 0:00.000)
 </p>
 
-<label data-hu="Bahrain – Legjobb köridő"
-       data-en="Bahrain – Best Lap Time">
-Bahrain – Legjobb köridő
-</label>
-<input type="text" name="bahrain_time">
-
 <label data-hu="Spa-Francorchamps – Legjobb köridő"
        data-en="Spa-Francorchamps – Best Lap Time">
 Spa-Francorchamps – Legjobb köridő
@@ -1028,7 +1022,6 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
         discord_name: document.querySelector("[name='discord_name']").value,
         email: document.querySelector("[name='email']").value,
         platform: document.querySelector("[name='platform']").value,
-        bahrain_time: document.querySelector("[name='bahrain_time']")?.value || null,
         spa_time: document.querySelector("[name='spa_time']")?.value || null,
         imola_time: document.querySelector("[name='imola_time']")?.value || null,
         jeddah_time: document.querySelector("[name='jeddah_time']")?.value || null,
@@ -1077,5 +1070,6 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
+
 
 
