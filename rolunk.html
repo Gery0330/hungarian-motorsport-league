@@ -9,11 +9,16 @@
 
 <style>
 
+html{
+ scroll-behavior:smooth;
+}
+
 body{
  margin:0;
  font-family:Arial, Helvetica, sans-serif;
  background:#05070c;
  color:white;
+ overflow-x:hidden;
 }
 
 /* NAV */
@@ -190,7 +195,7 @@ footer{
 
 <div class="nav-center">
 <a href="index.html" data-hu="Főoldal" data-en="Home">Főoldal</a>
-<a href="rolunk.html" data-hu="Rólunk" data-en="About">Rólunk</a>
+<a href="rolunk.html" class="active" data-hu="Rólunk" data-en="About">Rólunk</a>
 <a href="live.html" data-hu="Live" data-en="Live">Live</a>
 </div>
 
@@ -294,6 +299,7 @@ function toggleLang(){
 
 </body>
 </html>
+
 
 
 
