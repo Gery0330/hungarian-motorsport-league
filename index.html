@@ -51,11 +51,6 @@ nav.scrolled{
  gap:30px;
 }
 
-.menu-toggle{
- display:none;
- color:white;
-}
-
 .nav-center a{
  color:white;
  text-decoration:none;
@@ -475,40 +470,6 @@ form button{
     font-size:28px;
   }
 
-   /* MOBILE NAVBAR */
-  
-  .menu-toggle{
-   display:block;
-   font-size:28px;
-   cursor:pointer;
-   margin-left:auto;
-   margin-right:15px;
-  }
-  
-  .nav-center{
-   position:fixed;
-   top:70px;
-   left:0;
-   width:100%;
-   background:#0b0f18;
-   flex-direction:column;
-   align-items:center;
-   gap:25px;
-   padding:30px 0;
-   transform:translateY(-150%);
-   transition:.3s;
-  }
-  
-  .nav-center.active{
-   transform:translateY(0);
-  }
-  
-  .langbtn{
-   margin-right:10px;
-   padding:6px 10px;
-   font-size:14px;
-  }
-
 }
 
 </style>
@@ -522,8 +483,6 @@ form button{
     <img src="logo.png" alt="HML Logo">
   </a>
 </div>
-
-<div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
 <div class="nav-center">
 <a href="index.html" data-hu="Főoldal" data-en="Home">Főoldal</a>
@@ -1110,13 +1069,11 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  function closeModal(){
  document.getElementById("discordModal").style.display = "none";
 }
-
- function toggleMenu(){
- document.querySelector(".nav-center").classList.toggle("active");
-}
-
 </script>
  
 </body>
 </html>
+
+
+
 
