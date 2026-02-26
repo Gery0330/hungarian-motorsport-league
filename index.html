@@ -660,6 +660,50 @@ Jeddah – Legjobb köridő
 </label>
 <input type="text" name="jeddah_time">
 
+<hr style="margin:25px 0; opacity:0.3;">
+
+<label data-hu="Csapattárs teljes neve (akivel szívesen lennél)"
+       data-en="Preferred Teammate Full Name">
+Csapattárs teljes neve (akivel szívesen lennél)
+</label>
+<input type="text" name="preferred_teammate">
+
+<label data-hu="Első számú preferált csapat"
+       data-en="First Preferred Team">
+Első számú preferált csapat
+</label>
+<select name="preferred_team_1">
+<option value="">--</option>
+<option>Red Bull</option>
+<option>Ferrari</option>
+<option>Mercedes</option>
+<option>McLaren</option>
+<option>Aston Martin</option>
+<option>Alpine</option>
+<option>Williams</option>
+<option>RB</option>
+<option>Sauber</option>
+<option>Haas</option>
+</select>
+
+<label data-hu="Második számú preferált csapat"
+       data-en="Second Preferred Team">
+Második számú preferált csapat
+</label>
+<select name="preferred_team_2">
+<option value="">--</option>
+<option>Red Bull</option>
+<option>Ferrari</option>
+<option>Mercedes</option>
+<option>McLaren</option>
+<option>Aston Martin</option>
+<option>Alpine</option>
+<option>Williams</option>
+<option>RB</option>
+<option>Sauber</option>
+<option>Haas</option>
+</select>
+
 </div>
 
 <label data-hu="Platform"
@@ -1028,6 +1072,9 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
         spa_time: document.querySelector("[name='spa_time']")?.value || null,
         imola_time: document.querySelector("[name='imola_time']")?.value || null,
         jeddah_time: document.querySelector("[name='jeddah_time']")?.value || null,
+        preferred_teammate: document.querySelector("[name='preferred_teammate']")?.value || null,
+        preferred_team_1: document.querySelector("[name='preferred_team_1']")?.value || null,
+        preferred_team_2: document.querySelector("[name='preferred_team_2']")?.value || null,
     };
  
     const { count, error: countError } = await window.supabaseClient
@@ -1073,6 +1120,7 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
+
 
 
 
