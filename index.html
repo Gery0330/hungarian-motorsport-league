@@ -716,6 +716,21 @@ Platform
 <option>Xbox</option>
 </select>
 
+<div id="lemansCategorySection" style="display:none;">
+
+<label data-hu="Kategória választás"
+       data-en="Category Selection">
+Kategória választás
+</label>
+
+<select name="lemans_category">
+<option value="">--</option>
+<option value="GT3">GT3</option>
+<option value="Hypercar">Hypercar</option>
+</select>
+
+</div>
+
 <label>
 <div class="rules-wrapper">
 
@@ -996,65 +1011,32 @@ const champSelect = document.getElementById("championship");
 const limitInfo = document.getElementById("limitInfo");
 const f1ExtraSection = document.getElementById("f1ExtraSection");
 
-champSelect.addEventListener("change", async function() {
+champSelect.addEventListener("change", function() {
 
     const championship = this.value;
 
     if (!championship) {
         limitInfo.style.display = "none";
         f1ExtraSection.style.display = "none";
+        document.getElementById("lemansCategorySection").style.display = "none";
         return;
     }
 
-    const { count, error } = await window.supabaseClient
-        .from("registrations")
-        .select("*", { count: "exact", head: true })
-        .eq("championship", championship);
-
-    if (error) {
-        console.error(error);
-        return;
-    }
-
-    limitInfo.style.display = "block";
-    limitInfo.style.background = "#111827";
-
+    // F1 extra mezők
     if (championship.includes("F1")) {
-
         f1ExtraSection.style.display = "block";
-
-        const remaining = Math.max(0, 20 - count);
-
-        if (remaining === 0) {
-            limitInfo.innerHTML = lang === "hu" ? "BETELT!" : "FULL!";
-        } else {
-            limitInfo.innerHTML = lang === "hu"
-                ? `Szabad helyek: ${remaining} / 20`
-                : `Remaining slots: ${remaining} / 20`;
-        }
-
-    } else if (championship === "ACC") {
-
-        f1ExtraSection.style.display = "none";
-
-        const remaining = Math.max(0, 30 - count);
-
-        if (remaining === 0) {
-            limitInfo.innerHTML = lang === "hu" ? "BETELT!" : "FULL!";
-        } else {
-            limitInfo.innerHTML = lang === "hu"
-                ? `Szabad helyek: ${remaining} / 30`
-                : `Remaining slots: ${remaining} / 30`;
-        }
-
     } else {
-
         f1ExtraSection.style.display = "none";
-
-        limitInfo.innerHTML = lang === "hu"
-            ? "Nincs nevezési limit"
-            : "No registration limit";
     }
+
+    // Le Mans kategória választás
+    if (championship === "Le Mans Ultimate") {
+        document.getElementById("lemansCategorySection").style.display = "block";
+    } else {
+        document.getElementById("lemansCategorySection").style.display = "none";
+    }
+
+    limitInfo.style.display = "none";
 });
 
 document.getElementById("regForm").addEventListener("submit", async function(e) {
@@ -1075,28 +1057,9 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
         preferred_teammate: document.querySelector("[name='preferred_teammate']")?.value || null,
         preferred_team_1: document.querySelector("[name='preferred_team_1']")?.value || null,
         preferred_team_2: document.querySelector("[name='preferred_team_2']")?.value || null,
+        lemans_category: document.querySelector("[name='lemans_category']")?.value || null,
     };
  
-    const { count, error: countError } = await window.supabaseClient
-        .from("registrations")
-        .select("*", { count: "exact", head: true })
-        .eq("championship", championship);
-
-    if (countError) {
-        alert("Hiba a létszám ellenőrzésekor!");
-        return;
-    }
-
-    if (
-        (championship.includes("F1") && count >= 20) ||
-        (championship === "ACC" && count >= 30)
-    ) {
-        alert(lang === "hu"
-            ? "Erre a bajnokságra betelt a nevezési limit!"
-            : "This championship is full!");
-        return;
-    }
-
     const { error } = await window.supabaseClient
         .from("registrations")
         .insert([formData]);
