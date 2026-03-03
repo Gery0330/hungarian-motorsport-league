@@ -704,6 +704,27 @@ Második számú preferált csapat
 <option>Haas</option>
 </select>
 
+<hr style="margin:25px 0; opacity:0.3;">
+
+<label data-hu="Jelentkezés típusa"
+       data-en="Registration Type">
+Jelentkezés típusa
+</label>
+
+<select name="f1_role" id="f1Role">
+<option value="" data-hu="Válassz..." data-en="Select...">Válassz...</option>
+<option value="Full Time"
+        data-hu="Fix pilóta (teljes szezon)"
+        data-en="Full Time Driver">
+Fix pilóta (teljes szezon)
+</option>
+<option value="Reserve"
+        data-hu="Tartalék pilóta"
+        data-en="Reserve Driver">
+Tartalék pilóta
+</option>
+</select>
+
 </div>
 
 <label data-hu="Platform"
@@ -1025,8 +1046,10 @@ champSelect.addEventListener("change", function() {
     // F1 extra mezők
     if (championship.includes("F1")) {
         f1ExtraSection.style.display = "block";
+        document.getElementById("f1Role").required = true;
     } else {
         f1ExtraSection.style.display = "none";
+        document.getElementById("f1Role").required = false;
     }
 
     // Le Mans kategória választás
@@ -1059,6 +1082,7 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
         preferred_team_1: document.querySelector("[name='preferred_team_1']")?.value || null,
         preferred_team_2: document.querySelector("[name='preferred_team_2']")?.value || null,
         lemans_category: document.querySelector("[name='lemans_category']")?.value || null,
+        f1_role: document.querySelector("[name='f1_role']")?.value || null,
     };
  
     const { error } = await window.supabaseClient
@@ -1084,6 +1108,7 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
+
 
 
 
