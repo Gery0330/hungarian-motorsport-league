@@ -723,7 +723,7 @@ Platform
 Kategória választás
 </label>
 
-<select name="lemans_category">
+<select name="lemans_category" id="lemansCategory">
 <option value="">--</option>
 <option value="GT3">GT3</option>
 <option value="Hypercar">Hypercar</option>
@@ -1030,12 +1030,13 @@ champSelect.addEventListener("change", function() {
     }
 
     // Le Mans kategória választás
-    if (championship === "Le Mans Ultimate") {
-        document.getElementById("lemansCategorySection").style.display = "block";
-    } else {
-        document.getElementById("lemansCategorySection").style.display = "none";
-    }
-
+   if (championship === "Le Mans Ultimate") {
+       document.getElementById("lemansCategorySection").style.display = "block";
+       document.getElementById("lemansCategory").required = true;
+   } else {
+       document.getElementById("lemansCategorySection").style.display = "none";
+       document.getElementById("lemansCategory").required = false;
+   }
     limitInfo.style.display = "none";
 });
 
@@ -1083,6 +1084,7 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
+
 
 
 
