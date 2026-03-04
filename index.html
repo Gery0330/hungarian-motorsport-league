@@ -215,6 +215,27 @@ h2{
  box-shadow:0 0 20px rgba(0,0,0,0.6);
 }
 
+.hall-btn{
+display:inline-block;
+padding:22px 70px;
+font-size:24px;
+font-weight:bold;
+text-decoration:none;
+color:white;
+
+background:linear-gradient(90deg,#ffd700,#b89600);
+border-radius:14px;
+
+box-shadow:0 0 30px #ffd70080;
+
+transition:.3s;
+}
+
+.hall-btn:hover{
+transform:scale(1.08);
+box-shadow:0 0 45px #ffd700;
+}
+
 /* COUNTDOWN */
 .countbox{
  font-size:42px;
@@ -565,6 +586,16 @@ Ligáink
 <div class="card">F1 25</div>
 <div class="card">Le Mans Ultimate</div>
 <div class="card">Assetto Corsa Competizione</div>
+</div>
+<div style="text-align:center; margin-top:60px;">
+
+<a href="hall-of-fame.html"
+   class="hall-btn"
+   data-hu="🏆 Hall of Fame"
+   data-en="🏆 Hall of Fame">
+🏆 Hall of Fame
+</a>
+
 </div>
 </section>
 
@@ -1168,6 +1199,7 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
+
 
 
 
