@@ -1027,21 +1027,31 @@ Bezárás
 window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 /* COUNTDOWN */
+
+const countdown = document.getElementById("countdown");
+
 const targetDate = new Date("March 28, 2026 14:00:00").getTime();
 
 setInterval(()=>{
- const now=new Date().getTime();
- const d=targetDate-now;
- if(d<=0){ countdown.innerHTML="RAJT!"; return; }
- const nap=Math.floor(d/86400000);
- const ora=Math.floor((d%86400000)/3600000);
- const perc=Math.floor((d%3600000)/60000);
- const mp=Math.floor((d%60000)/1000);
+
+ const now = new Date().getTime();
+ const d = targetDate - now;
+
+ if(d <= 0){
+  countdown.innerHTML = "RAJT!";
+  return;
+ }
+
+ const nap = Math.floor(d / 86400000);
+ const ora = Math.floor((d % 86400000) / 3600000);
+ const perc = Math.floor((d % 3600000) / 60000);
+ const mp = Math.floor((d % 60000) / 1000);
+
  if(lang === "hu"){
- countdown.innerHTML = `${nap} nap ${ora} óra ${perc} perc ${mp} mp`;
-}else{
- countdown.innerHTML = `${nap} days ${ora} hours ${perc} minutes ${mp} sec`;
-}
+  countdown.innerHTML = `${nap} nap ${ora} óra ${perc} perc ${mp} mp`;
+ }else{
+  countdown.innerHTML = `${nap} days ${ora} hours ${perc} minutes ${mp} sec`;
+ }
 
 },1000);
 
@@ -1154,6 +1164,7 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
+
 
 
 
