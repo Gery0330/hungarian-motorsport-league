@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<title>Hall of Fame — Hungarian Motorsport League</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#05070c;
+color:white;
+}
+
+/* HERO */
+
+.hero{
+height:50vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+background:
+linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.9)),
+url("https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=1920&q=80");
+background-size:cover;
+background-position:center;
+}
+
+.hero h1{
+font-size:70px;
+color:#ffd700;
+text-shadow:
+0 0 20px #ffd700,
+0 0 40px #ffcc00;
+}
+
+/* HALL OF FAME */
+
+.hof{
+padding:120px 40px;
+max-width:1300px;
+margin:auto;
+}
+
+.hof-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:40px;
+}
+
+/* CHAMPION CARD */
+
+.champion-card{
+
+display:grid;
+grid-template-columns: 1fr 2fr 1fr;
+align-items:center;
+
+background:linear-gradient(145deg,#0d1117,#111827);
+border-radius:18px;
+padding:40px;
+
+border:2px solid #ffd700;
+
+box-shadow:
+0 0 25px rgba(255,215,0,0.3);
+
+transition:0.4s;
+}
+
+.champion-card:hover{
+
+transform:scale(1.05);
+
+box-shadow:
+0 0 40px rgba(255,215,0,0.6),
+0 0 80px rgba(255,215,0,0.3);
+
+}
+
+/* TROPHY */
+
+.trophy{
+font-size:40px;
+margin-bottom:15px;
+}
+
+/* NAME */
+
+.name{
+font-size:26px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+/* TEAM */
+
+.team{
+color:#9ca3af;
+font-size:16px;
+margin-bottom:10px;
+}
+
+/* LEAGUE */
+
+.league{
+color:#ff1e00;
+font-weight:bold;
+font-size:18px;
+}
+
+/* YEAR */
+
+.year{
+margin-top:8px;
+opacity:.7;
+}
+
+.trophy-side img{
+width:140px;
+filter:drop-shadow(0 0 10px gold);
+}
+
+.team-logo{
+text-align:right;
+}
+
+.team-logo img{
+width:140px;
+}
+
+/* FOOTER */
+
+footer{
+text-align:center;
+padding:40px;
+background:#0d1117;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="hero">
+<h1>🏆 HALL OF FAME</h1>
+</div>
+
+<section class="hof">
+
+<div class="hof-grid">
+
+<div class="champion-card">
+
+<div class="trophy-side">
+<img src="f1-trophy.png">
+</div>
+
+<div class="champion-center">
+
+<div class="name">Borbély Bálint</div>
+
+<div class="team">Red Bull Racing</div>
+
+<div class="league">F1 23 Championship</div>
+
+<div class="year">1. Szezon Champion</div>
+
+</div>
+
+<div class="team-logo">
+<img src="redbull.png">
+</div>
+
+</div>
+
+</section>
+
+<footer>
+© 2025 Hungarian Motorsport League
+</footer>
+
+</body>
+</html>
