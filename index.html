@@ -874,13 +874,36 @@ A ligában való részvétellel kijelented, hogy elfogadod a szabályzatot.
 
 </div>
 
-<div class="rules-accept">
+<div style="
+margin-top:30px;
+padding:20px;
+background:#111827;
+border-radius:10px;
+text-align:center;
+">
+
+<p style="
+font-size:20px;
+font-weight:bold;
+color:#ff1e00;
+margin-bottom:15px;
+"
+data-hu="⚠ A Discord használata kötelező a jelentkezéshez!"
+data-en="⚠ Discord usage is mandatory for registration!">
+⚠ A Discord használata kötelező a jelentkezéshez!
+</p>
+
+<div class="rules-accept" style="justify-content:center;">
 <input type="checkbox" id="acceptRules" required>
+
 <label for="acceptRules"
-       data-hu="Elfogadom a szabályzatot"
-       data-en="I accept the rules">
+data-hu="Elfogadom a szabályzatot"
+data-en="I accept the rules">
 Elfogadom a szabályzatot
 </label>
+
+</div>
+
 </div>
 
 </div>
@@ -1107,6 +1130,7 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
+
 
 
 
