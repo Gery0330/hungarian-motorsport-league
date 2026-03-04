@@ -1064,6 +1064,8 @@ let lang="hu";
 
 function toggleLang(){
 
+ lang = lang === "hu" ? "en" : "hu";
+
  document.querySelectorAll("[data-hu]").forEach(el=>{
   el.innerHTML = el.getAttribute("data-"+lang);
  });
@@ -1167,6 +1169,7 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
+
 
 
 
