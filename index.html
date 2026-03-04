@@ -1026,10 +1026,6 @@ Bezárás
 
 const heroText = document.getElementById("heroText");
 
-if (typeof SUPABASE_URL !== "undefined" && typeof SUPABASE_KEY !== "undefined") {
- window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-}
-
 /* COUNTDOWN */
 
 const countdown = document.getElementById("countdown");
@@ -1171,6 +1167,7 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
+
 
 
 
