@@ -1024,6 +1024,8 @@ Bezárás
 
 <script>
 
+const heroText = document.getElementById("heroText");
+
 window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 /* COUNTDOWN */
@@ -1057,9 +1059,11 @@ setInterval(()=>{
 
 
 /* LANGUAGE */
+
 let lang="hu";
+const heroText = document.getElementById("heroText");
+
 function toggleLang(){
- lang = lang==="hu" ? "en":"hu";
 
  document.querySelectorAll("[data-hu]").forEach(el=>{
   el.innerHTML = el.getAttribute("data-"+lang);
@@ -1164,6 +1168,7 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
+
 
 
 
