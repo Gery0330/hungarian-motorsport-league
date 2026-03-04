@@ -1,2 +1,7 @@
-const SUPABASE_URL = "https://mdhbillpmxvsesjrcsmf.supabase.co";
-const SUPABASE_KEY = "sb_publishable_tiJI-G3q-P-zHR7-dISVgQ_dG5MZXHi";
+const supabaseUrl = "https://mdhbillpmxvsesjrcsmf.supabase.co";
+const supabaseKey = "IDE_JÖN_A_SUPABASE_PUBLISHABLE_KEY";
+
+window.supabaseClient = window.supabase.createClient(
+  supabaseUrl,
+  supabaseKey
+);
