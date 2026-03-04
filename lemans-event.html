@@ -394,10 +394,11 @@ Vissza a főoldalra
 
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase.js"></script>
+<script src="config.js"></script>
 
 <script>
 
+window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 document.getElementById("lemansForm").addEventListener("submit", async function(e){
 e.preventDefault();
@@ -481,6 +482,7 @@ function updateTitle(){
 
 </body>
 </html>
+
 
 
 
