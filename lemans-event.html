@@ -392,12 +392,12 @@ Vissza a főoldalra
 </div>
 </div>
 
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
 
 <script>
-const supabaseUrl = "https://mdhbillpmxvsesjrcsmf.supabase.co";
-const supabaseKey = "sb_publishable_tiJI-G3q-P-zHR7-dISVgQ_dG5MZXHi";
-window.supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+
 
 document.getElementById("lemansForm").addEventListener("submit", async function(e){
 e.preventDefault();
@@ -481,6 +481,7 @@ function updateTitle(){
 
 </body>
 </html>
+
 
 
 
