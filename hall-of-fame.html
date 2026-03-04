@@ -140,6 +140,41 @@ justify-content:center;
 align-items:center;
 }
 
+.back-btn{
+position:fixed;
+top:20px;
+left:20px;
+background:#111827;
+color:white;
+padding:10px 20px;
+border-radius:8px;
+text-decoration:none;
+font-weight:bold;
+transition:.3s;
+z-index:1000;
+}
+
+.back-btn:hover{
+background:#ff1e00;
+}
+
+.langbtn{
+background:#ff1e00;
+border:none;
+padding:8px 16px;
+color:white;
+border-radius:6px;
+cursor:pointer;
+font-weight:bold;
+width:auto;
+display:inline-block;
+
+position:fixed;
+top:20px;
+right:30px;
+z-index:1000;
+}
+
 /* FOOTER */
 
 footer{
@@ -153,8 +188,24 @@ background:#0d1117;
 
 <body>
 
+<button class="langbtn" onclick="toggleLang()">
+HU / EN
+</button>
+
+<a href="index.html" class="back-btn"
+data-hu="← Vissza a főoldalra"
+data-en="← Back to homepage">
+← Vissza a főoldalra
+</a>
+
 <div class="hero">
-<h1>🏆 HALL OF FAME</h1>
+
+<h1 
+data-hu="🏆 Dicsőség Csarnoka"
+data-en="🏆 Hall of Fame">
+🏆 Hall of Fame
+</h1>
+
 </div>
 
 <section class="hof">
@@ -190,6 +241,28 @@ background:#0d1117;
 <footer>
 © 2025 Hungarian Motorsport League
 </footer>
+
+<script>
+
+let lang = localStorage.getItem("lang") || "hu";
+
+function toggleLang(){
+ lang = lang === "hu" ? "en" : "hu";
+ localStorage.setItem("lang", lang);
+
+ document.querySelectorAll("[data-hu]").forEach(el=>{
+   el.innerHTML = el.getAttribute("data-"+lang);
+ });
+
+}
+
+document.addEventListener("DOMContentLoaded", ()=>{
+ document.querySelectorAll("[data-hu]").forEach(el=>{
+   el.innerHTML = el.getAttribute("data-"+lang);
+ });
+});
+
+</script>
 
 </body>
 
