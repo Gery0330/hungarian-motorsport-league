@@ -472,6 +472,34 @@ form button{
 
 }
 
+.discord-warning{
+margin-top:30px;
+padding:25px;
+background:linear-gradient(135deg,#0f172a,#020617);
+border:2px solid #5865F2;
+border-radius:12px;
+text-align:center;
+box-shadow:0 0 25px rgba(88,101,242,0.4);
+}
+
+.discord-warning h3{
+color:#5865F2;
+font-size:24px;
+margin-bottom:10px;
+}
+
+.discord-warning p{
+font-size:15px;
+opacity:0.9;
+line-height:1.6;
+margin-bottom:20px;
+}
+
+.discord-warning .rules-accept{
+justify-content:center;
+margin-top:10px;
+}
+
 </style>
 </head>
 
@@ -874,26 +902,22 @@ A ligában való részvétellel kijelented, hogy elfogadod a szabályzatot.
 
 </div>
 
-<div style="
-margin-top:30px;
-padding:20px;
-background:#111827;
-border-radius:10px;
-text-align:center;
-">
+<div class="discord-warning">
 
-<p style="
-font-size:20px;
-font-weight:bold;
-color:#ff1e00;
-margin-bottom:15px;
-"
-data-hu="⚠ A Discord használata kötelező a jelentkezéshez!"
-data-en="⚠ Discord usage is mandatory for registration!">
-⚠ A Discord használata kötelező a jelentkezéshez!
+<h3 
+data-hu="⚠ Discord használata kötelező!"
+data-en="⚠ Discord is mandatory!">
+⚠ Discord használata kötelező!
+</h3>
+
+<p
+data-hu="A bajnokságokkal kapcsolatos összes információ, futam időpont és eredmény a Discord szerveren kerül megosztásra. A nevezés leadásával vállalod, hogy csatlakozol a szerverhez."
+data-en="All championship information, race schedules and results are shared on our Discord server. By submitting your registration you agree to join the server.">
+A bajnokságokkal kapcsolatos információk a Discord szerveren találhatók.
 </p>
 
-<div class="rules-accept" style="justify-content:center;">
+<div class="rules-accept">
+
 <input type="checkbox" id="acceptRules" required>
 
 <label for="acceptRules"
@@ -1130,6 +1154,7 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
+
 
 
 
