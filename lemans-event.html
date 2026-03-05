@@ -186,6 +186,51 @@ background:#ff1e00;
 
 }
 
+.event-hero{
+background:linear-gradient(135deg,#111827,#0f172a);
+padding:40px;
+border-radius:15px;
+max-width:1000px;
+margin:0 auto 40px auto;
+text-align:center;
+box-shadow:0 0 30px rgba(255,30,0,0.3);
+border:1px solid rgba(255,30,0,0.4);
+}
+
+.event-hero h2{
+color:#ff1e00;
+font-size:32px;
+margin-bottom:10px;
+}
+
+.event-hero p{
+opacity:0.8;
+max-width:600px;
+margin:auto;
+}
+
+.event-info{
+display:flex;
+justify-content:center;
+gap:40px;
+margin-top:25px;
+flex-wrap:wrap;
+}
+
+.event-info div{
+background:#0b1220;
+padding:15px 25px;
+border-radius:10px;
+border:1px solid #222;
+}
+
+.countdown-box{
+text-align:center;
+margin:40px auto;
+font-size:28px;
+color:#ff1e00;
+}
+
 </style>
 </head>
 
@@ -200,6 +245,60 @@ data-hu="← Vissza a főoldalra"
 data-en="← Back to homepage">
 ← Vissza a főoldalra
 </a>
+
+<div class="event-hero">
+
+<h2>🏁 12H Spa-Francorchamps Charity Event</h2>
+
+<p>
+Egy különleges 12 órás endurance futam a Hungarian Motorsport League szervezésében.
+Csapatok mérik össze tudásukat a legendás Spa-Francorchamps pályán.
+</p>
+
+<div class="event-info">
+
+<div>
+<strong>📅 Dátum</strong>
+<p>2025. Július</p>
+</div>
+
+<div>
+<strong>⏱ Verseny időtartama</strong>
+<p>12 óra</p>
+</div>
+
+<div>
+<strong>👥 Csapat</strong>
+<p>4 pilóta</p>
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>📜 Verseny szabályok</h2>
+
+<ul>
+<li>4 pilóta / csapat</li>
+<li>Stint limit: max 65 perc</li>
+<li>Fair play kötelező</li>
+<li>Discord kötelező a kommunikációhoz</li>
+<li>Az admin döntése végleges</li>
+</ul>
+
+</div>
+
+<div class="countdown-box">
+
+<h2>⏳ Verseny kezdete</h2>
+
+<div id="countdownEvent">
+Loading...
+</div>
+
+</div>
+
+</div>
 
 <h1 
 data-hu="12 órás Spa Francorchamps Event"
@@ -480,6 +579,7 @@ function updateTitle(){
 
 </body>
 </html>
+
 
 
 
