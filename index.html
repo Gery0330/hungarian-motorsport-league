@@ -521,6 +521,78 @@ justify-content:center;
 margin-top:10px;
 }
 
+/* EVENT ALERT */
+
+.event-alert{
+
+position:absolute;
+top:90px;
+left:50%;
+transform:translateX(-50%);
+
+background:#ff1e00;
+color:white;
+
+font-weight:bold;
+font-size:22px;
+
+padding:16px 35px;
+border-radius:10px;
+
+cursor:pointer;
+text-align:center;
+
+box-shadow:
+0 0 20px rgba(255,30,0,0.8),
+0 0 40px rgba(255,30,0,0.6);
+
+animation:eventPulse 1.5s infinite;
+
+z-index:10;
+
+}
+
+.event-alert:hover{
+transform:translateX(-50%) scale(1.05);
+}
+
+/* villogás */
+
+@keyframes eventPulse{
+
+0%{
+box-shadow:
+0 0 10px rgba(255,30,0,0.6),
+0 0 20px rgba(255,30,0,0.4);
+}
+
+50%{
+box-shadow:
+0 0 30px rgba(255,30,0,1),
+0 0 60px rgba(255,30,0,0.8);
+}
+
+100%{
+box-shadow:
+0 0 10px rgba(255,30,0,0.6),
+0 0 20px rgba(255,30,0,0.4);
+}
+
+}
+
+@media (max-width:768px){
+
+.event-alert{
+
+font-size:16px;
+padding:12px 20px;
+top:80px;
+width:85%;
+
+}
+
+}
+
 </style>
 </head>
 
@@ -547,6 +619,10 @@ margin-top:10px;
 
 <!-- HERO -->
 <div class="hero">
+
+<div class="event-alert" onclick="location.href='lemans-event.html'">
+🔥 12H SPA-FRANCORCHAMPS EVENT — JELENTKEZÉS NYITVA 🔥
+</div>
 
 <video autoplay muted loop playsinline class="bgVideo">
 <source src="hero.mp4" type="video/mp4">
@@ -1199,6 +1275,7 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
+
 
 
 
