@@ -575,10 +575,44 @@ function updateTitle(){
   : "12 Hour Spa Francorchamps Event";
 }
 
+/* COUNTDOWN */
+
+const countdownEvent = document.getElementById("countdownEvent");
+
+const eventDate = new Date("2026-03-28T14:00:00").getTime();
+
+setInterval(()=>{
+
+ const now = new Date().getTime();
+ const diff = eventDate - now;
+
+ if(diff <= 0){
+   countdownEvent.innerHTML = lang === "hu"
+   ? "A verseny elkezdődött!"
+   : "The race has started!";
+   return;
+ }
+
+ const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+ const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+ const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+ const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+ if(lang === "hu"){
+   countdownEvent.innerHTML =
+   `${days} nap ${hours} óra ${minutes} perc ${seconds} mp`;
+ } else {
+   countdownEvent.innerHTML =
+   `${days} days ${hours} hours ${minutes} min ${seconds} sec`;
+ }
+
+},1000);
+
 </script>
 
 </body>
 </html>
+
 
 
 
