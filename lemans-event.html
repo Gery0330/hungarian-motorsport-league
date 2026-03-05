@@ -325,28 +325,28 @@ data-hu-placeholder="Csapatnév"
 data-en-placeholder="Team name"
 required>
 
+<label data-hu="Kategória" data-en="Category">
+Kategória
+</label>
+
+<select id="carCategory" required>
+<option value="">
+Válassz kategóriát...
+</option>
+<option value="gt3">GT3</option>
+<option value="hypercar">Hypercar</option>
+</select>
+
+
 <label data-hu="Autó választás" data-en="Car Selection">
 Autó választás
 </label>
 
-<select name="car" required>
-<option value=""
-data-hu="Válassz autót..."
-data-en="Select a car...">
-Válassz autót...
+<select name="car" id="carSelect" required disabled>
+<option value="">
+Először válassz kategóriát...
 </option>
-<option>Aston Martin Vantage AMR LMGT3</option>
-<option>BMW M4 GT3</option>
-<option>Corvette Z06 GT3R</option>
-<option>Ferrari 296 GT3 2023</option>
-<option>Ford Mustang LMGT3</option>
-<option>Lamborghini Huracan LMGT3 Evo2</option>
-<option>Lexus RCF LMGT3</option>
-<option>McLaren 720s LMGT3 Evo</option>
-<option>Mercedes-AMG LMGT3</option>
-<option>Porsche 911 GT3 R LMGT3</option>
 </select>
-</div>
 
 <!-- DRIVER 1 -->
 <div class="section">
@@ -504,6 +504,7 @@ const form = e.target;
 
 const formData = {
 team_name: form.team_name.value,
+category: document.getElementById("carCategory").value,
 car: form.car.value,
 
 driver1_full_name: form.driver1_full_name.value,
@@ -608,10 +609,57 @@ setInterval(()=>{
 
 },1000);
 
+/* CAR CATEGORY SYSTEM */
+
+const categorySelect = document.getElementById("carCategory");
+const carSelect = document.getElementById("carSelect");
+
+const gt3Cars = [
+"Aston Martin Vantage AMR LMGT3",
+"BMW M4 GT3",
+"Corvette Z06 GT3R",
+"Ferrari 296 GT3 2023",
+"Ford Mustang LMGT3",
+"Lamborghini Huracan LMGT3 Evo2",
+"Lexus RCF LMGT3",
+"McLaren 720s LMGT3 Evo",
+"Mercedes-AMG LMGT3",
+"Porsche 911 GT3 R LMGT3"
+];
+
+const hypercars = [
+"Ferrari 499P",
+"Toyota GR010 Hybrid",
+"Porsche 963",
+"Peugeot 9X8",
+"Cadillac V-Series.R",
+"Glickenhaus SCG 007",
+"BMW M Hybrid V8",
+"Alpine A424"
+];
+
+categorySelect.addEventListener("change", function(){
+
+carSelect.innerHTML = "";
+
+let list = this.value === "gt3" ? gt3Cars : hypercars;
+
+carSelect.disabled = false;
+
+list.forEach(car=>{
+const option = document.createElement("option");
+option.value = car;
+option.textContent = car;
+carSelect.appendChild(option);
+});
+
+});
+
 </script>
 
 </body>
 </html>
+
 
 
 
