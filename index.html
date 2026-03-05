@@ -635,6 +635,14 @@ width:85%;
 
 }
 
+.event-sticky{
+
+font-size:14px;
+padding:10px;
+top:70px;
+
+}
+
 .event-panel{
 
 max-width:900px;
@@ -666,12 +674,65 @@ animation:eventFloat 4s ease-in-out infinite;
 
 }
 
+/* STICKY EVENT BANNER */
+
+.event-sticky{
+
+position:fixed;
+top:78px;
+left:0;
+
+width:100%;
+
+background:linear-gradient(90deg,#ff1e00,#ff3b1f);
+
+color:white;
+
+font-weight:bold;
+font-size:18px;
+
+text-align:center;
+
+padding:12px 20px;
+
+cursor:pointer;
+
+z-index:999;
+
+box-shadow:
+0 0 20px rgba(255,30,0,0.6),
+0 0 40px rgba(255,30,0,0.4);
+
+transition:.3s;
+
+}
+
+.event-sticky:hover{
+
+background:linear-gradient(90deg,#ff2a00,#ff4a2f);
+
+box-shadow:
+0 0 30px rgba(255,30,0,0.9),
+0 0 60px rgba(255,30,0,0.7);
+
+}
+
 </style>
 </head>
 
 <body>
 
 <nav>
+
+<div class="event-sticky"
+onclick="document.getElementById('event').scrollIntoView({behavior:'smooth'})"
+data-hu="🔥 12H SPA-FRANCORCHAMPS EVENT — JELENTKEZÉS NYITVA 🔥"
+data-en="🔥 12H SPA-FRANCORCHAMPS EVENT — REGISTRATION OPEN 🔥">
+
+🔥 12H SPA-FRANCORCHAMPS EVENT — JELENTKEZÉS NYITVA 🔥
+
+</div>
+
 <div class="logo">
   <a href="index.html">
     <img src="logo.png" alt="HML Logo">
@@ -1353,6 +1414,7 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
+
 
 
 
