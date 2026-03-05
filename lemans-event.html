@@ -276,15 +276,51 @@ Csapatok mérik össze tudásukat a legendás Spa-Francorchamps pályán.
 
 <div class="section">
 
-<h2>📜 Verseny szabályok</h2>
+<button type="button" id="rulesToggle" style="
+width:100%;
+background:#ff1e00;
+border:none;
+padding:16px;
+font-size:18px;
+font-weight:bold;
+border-radius:10px;
+cursor:pointer;
+">
 
-<ul>
-<li>4 pilóta / csapat</li>
-<li>Stint limit: max 65 perc</li>
-<li>Fair play kötelező</li>
-<li>Discord kötelező a kommunikációhoz</li>
-<li>Az admin döntése végleges</li>
-</ul>
+📜 Verseny szabályzat megtekintése
+
+</button>
+
+
+<div id="rulesContent" style="
+display:none;
+margin-top:20px;
+background:#0b1220;
+padding:25px;
+border-radius:10px;
+border:1px solid #222;
+">
+
+<!-- IDE KERÜL MAJD A SZABÁLYZAT -->
+
+
+<div style="margin-top:25px">
+
+<label style="display:flex;align-items:center;gap:10px">
+
+<input type="checkbox" id="rulesAccept" required>
+
+<span
+data-hu="Szabályzat elfogadása"
+data-en="Accept rules">
+Szabályzat elfogadása
+</span>
+
+</label>
+
+</div>
+
+</div>
 
 </div>
 
@@ -497,10 +533,42 @@ Vissza a főoldalra
 
 <script>
 
+/* RULES TOGGLE */
+
+const rulesToggle = document.getElementById("rulesToggle");
+const rulesContent = document.getElementById("rulesContent");
+
+rulesToggle.addEventListener("click", ()=>{
+
+if(rulesContent.style.display === "none"){
+
+rulesContent.style.display = "block";
+
+}else{
+
+rulesContent.style.display = "none";
+
+}
+
+});
+
 document.getElementById("lemansForm").addEventListener("submit", async function(e){
 e.preventDefault();
 
 const form = e.target;
+
+const rulesAccepted = document.getElementById("rulesAccept").checked;
+
+if(!rulesAccepted){
+
+alert(
+lang === "hu"
+? "A nevezéshez el kell fogadni a szabályzatot!"
+: "You must accept the rules to register!"
+);
+
+return;
+}
 
 const formData = {
 team_name: form.team_name.value,
@@ -659,6 +727,7 @@ carSelect.appendChild(option);
 
 </body>
 </html>
+
 
 
 
