@@ -717,6 +717,89 @@ box-shadow:
 
 }
 
+/* RACING STRIPE EFFECT */
+
+.event-sticky{
+position:fixed;
+top:78px;
+left:0;
+
+width:100%;
+
+background:linear-gradient(90deg,#ff1e00,#ff3b1f);
+
+color:white;
+font-weight:bold;
+font-size:18px;
+
+text-align:center;
+
+padding:12px 20px;
+
+cursor:pointer;
+z-index:999;
+
+overflow:hidden;
+
+box-shadow:
+0 0 20px rgba(255,30,0,0.6),
+0 0 40px rgba(255,30,0,0.4);
+
+transition:.3s;
+}
+
+
+/* mozgó csík */
+
+.event-sticky::before{
+
+content:"";
+
+position:absolute;
+top:0;
+left:-200px;
+
+width:200px;
+height:100%;
+
+background:linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,0.6),
+transparent
+);
+
+transform:skewX(-25deg);
+
+animation:racingStripe 3s linear infinite;
+
+}
+
+@keyframes racingStripe{
+
+0%{
+left:-200px;
+}
+
+100%{
+left:120%;
+}
+
+}
+
+
+/* hover */
+
+.event-sticky:hover{
+
+background:linear-gradient(90deg,#ff2a00,#ff4a2f);
+
+box-shadow:
+0 0 30px rgba(255,30,0,0.9),
+0 0 60px rgba(255,30,0,0.7);
+
+}
+
 </style>
 </head>
 
@@ -1405,6 +1488,7 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
+
 
 
 
