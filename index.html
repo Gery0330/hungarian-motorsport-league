@@ -552,8 +552,18 @@ z-index:10;
 
 }
 
+.event-alert{
+transition:all .35s ease;
+backdrop-filter:blur(4px);
+letter-spacing:1px;
+}
+
 .event-alert:hover{
-transform:translateX(-50%) scale(1.05);
+transform:translateX(-50%) scale(1.06);
+box-shadow:
+0 0 35px rgba(255,30,0,0.9),
+0 0 70px rgba(255,30,0,0.6);
+filter:brightness(1.1);
 }
 
 /* villogás */
@@ -620,7 +630,7 @@ width:85%;
 <!-- HERO -->
 <div class="hero">
 
-<div class="event-alert" onclick="location.href='lemans-event.html'">
+<div class="event-alert" onclick="document.getElementById('event').scrollIntoView({behavior:'smooth'})">
 🔥 12H SPA-FRANCORCHAMPS EVENT — JELENTKEZÉS NYITVA 🔥
 </div>
 
@@ -1275,6 +1285,7 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
+
 
 
 
