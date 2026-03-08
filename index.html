@@ -1500,52 +1500,46 @@ if (championship.includes("F1")) {
  const jeddah = document.querySelector("[name='jeddah_time']").value.trim();
 
  if(!spa || !imola || !jeddah){
-  alert(lang==="hu"
-  ? "Az F1 nevezéshez minden köridőt ki kell tölteni!"
-  : "All lap times must be filled for F1 registration!");
+  alert("Az F1 nevezéshez minden köridőt ki kell tölteni!");
   return;
  }
 
  if(!timePattern.test(spa) || !timePattern.test(imola) || !timePattern.test(jeddah)){
-  alert(lang==="hu"
-  ? "Az idő formátuma hibás! Példa: 1:23.456"
-  : "Invalid time format! Example: 1:23.456");
+  alert("Az idő formátuma hibás! Példa: 1:23.456");
   return;
  }
 
 }
-    e.preventDefault();
 
-    const championship = document.querySelector("[name='championship']").value;
+const formData = {
+ championship: championship,
+ full_name: document.querySelector("[name='full_name']").value,
+ gamer_tag: document.querySelector("[name='gamer_tag']").value,
+ discord_name: document.querySelector("[name='discord_name']").value,
+ email: document.querySelector("[name='email']").value,
+ platform: document.querySelector("[name='platform']").value,
+ spa_time: document.querySelector("[name='spa_time']")?.value || null,
+ imola_time: document.querySelector("[name='imola_time']")?.value || null,
+ jeddah_time: document.querySelector("[name='jeddah_time']")?.value || null,
+ lemans_category: document.querySelector("[name='lemans_category']")?.value || null,
+ f1_role: document.querySelector("[name='f1_role']")?.value || null
+};
 
-    const formData = {
-        championship: championship,
-        full_name: document.querySelector("[name='full_name']").value,
-        gamer_tag: document.querySelector("[name='gamer_tag']").value,
-        discord_name: document.querySelector("[name='discord_name']").value,
-        email: document.querySelector("[name='email']").value,
-        platform: document.querySelector("[name='platform']").value,
-        spa_time: document.querySelector("[name='spa_time']")?.value || null,
-        imola_time: document.querySelector("[name='imola_time']")?.value || null,
-        jeddah_time: document.querySelector("[name='jeddah_time']")?.value || null,
-        lemans_category: document.querySelector("[name='lemans_category']")?.value || null,
-        f1_role: document.querySelector("[name='f1_role']")?.value || null,
-    };
- 
-    const { error } = await window.supabaseClient
-        .from("registrations")
-        .insert([formData]);
+const { error } = await window.supabaseClient
+ .from("registrations")
+ .insert([formData]);
 
-    if (error) {
-        alert(lang === "hu"
-            ? "Hiba történt a nevezés során!"
-            : "An error occurred during registration!");
-        return;
-    }
+if (error) {
+ console.error(error);
+ alert("Hiba történt a nevezés során!");
+ return;
+}
 
-    document.getElementById("successMsg").style.display = "block";
-    document.getElementById("discordModal").style.display = "flex";
-    document.getElementById("regForm").reset();
+document.getElementById("successMsg").style.display="block";
+document.getElementById("discordModal").style.display="flex";
+
+document.getElementById("regForm").reset();
+
 });
  
  function closeModal(){
@@ -1555,6 +1549,7 @@ if (championship.includes("F1")) {
  
 </body>
 </html>
+
 
 
 
