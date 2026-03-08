@@ -1045,48 +1045,6 @@ Jeddah – Legjobb köridő
 
 <hr style="margin:25px 0; opacity:0.3;">
 
-<label data-hu="Csapattárs teljes neve (akivel szívesen lennél)"
-       data-en="Preferred Teammate Full Name">
-Csapattárs teljes neve (akivel szívesen lennél)
-</label>
-<input type="text" name="preferred_teammate">
-
-<label data-hu="Első számú preferált csapat"
-       data-en="First Preferred Team">
-Első számú preferált csapat
-</label>
-<select name="preferred_team_1">
-<option value="">--</option>
-<option>Red Bull</option>
-<option>Ferrari</option>
-<option>Mercedes</option>
-<option>McLaren</option>
-<option>Aston Martin</option>
-<option>Alpine</option>
-<option>Williams</option>
-<option>RB</option>
-<option>Sauber</option>
-<option>Haas</option>
-</select>
-
-<label data-hu="Második számú preferált csapat"
-       data-en="Second Preferred Team">
-Második számú preferált csapat
-</label>
-<select name="preferred_team_2">
-<option value="">--</option>
-<option>Red Bull</option>
-<option>Ferrari</option>
-<option>Mercedes</option>
-<option>McLaren</option>
-<option>Aston Martin</option>
-<option>Alpine</option>
-<option>Williams</option>
-<option>RB</option>
-<option>Sauber</option>
-<option>Haas</option>
-</select>
-
 <hr style="margin:25px 0; opacity:0.3;">
 
 <label data-hu="Jelentkezés típusa"
@@ -1536,9 +1494,6 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  const imola = document.querySelector("[name='imola_time']").value.trim();
  const jeddah = document.querySelector("[name='jeddah_time']").value.trim();
 
- const team1 = document.querySelector("[name='preferred_team_1']").value;
- const team2 = document.querySelector("[name='preferred_team_2']").value;
-
  if(!spa || !imola || !jeddah){
   alert(lang==="hu"
   ? "Az F1 nevezéshez minden köridőt ki kell tölteni!"
@@ -1550,13 +1505,6 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
   alert(lang==="hu"
   ? "Az idő formátuma hibás! Példa: 1:23.456"
   : "Invalid time format! Example: 1:23.456");
-  return;
- }
-
- if(!team1 || !team2){
-  alert(lang==="hu"
-  ? "A preferált csapat 1 és 2 kötelező!"
-  : "Preferred team 1 and 2 are required!");
   return;
  }
 
@@ -1575,9 +1523,6 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
         spa_time: document.querySelector("[name='spa_time']")?.value || null,
         imola_time: document.querySelector("[name='imola_time']")?.value || null,
         jeddah_time: document.querySelector("[name='jeddah_time']")?.value || null,
-        preferred_teammate: document.querySelector("[name='preferred_teammate']")?.value || null,
-        preferred_team_1: document.querySelector("[name='preferred_team_1']")?.value || null,
-        preferred_team_2: document.querySelector("[name='preferred_team_2']")?.value || null,
         lemans_category: document.querySelector("[name='lemans_category']")?.value || null,
         f1_role: document.querySelector("[name='f1_role']")?.value || null,
     };
@@ -1605,6 +1550,7 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
+
 
 
 
