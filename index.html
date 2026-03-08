@@ -806,6 +806,36 @@ box-shadow:
 
 <body>
 
+<div id="cookieBanner" style="
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#0f172a;
+color:white;
+padding:15px;
+text-align:center;
+z-index:5000;
+">
+
+Ez a weboldal sütiket használ a működés és statisztika céljából.
+
+<button onclick="acceptCookies()" style="
+margin-left:20px;
+padding:8px 15px;
+background:#ff1e00;
+border:none;
+color:white;
+border-radius:6px;
+cursor:pointer;
+">
+
+Elfogadom
+
+</button>
+
+</div>
+
 <nav>
 
 <div class="event-sticky"
@@ -1252,6 +1282,21 @@ Elfogadom a szabályzatot
 
 </div>
 
+<div style="margin-top:10px">
+
+<input type="checkbox" id="acceptPrivacy" required>
+
+<label for="acceptPrivacy">
+
+Elfogadom az
+<a href="adatkezeles.html" target="_blank">
+adatkezelési tájékoztatót
+</a>
+
+</label>
+
+</div>
+
 </div>
 
 </label>
@@ -1275,6 +1320,21 @@ Sikeres nevezés! Átirányítás Discordra...
 
 <footer>
 © 2026 Hungarian Motorsport League
+
+<div style="margin-top:15px;font-size:14px;opacity:0.8">
+
+<a href="adatkezeles.html" style="color:#aaa">
+Adatkezelési tájékoztató
+</a>
+
+|
+
+<a href="impresszum.html" style="color:#aaa">
+Impresszum
+</a>
+
+</div>
+
 <div id="discordModal" style="
 display:none;
 position:fixed;
@@ -1345,6 +1405,15 @@ Bezárás
 <script src="config.js"></script>
 
 <script>
+
+function acceptCookies(){
+ localStorage.setItem("cookieAccepted","yes");
+ document.getElementById("cookieBanner").style.display="none";
+}
+
+if(localStorage.getItem("cookieAccepted")){
+ document.getElementById("cookieBanner").style.display="none";
+}
 
 const heroText = document.getElementById("heroText");
 
@@ -1489,6 +1558,7 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
+
 
 
 
