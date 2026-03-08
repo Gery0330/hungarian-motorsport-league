@@ -47,9 +47,11 @@ margin:auto;
 }
 
 .hof-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+display:flex;
+flex-direction:column;
 gap:40px;
+max-width:1000px;
+margin:auto;
 }
 
 /* CHAMPION CARD */
@@ -422,7 +424,7 @@ data-en="Season 1 Champion">
 </div>
 
 <div class="team-logo">
-<img src="teamlogo.png">
+<img src="redbull.png">
 </div>
 
 </div>
@@ -475,6 +477,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 </body>
 
 </html>
+
 
 
 
