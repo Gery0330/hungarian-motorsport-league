@@ -1528,6 +1528,39 @@ champSelect.addEventListener("change", function() {
 });
 
 document.getElementById("regForm").addEventListener("submit", async function(e) {
+ if (championship.includes("F1")) {
+
+ const timePattern = /^[0-9]:[0-5][0-9]\.[0-9]{3}$/;
+
+ const spa = document.querySelector("[name='spa_time']").value.trim();
+ const imola = document.querySelector("[name='imola_time']").value.trim();
+ const jeddah = document.querySelector("[name='jeddah_time']").value.trim();
+
+ const team1 = document.querySelector("[name='preferred_team_1']").value;
+ const team2 = document.querySelector("[name='preferred_team_2']").value;
+
+ if(!spa || !imola || !jeddah){
+  alert(lang==="hu"
+  ? "Az F1 nevezéshez minden köridőt ki kell tölteni!"
+  : "All lap times must be filled for F1 registration!");
+  return;
+ }
+
+ if(!timePattern.test(spa) || !timePattern.test(imola) || !timePattern.test(jeddah)){
+  alert(lang==="hu"
+  ? "Az idő formátuma hibás! Példa: 1:23.456"
+  : "Invalid time format! Example: 1:23.456");
+  return;
+ }
+
+ if(!team1 || !team2){
+  alert(lang==="hu"
+  ? "A preferált csapat 1 és 2 kötelező!"
+  : "Preferred team 1 and 2 are required!");
+  return;
+ }
+
+}
     e.preventDefault();
 
     const championship = document.querySelector("[name='championship']").value;
@@ -1572,6 +1605,7 @@ document.getElementById("regForm").addEventListener("submit", async function(e) 
  
 </body>
 </html>
+
 
 
 
