@@ -236,27 +236,6 @@ transform:scale(1.08);
 box-shadow:0 0 45px #ffd700;
 }
 
-/* COUNTDOWN */
-
-.countbox{
-
-font-size:48px;
-font-weight:900;
-
-color:white;
-
-text-shadow:
-0 0 10px #ff1e00,
-0 0 25px #ff1e00,
-0 0 50px rgba(255,30,0,0.9),
-0 0 80px rgba(255,30,0,0.6);
-
-margin:25px 0;
-
-letter-spacing:2px;
-
-}
-
 /* CTA */
 .cta{
  background:#6a0000; /* Bordó */
@@ -928,8 +907,6 @@ data-en="12 Hour Charity Assetto Corsa Competizione Event">
 12 órás jótékonysági Assetto Corsa Competizione futam
 </h2>
 
-<div id="countdown" class="countbox">Betöltés…</div>
-
 <a href="https://www.thesimgrid.com/championships/22686"
    target="_blank"
    class="lemans-btn"
@@ -1386,36 +1363,6 @@ if(localStorage.getItem("cookieAccepted")){
 }
 
 const heroText = document.getElementById("heroText");
-
-/* COUNTDOWN */
-
-const countdown = document.getElementById("countdown");
-
-const targetDate = new Date("2026-03-28T14:00:00").getTime();
-
-setInterval(()=>{
-
- const now = new Date().getTime();
- const d = targetDate - now;
-
- if(d <= 0){
-  countdown.innerHTML = "RAJT!";
-  return;
- }
-
- const nap = Math.floor(d / 86400000);
- const ora = Math.floor((d % 86400000) / 3600000);
- const perc = Math.floor((d % 3600000) / 60000);
- const mp = Math.floor((d % 60000) / 1000);
-
- if(lang === "hu"){
-  countdown.innerHTML = `${nap} nap ${ora} óra ${perc} perc ${mp} mp`;
- }else{
-  countdown.innerHTML = `${nap} days ${ora} hours ${perc} min ${mp} sec`;
- }
-
-},1000);
-
 
 /* LANGUAGE */
 
