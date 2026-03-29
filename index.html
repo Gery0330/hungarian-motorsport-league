@@ -553,6 +553,80 @@ padding:10px 0;
 border-bottom:1px solid #222;
 }
 
+.league-panel{
+background:linear-gradient(145deg,#020617,#0f172a);
+padding:30px;
+border-radius:18px;
+box-shadow:0 0 40px rgba(0,0,0,0.7);
+animation:fadeIn .4s ease;
+border:1px solid #1f2937;
+}
+
+.league-panel h3{
+font-size:28px;
+margin-bottom:25px;
+text-shadow:0 0 10px #ff1e00;
+}
+
+/* ROW */
+.stand-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:14px 18px;
+margin:8px 0;
+border-radius:10px;
+background:rgba(255,255,255,0.03);
+transition:.25s;
+font-weight:bold;
+}
+
+.stand-row:hover{
+background:rgba(255,30,0,0.1);
+transform:scale(1.02);
+}
+
+/* POSITION */
+.pos{
+font-size:18px;
+width:50px;
+}
+
+/* DRIVER */
+.driver{
+flex:1;
+text-align:left;
+}
+
+/* TEAM */
+.team{
+opacity:.7;
+flex:1;
+text-align:center;
+}
+
+/* POINTS */
+.points{
+color:#ff1e00;
+font-size:18px;
+min-width:80px;
+text-align:right;
+}
+
+/* TOP 3 SPECIAL */
+.top1{
+background:linear-gradient(90deg,#ffd70033,transparent);
+box-shadow:0 0 20px #ffd70055;
+}
+
+.top2{
+background:linear-gradient(90deg,#c0c0c033,transparent);
+}
+
+.top3{
+background:linear-gradient(90deg,#cd7f3233,transparent);
+}
+
 </style>
 </head>
 
@@ -1278,11 +1352,17 @@ let html = `<div class="league-panel">
 <h3>${league} standings</h3>`;
 
 data.forEach((row, index)=>{
+ let extraClass = "";
+ if(index === 0) extraClass = "top1";
+ if(index === 1) extraClass = "top2";
+ if(index === 2) extraClass = "top3";
+ 
  html += `
- <div class="stand-row">
-   <span>#${index+1} ${row.driver_name}</span>
-   <span>${row.team}</span>
-   <span>${row.points} pts</span>
+ <div class="stand-row ${extraClass}">
+   <div class="pos">#${index+1}</div>
+   <div class="driver">${row.driver_name}</div>
+   <div class="team">${row.team}</div>
+   <div class="points">${row.points} pts</div>
  </div>
  `;
 });
