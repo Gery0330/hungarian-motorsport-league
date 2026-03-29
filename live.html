@@ -409,6 +409,16 @@ footer{
  z-index:999;
 }
 
+#liveHud{
+ animation: pulseHud 2s infinite;
+}
+
+@keyframes pulseHud{
+ 0%{box-shadow:0 0 10px rgba(255,30,0,0.3);}
+ 50%{box-shadow:0 0 30px rgba(255,30,0,0.8);}
+ 100%{box-shadow:0 0 10px rgba(255,30,0,0.3);}
+}
+
 </style>
 </head>
 
@@ -467,10 +477,6 @@ footer{
 
 </div>
 
-</div>
-
-<div class="viewer-count">
-  👀 24 néző
 </div>
 
 <a href="https://discord.gg/mRB24ZRwFr" target="_blank" class="chat-btn">
@@ -593,6 +599,8 @@ async function checkLive(){
 
    const iframe = document.getElementById("liveFrame");
    const offline = document.getElementById("offlineBox");
+   const liveHud = document.getElementById("liveHud");
+   const viewerEl = document.getElementById("viewerCount");
 
 const liveTitle = document.querySelector(".live-title");
 
@@ -606,6 +614,19 @@ if(data.items && data.items.length > 0){
 
  liveTitle.innerHTML = `<span class="live-dot"></span> LIVE NOW`;
 
+ // 🔥 NÉZŐSZÁM LEKÉRÉS
+ const statsUrl = `https://www.googleapis.com/youtube/v3/videos?part=liveStreamingDetails&id=${videoId}&key=${API_KEY}`;
+
+ const statsRes = await fetch(statsUrl);
+ const statsData = await statsRes.json();
+
+ const viewers = statsData.items[0].liveStreamingDetails?.concurrentViewers || 0;
+
+ viewerEl.innerText = viewers;
+
+ // HUD MUTATÁSA
+ liveHud.style.display = "block";
+
 }else{
 
  iframe.style.display = "none";
@@ -613,6 +634,8 @@ if(data.items && data.items.length > 0){
 
  liveTitle.innerHTML = `🔴 OFFLINE`;
 
+ // HUD ELTŰNTETÉS
+ liveHud.style.display = "none";
 }
 
  }catch(err){
