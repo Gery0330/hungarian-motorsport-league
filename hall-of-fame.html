@@ -33,12 +33,12 @@ background-position:center;
 .hero h1{
 font-size:70px;
 
-background:linear-gradient(90deg,#ff1e00,#ff6a00);
+background:linear-gradient(90deg,#ffd700,#ffcc00);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 
 text-shadow:
-0 0 20px rgba(255,30,0,0.6);
+0 0 20px rgba(255,215,0,0.6);
 }
 
 /* HALL OF FAME */
@@ -87,10 +87,10 @@ transition:.3s;
 transform:scale(1.05);
 
 box-shadow:
-0 0 30px rgba(255,30,0,0.6),
-0 0 80px rgba(255,30,0,0.3);
+0 0 30px rgba(255,215,0,0.6),
+0 0 80px rgba(255,215,0,0.3);
 
-border:1px solid rgba(255,30,0,0.6);
+border:1px solid rgba(255,215,0,0.6);
 }
 
 /* TROPHY */
@@ -107,7 +107,7 @@ font-size:26px;
 font-weight:bold;
 margin-bottom:10px;
 
-background:linear-gradient(90deg,#ff1e00,#ff6a00);
+background:linear-gradient(90deg,#ffd700,#ffcc00);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
@@ -123,9 +123,10 @@ margin-bottom:10px;
 /* LEAGUE */
 
 .league{
-color:#ff1e00;
+color:#ffd700;
 font-weight:bold;
 font-size:18px;
+text-shadow:0 0 10px rgba(255,215,0,0.5);
 }
 
 /* YEAR */
@@ -238,8 +239,9 @@ z-index:1000;
 }
 
 .back-btn:hover{
-background:#ff1e00;
-box-shadow:0 0 15px #ff1e00;
+background:#ffd700;
+color:black;
+box-shadow:0 0 15px #ffd700;
 }
 
 .langbtn{
@@ -284,7 +286,7 @@ height:200%;
 background:linear-gradient(
 120deg,
 transparent,
-rgba(255,30,0,0.4),
+rgba(255,215,0,0.4),
 transparent
 );
 
@@ -293,7 +295,7 @@ animation:redSweep 6s linear infinite;
 
 }
 
-@keyframes redSweep{
+@keyframes goldSweep{
 
 0%{
 transform:translateX(-100%) rotate(25deg);
@@ -481,8 +483,8 @@ body::before{
  height:100%;
 
  background:
- radial-gradient(circle at 20% 30%, rgba(255,30,0,0.15), transparent),
- radial-gradient(circle at 80% 70%, rgba(255,30,0,0.1), transparent);
+ radial-gradient(circle at 20% 30%, rgba(255,215,0,0.15), transparent),
+ radial-gradient(circle at 80% 70%, rgba(255,215,0,0.1), transparent);
 
  z-index:-1;
 }
@@ -761,7 +763,7 @@ function animateParticles(){
 
    ctx.beginPath();
    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-   ctx.fillStyle="rgba(255,30,0,0.3)";
+   ctx.fillStyle="rgba(255,215,0,0.4)";
    ctx.fill();
  });
 
