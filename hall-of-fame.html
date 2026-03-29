@@ -96,7 +96,7 @@ box-shadow:
 position:relative;
 overflow:hidden;
 
-transition:.3s;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .champion-card:hover{
@@ -281,13 +281,16 @@ z-index:1000;
 .champion-card{
 animation: championReveal 1s ease forwards;
 opacity:0;
-transform:translateY(40px);
 }
 
 @keyframes championReveal{
+from{
+ opacity:0;
+ transform:translateY(40px);
+}
 to{
-opacity:1;
-transform:translateY(0);
+ opacity:1;
+ transform:translateY(0);
 }
 }
 
@@ -528,7 +531,7 @@ transform-style:preserve-3d;
 }
 
 .champion-card:hover{
-transform:rotateX(5deg) rotateY(-5deg) scale(1.05);
+transform:translateY(-5px) rotateX(5deg) rotateY(-5deg) scale(1.05);
 }
 
 .league{
