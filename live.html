@@ -659,9 +659,9 @@ if(data.items && data.items.length > 0){
  liveBtn.href = `https://www.youtube.com/watch?v=${videoId}`;
  liveBtn.style.display = "inline-block";
  
- const videoId = data.items[0].id.videoId;
-
- iframe.src = `https://www.youtube.com/embed/${videoId}`;
+ if(iframe.src !== `https://www.youtube.com/embed/${videoId}`){
+  iframe.src = `https://www.youtube.com/embed/${videoId}`;
+ }
  iframe.style.display = "block";
  offline.style.display = "none";
 
@@ -689,6 +689,8 @@ if(data.items && data.items.length > 0){
 
  // HUD ELTŰNTETÉS
  liveHud.style.display = "none";
+
+ liveBtn.style.display = "none";
 }
 
  }catch(err){
