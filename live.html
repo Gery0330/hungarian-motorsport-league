@@ -466,7 +466,7 @@ footer{
     <div class="stream-right">F1 25</div>
   </div>
 
-  <iframe src="https://www.youtube.com/embed/live_stream?channel=UCJAnYRXk3HpfmXItsvMCxtQ"
+  <iframe id="liveFrame"
   allowfullscreen></iframe>
 
 </div>
@@ -582,6 +582,56 @@ window.addEventListener("scroll", ()=>{
    }
  });
 });
+
+const API_KEY = "IDE_A_KULCSOD";
+const CHANNEL_ID = "UCJAnYRXk3HpfmXItsvMCxtQ";
+
+async function checkLive(){
+
+ const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&eventType=live&type=video&key=${API_KEY}`;
+
+ try{
+
+   const res = await fetch(url);
+   const data = await res.json();
+
+   const iframe = document.getElementById("liveFrame");
+   const offline = document.getElementById("offlineBox");
+
+   if(data.items && data.items.length > 0){
+
+     const videoId = data.items[0].id.videoId;
+
+     iframe.src = `https://www.youtube.com/embed/${videoId}`;
+     iframe.style.display = "block";
+     offline.style.display = "none";
+
+   }else{
+
+     iframe.style.display = "none";
+     offline.style.display = "block";
+
+   }
+
+ }catch(err){
+   console.error("Live check error:", err);
+ }
+
+}
+
+// induláskor
+checkLive();
+
+// 30 másodpercenként frissít
+setInterval(checkLive, 30000);
+
+const liveTitle = document.querySelector(".live-title");
+
+if(data.items.length > 0){
+ liveTitle.innerHTML = `<span class="live-dot"></span> LIVE NOW`;
+}else{
+ liveTitle.innerHTML = `🔴 OFFLINE`;
+}
 
 </script>
 
