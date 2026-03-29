@@ -1178,14 +1178,14 @@ const heroText = document.getElementById("heroText");
 
 /* LANGUAGE */
 
-let lang="hu";
+let lang = localStorage.getItem("lang") || "hu";
 
 function toggleLang(){
-
  lang = lang === "hu" ? "en" : "hu";
+ localStorage.setItem("lang", lang);
 
  document.querySelectorAll("[data-hu]").forEach(el=>{
-  el.innerHTML = el.getAttribute("data-"+lang);
+   el.innerHTML = el.getAttribute("data-"+lang);
  });
 
  heroText.innerText = lang==="hu"
