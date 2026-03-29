@@ -469,6 +469,11 @@ footer{
   <iframe id="liveFrame"
   allowfullscreen></iframe>
 
+<div id="offlineBox" style="display:none; padding:60px; text-align:center;">
+  <h2>🔴 Jelenleg nincs élő közvetítés</h2>
+  <p>Nézz vissza később vagy csatlakozz Discordra!</p>
+</div>
+
 </div>
 
 </div>
@@ -598,20 +603,26 @@ async function checkLive(){
    const iframe = document.getElementById("liveFrame");
    const offline = document.getElementById("offlineBox");
 
-   if(data.items && data.items.length > 0){
+const liveTitle = document.querySelector(".live-title");
 
-     const videoId = data.items[0].id.videoId;
+if(data.items && data.items.length > 0){
 
-     iframe.src = `https://www.youtube.com/embed/${videoId}`;
-     iframe.style.display = "block";
-     offline.style.display = "none";
+ const videoId = data.items[0].id.videoId;
 
-   }else{
+ iframe.src = `https://www.youtube.com/embed/${videoId}`;
+ iframe.style.display = "block";
+ offline.style.display = "none";
 
-     iframe.style.display = "none";
-     offline.style.display = "block";
+ liveTitle.innerHTML = `<span class="live-dot"></span> LIVE NOW`;
 
-   }
+}else{
+
+ iframe.style.display = "none";
+ offline.style.display = "block";
+
+ liveTitle.innerHTML = `🔴 OFFLINE`;
+
+}
 
  }catch(err){
    console.error("Live check error:", err);
@@ -624,14 +635,6 @@ checkLive();
 
 // 30 másodpercenként frissít
 setInterval(checkLive, 30000);
-
-const liveTitle = document.querySelector(".live-title");
-
-if(data.items.length > 0){
- liveTitle.innerHTML = `<span class="live-dot"></span> LIVE NOW`;
-}else{
- liveTitle.innerHTML = `🔴 OFFLINE`;
-}
 
 </script>
 
