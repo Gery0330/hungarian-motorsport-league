@@ -533,6 +533,26 @@ justify-content:center;
 margin-top:10px;
 }
 
+.league-panel{
+background:#0f172a;
+padding:25px;
+border-radius:15px;
+box-shadow:0 0 25px rgba(0,0,0,0.6);
+animation:fadeIn .4s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+.stand-row{
+display:flex;
+justify-content:space-between;
+padding:10px 0;
+border-bottom:1px solid #222;
+}
+
 </style>
 </head>
 
@@ -640,6 +660,12 @@ Ligáink
 
 </div>
 </section>
+
+<div id="leagueContent" style="
+max-width:900px;
+margin:40px auto;
+display:none;
+"></div>
 
 <!-- CTA -->
 <section class="cta">
@@ -1211,6 +1237,65 @@ document.getElementById("regForm").reset();
  function closeModal(){
  document.getElementById("discordModal").style.display = "none";
 }
+
+let openedLeague = null;
+
+async function toggleLeague(league){
+
+const container = document.getElementById("leagueContent");
+
+// bezárás ha ugyanarra kattintasz
+if(openedLeague === league){
+ container.style.display = "none";
+ openedLeague = null;
+ return;
+}
+
+openedLeague = league;
+container.style.display = "block";
+container.innerHTML = "Betöltés...";
+
+// SUPABASE LEKÉRÉS
+const { data, error } = await window.supabaseClient
+.from("standings")
+.select("*")
+.eq("championship", league)
+.order("points", { ascending:false });
+
+if(error){
+ container.innerHTML = "Hiba történt";
+ console.error(error);
+ return;
+}
+
+if(data.length === 0){
+ container.innerHTML = "Nincs még adat.";
+ return;
+}
+
+// HTML GENERÁLÁS
+let html = `<div class="league-panel">
+<h3>${league} standings</h3>`;
+
+data.forEach((row, index)=>{
+ html += `
+ <div class="stand-row">
+   <span>#${index+1} ${row.driver_name}</span>
+   <span>${row.team}</span>
+   <span>${row.points} pts</span>
+ </div>
+ `;
+});
+
+html += "</div>";
+
+container.innerHTML = html;
+
+// smooth scroll
+container.scrollIntoView({behavior:"smooth"});
+
+}
+
 </script>
  
 </body>
