@@ -704,40 +704,6 @@ background:linear-gradient(90deg,#cd7f3233,transparent);
  to{opacity:0; visibility:hidden;}
 }
 
-.hud-bar{
- position:fixed;
- top:0;
- left:0;
- width:100%;
- height:35px;
-
- display:flex;
- justify-content:space-between;
- align-items:center;
-
- padding:0 20px;
-
- background:linear-gradient(90deg,#ff1e00,#8b0000);
- font-weight:bold;
- font-size:14px;
-
- z-index:2000;
- letter-spacing:1px;
-}
-
-.hud-left{
- color:white;
-}
-
-.hud-center{
- color:white;
- text-transform:uppercase;
-}
-
-.hud-right{
- color:white;
-}
-
 .top1{
 background:linear-gradient(90deg,#ffd70033,#020617);
 border-left:4px solid gold;
@@ -773,30 +739,11 @@ border-left:4px solid #cd7f32;
  opacity:1;
 }
 
-#cursorGlow{
- position:fixed;
- width:120px;
- height:120px;
- border-radius:50%;
- background:radial-gradient(circle, rgba(255,30,0,0.3), transparent);
-
- pointer-events:none;
- transform:translate(-50%, -50%);
- z-index:0;
-}
-
 </style>
 </head>
 
 <body>
-<div id="cursorGlow"></div>
 <div id="loader">HML</div>
-
-<div class="hud-bar">
-  <div class="hud-left">HML LIVE</div>
-  <div class="hud-center">F1 24 CHAMPIONSHIP</div>
-  <div class="hud-right">SEASON 2</div>
-</div>
 
 <canvas id="particles"></canvas>
 
@@ -1620,12 +1567,6 @@ document.querySelectorAll("a").forEach(link=>{
      window.location = this.href;
    }, 400);
  });
-});
-
-document.addEventListener("mousemove", e=>{
- const glow = document.getElementById("cursorGlow");
- glow.style.left = e.clientX + "px";
- glow.style.top = e.clientY + "px";
 });
 
 </script>
