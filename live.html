@@ -293,6 +293,101 @@ footer{
  transform:translateY(0);
 }
 
+.live-title{
+ font-size:36px;
+ color:#ff1e00;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ gap:10px;
+}
+
+.live-dot{
+ width:12px;
+ height:12px;
+ background:red;
+ border-radius:50%;
+ animation: blink 1s infinite;
+}
+
+@keyframes blink{
+ 0%,100%{opacity:1;}
+ 50%{opacity:0.3;}
+}
+
+.stream-wrapper{
+ position:relative;
+ border-radius:20px;
+ overflow:hidden;
+ box-shadow:
+ 0 0 40px rgba(255,30,0,0.3);
+}
+
+.stream-overlay{
+ position:absolute;
+ top:0;
+ left:0;
+ width:100%;
+ padding:10px 20px;
+
+ display:flex;
+ justify-content:space-between;
+
+ background:linear-gradient(90deg,#ff1e00,#8b0000);
+ font-weight:bold;
+ z-index:2;
+}
+
+.stream-left{
+ color:white;
+}
+
+.stream-right{
+ color:white;
+}
+
+iframe{
+ width:100%;
+ height:500px;
+ border:none;
+}
+
+.viewer-count{
+ margin-top:15px;
+ font-size:16px;
+ opacity:0.8;
+}
+
+.stream-wrapper{
+ animation: streamGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes streamGlow{
+ from{
+  box-shadow:0 0 20px rgba(255,30,0,0.2);
+ }
+ to{
+  box-shadow:0 0 60px rgba(255,30,0,0.6);
+ }
+}
+
+.chat-btn{
+ display:inline-block;
+ margin-top:20px;
+ padding:15px 40px;
+ background:#5865F2;
+ color:white;
+ text-decoration:none;
+ border-radius:12px;
+ font-weight:bold;
+ transition:.3s;
+}
+
+.chat-btn:hover{
+ transform:scale(1.08);
+ box-shadow:0 0 20px #5865F2;
+}
+
 </style>
 </head>
 
@@ -332,17 +427,34 @@ footer{
 
 <section class="live-section">
 
-<h2 data-hu="Aktuális élő adás"
-    data-en="Current Live Stream">
-Aktuális élő adás
+<h2 class="live-title">
+  <span class="live-dot"></span>
+  LIVE NOW
 </h2>
 
 <div class="stream-container">
- 
-<!-- IDE ÍRD BE A YOUTUBE LIVE VIDEO ID-T -->
-<iframe src="https://www.youtube.com/embed/live_stream?channel=UCJAnYRXk3HpfmXItsvMCxtQ"
-allowfullscreen></iframe>
+
+<div class="stream-wrapper">
+
+  <div class="stream-overlay">
+    <div class="stream-left">HML LIVE</div>
+    <div class="stream-right">F1 25</div>
+  </div>
+
+  <iframe src="https://www.youtube.com/embed/live_stream?channel=UCJAnYRXk3HpfmXItsvMCxtQ"
+  allowfullscreen></iframe>
+
+<div class="viewer-count">
+  👀 124 néző
 </div>
+
+</div>
+
+</div>
+
+<a href="https://discord.gg/mRB24ZRwFr" target="_blank" class="chat-btn">
+💬 Csatlakozz a live chathez
+</a>
 
 </section>
 
