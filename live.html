@@ -217,10 +217,93 @@ footer{
 
 }
 
+#loader{
+ position:fixed;
+ width:100%;
+ height:100%;
+ background:radial-gradient(circle at center,#0b0f18,#020617);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ z-index:9999;
+}
+
+.loader-content{
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ gap:30px;
+}
+
+.wheel{
+ width:80px;
+ height:80px;
+ border-radius:50%;
+ border:6px solid rgba(255,255,255,0.1);
+ border-top:6px solid #ff1e00;
+ animation: spin 1s linear infinite;
+ box-shadow:0 0 20px #ff1e00;
+}
+
+@keyframes spin{
+ to{ transform:rotate(360deg); }
+}
+
+.loading-text{
+ font-size:18px;
+ letter-spacing:3px;
+ font-weight:bold;
+ background:linear-gradient(90deg,#ff1e00,#ff6a00,#ff1e00);
+ background-size:200%;
+ -webkit-background-clip:text;
+ -webkit-text-fill-color:transparent;
+ animation:textMove 2s linear infinite;
+}
+
+@keyframes textMove{
+ 0%{background-position:0%;}
+ 100%{background-position:200%;}
+}
+
+#pageTransition{
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ background:#05070c;
+ opacity:0;
+ pointer-events:none;
+ transition:opacity .4s ease;
+ z-index:9999;
+}
+
+#pageTransition.active{
+ opacity:1;
+}
+
+.reveal{
+ opacity:0;
+ transform:translateY(40px);
+ transition: all .8s ease;
+}
+
+.reveal.active{
+ opacity:1;
+ transform:translateY(0);
+}
+
 </style>
 </head>
 
 <body>
+
+<div id="loader">
+  <div class="loader-content">
+    <div class="wheel"></div>
+    <div class="loading-text">LOADING</div>
+  </div>
+</div>
 
 <nav>
 <div class="logo">
@@ -324,7 +407,48 @@ function toggleLang(){
   el.innerHTML = el.getAttribute("data-"+lang);
  });
 }
+
+window.addEventListener("load", ()=>{
+ const loader = document.getElementById("loader");
+
+ loader.style.transition = "opacity 0.6s ease";
+ loader.style.opacity = "0";
+
+ setTimeout(()=>{
+   loader.style.display = "none";
+ }, 600);
+});
+
+document.querySelectorAll("a").forEach(link=>{
+ link.addEventListener("click", function(e){
+
+   if(this.target === "_blank") return;
+
+   e.preventDefault();
+
+   const overlay = document.getElementById("pageTransition");
+   overlay.classList.add("active");
+
+   setTimeout(()=>{
+     window.location = this.href;
+   }, 400);
+ });
+});
+
+const reveals = document.querySelectorAll(".reveal");
+
+window.addEventListener("scroll", ()=>{
+ reveals.forEach(el=>{
+   const top = el.getBoundingClientRect().top;
+   if(top < window.innerHeight - 100){
+     el.classList.add("active");
+   }
+ });
+});
+
 </script>
+
+<div id="pageTransition"></div>
 
 </body>
 
