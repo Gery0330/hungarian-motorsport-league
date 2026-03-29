@@ -419,6 +419,52 @@ footer{
  100%{box-shadow:0 0 10px rgba(255,30,0,0.3);}
 }
 
+.live-btn{
+ display:inline-block;
+ margin-top:25px;
+ padding:16px 45px;
+
+ background:linear-gradient(135deg,#ff1e00,#8b0000);
+ color:white;
+ text-decoration:none;
+
+ border-radius:50px;
+ font-weight:bold;
+ font-size:16px;
+ letter-spacing:1px;
+
+ box-shadow:
+ 0 0 15px rgba(255,30,0,0.4),
+ inset 0 0 10px rgba(255,255,255,0.1);
+
+ transition:.3s;
+ position:relative;
+ overflow:hidden;
+}
+
+/* fény csík animáció */
+.live-btn::before{
+ content:"";
+ position:absolute;
+ top:0;
+ left:-100%;
+ width:100%;
+ height:100%;
+ background:linear-gradient(120deg,transparent,rgba(255,255,255,0.4),transparent);
+ transition:.5s;
+}
+
+.live-btn:hover::before{
+ left:100%;
+}
+
+.live-btn:hover{
+ transform:scale(1.08);
+ box-shadow:
+ 0 0 30px #ff1e00,
+ 0 0 60px rgba(255,30,0,0.6);
+}
+
 </style>
 </head>
 
@@ -479,8 +525,8 @@ footer{
 
 </div>
 
-<a href="https://discord.gg/mRB24ZRwFr" target="_blank" class="chat-btn">
-💬 Csatlakozz a live chathez
+<a id="liveBtn" target="_blank" class="live-btn" style="display:none;">
+▶ Watch Live Stream
 </a>
 
 </section>
@@ -601,11 +647,18 @@ async function checkLive(){
    const offline = document.getElementById("offlineBox");
    const liveHud = document.getElementById("liveHud");
    const viewerEl = document.getElementById("viewerCount");
+   const liveBtn = document.getElementById("liveBtn");
 
 const liveTitle = document.querySelector(".live-title");
 
 if(data.items && data.items.length > 0){
 
+ const videoId = data.items[0].id.videoId;
+ 
+ // gomb link beállítása
+ liveBtn.href = `https://www.youtube.com/watch?v=${videoId}`;
+ liveBtn.style.display = "inline-block";
+ 
  const videoId = data.items[0].id.videoId;
 
  iframe.src = `https://www.youtube.com/embed/${videoId}`;
