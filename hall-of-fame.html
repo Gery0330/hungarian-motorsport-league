@@ -33,12 +33,29 @@ background-position:center;
 .hero h1{
 font-size:70px;
 
+display:flex;
+align-items:center;
+justify-content:center;
+gap:20px;
+}
+
+.title-text{
 background:linear-gradient(90deg,#ffd700,#ffcc00);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 
 text-shadow:
 0 0 20px rgba(255,215,0,0.6);
+}
+
+.emoji{
+color:#ffd700;
+
+text-shadow:
+0 0 10px gold,
+0 0 25px rgba(255,215,0,0.8);
+
+font-size:60px;
 }
 
 /* HALL OF FAME */
@@ -560,10 +577,10 @@ data-en="← Back to homepage">
 </a>
 
 <div class="hero">
-<h1 
-data-hu="🏆 HALL OF FAME"
-data-en="🏆 HALL OF FAME">
-🏆 HALL OF FAME
+<h1>
+<span class="emoji">🏆</span>
+<span class="title-text">HALL OF FAME</span>
+<span class="emoji">🏆</span>
 </h1>
 </div>
 
