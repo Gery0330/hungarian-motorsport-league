@@ -32,10 +32,13 @@ background-position:center;
 
 .hero h1{
 font-size:70px;
-color:#ffd700;
+
+background:linear-gradient(90deg,#ff1e00,#ff6a00);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
 text-shadow:
-0 0 20px #ffd700,
-0 0 40px #ffcc00;
+0 0 20px rgba(255,30,0,0.6);
 }
 
 /* HALL OF FAME */
@@ -62,17 +65,21 @@ display:grid;
 grid-template-columns: 1fr 2fr 1fr;
 align-items:center;
 
-background:linear-gradient(145deg,#0d1117,#111827);
+background:rgba(255,255,255,0.03);
+backdrop-filter: blur(12px);
+
 border-radius:18px;
 padding:40px;
 
-border:2px solid #ffd700;
+border:1px solid rgba(255,255,255,0.08);
 
 box-shadow:
-0 0 25px rgba(255,215,0,0.3);
+0 0 20px rgba(255,30,0,0.2);
 
 position:relative;
 overflow:hidden;
+
+transition:.3s;
 }
 
 .champion-card:hover{
@@ -80,9 +87,10 @@ overflow:hidden;
 transform:scale(1.05);
 
 box-shadow:
-0 0 40px rgba(255,215,0,0.6),
-0 0 80px rgba(255,215,0,0.3);
+0 0 30px rgba(255,30,0,0.6),
+0 0 80px rgba(255,30,0,0.3);
 
+border:1px solid rgba(255,30,0,0.6);
 }
 
 /* TROPHY */
@@ -98,6 +106,10 @@ margin-bottom:15px;
 font-size:26px;
 font-weight:bold;
 margin-bottom:10px;
+
+background:linear-gradient(90deg,#ff1e00,#ff6a00);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
 /* TEAM */
@@ -165,10 +177,11 @@ filter: drop-shadow(0 0 12px #00aaff)
 
 /* HOVER BOOST */
 .team-logo img:hover{
-transform:scale(1.15);
+transform:scale(1.2);
+
 filter:
-drop-shadow(0 0 20px white)
-drop-shadow(0 0 40px currentColor);
+drop-shadow(0 0 25px white)
+drop-shadow(0 0 50px currentColor);
 }
 
 @keyframes teamPulse{
@@ -255,16 +268,16 @@ height:200%;
 background:linear-gradient(
 120deg,
 transparent,
-rgba(255,215,0,0.4),
+rgba(255,30,0,0.4),
 transparent
 );
 
 transform:rotate(25deg);
-animation:goldSweep 6s linear infinite;
+animation:redSweep 6s linear infinite;
 
 }
 
-@keyframes goldSweep{
+@keyframes redSweep{
 
 0%{
 transform:translateX(-100%) rotate(25deg);
@@ -456,6 +469,23 @@ body::before{
  radial-gradient(circle at 80% 70%, rgba(255,30,0,0.1), transparent);
 
  z-index:-1;
+}
+
+.hof{
+position:relative;
+}
+
+.hof::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+
+background:radial-gradient(circle at center, rgba(255,30,0,0.1), transparent);
+
+z-index:-1;
 }
 
 </style>
