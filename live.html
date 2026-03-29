@@ -326,35 +326,8 @@ footer{
  0 0 40px rgba(255,30,0,0.3);
 }
 
-.stream-overlay{
- position:absolute;
- top:0;
- left:0;
- width:100%;
- padding:10px 20px;
-
- display:flex;
- justify-content:space-between;
-
- background:linear-gradient(90deg,#ff1e00,#8b0000);
- font-weight:bold;
-
- opacity:0;
- transition:.3s;
-
- z-index:2;
-}
-
 .stream-wrapper:hover .stream-overlay{
  opacity:1;
-}
-
-.stream-left{
- color:white;
-}
-
-.stream-right{
- color:white;
 }
 
 .viewer-count{
@@ -413,6 +386,29 @@ footer{
  transform:rotate(180deg);
 }
 
+#liveHud{
+ position:fixed;
+ bottom:30px;
+ left:50%;
+ transform:translateX(-50%);
+
+ background:rgba(0,0,0,0.8);
+ backdrop-filter:blur(10px);
+
+ padding:12px 25px;
+ border-radius:30px;
+
+ font-weight:bold;
+ font-size:14px;
+
+ color:white;
+
+ box-shadow:0 0 20px rgba(255,30,0,0.5);
+
+ display:none;
+ z-index:999;
+}
+
 </style>
 </head>
 
@@ -460,11 +456,6 @@ footer{
 <div class="stream-container">
 
 <div class="stream-wrapper">
-
-  <div class="stream-overlay">
-    <div class="stream-left">HML LIVE</div>
-    <div class="stream-right">F1 25</div>
-  </div>
 
   <iframe id="liveFrame"
   allowfullscreen></iframe>
@@ -639,6 +630,10 @@ setInterval(checkLive, 30000);
 </script>
 
 <div id="pageTransition"></div>
+
+<div id="liveHud">
+  🔴 HML LIVE • <span id="viewerCount">0</span> néző
+</div>
 
 </body>
 
