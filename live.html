@@ -307,12 +307,15 @@ footer{
  height:12px;
  background:red;
  border-radius:50%;
- animation: blink 1s infinite;
+
+ box-shadow:0 0 10px red;
+ animation: pulseLive 1s infinite;
 }
 
-@keyframes blink{
- 0%,100%{opacity:1;}
- 50%{opacity:0.3;}
+@keyframes pulseLive{
+ 0%{box-shadow:0 0 5px red;}
+ 50%{box-shadow:0 0 20px red;}
+ 100%{box-shadow:0 0 5px red;}
 }
 
 .stream-wrapper{
@@ -335,7 +338,15 @@ footer{
 
  background:linear-gradient(90deg,#ff1e00,#8b0000);
  font-weight:bold;
+
+ opacity:0;
+ transition:.3s;
+
  z-index:2;
+}
+
+.stream-wrapper:hover .stream-overlay{
+ opacity:1;
 }
 
 .stream-left{
@@ -344,12 +355,6 @@ footer{
 
 .stream-right{
  color:white;
-}
-
-iframe{
- width:100%;
- height:500px;
- border:none;
 }
 
 .viewer-count{
@@ -386,6 +391,26 @@ iframe{
 .chat-btn:hover{
  transform:scale(1.08);
  box-shadow:0 0 20px #5865F2;
+}
+
+.stream-wrapper::before,
+.stream-wrapper::after{
+ content:"";
+ position:absolute;
+ left:0;
+ width:100%;
+ height:40px;
+ background:linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+ z-index:1;
+}
+
+.stream-wrapper::before{
+ top:0;
+}
+
+.stream-wrapper::after{
+ bottom:0;
+ transform:rotate(180deg);
 }
 
 </style>
@@ -444,12 +469,12 @@ iframe{
   <iframe src="https://www.youtube.com/embed/live_stream?channel=UCJAnYRXk3HpfmXItsvMCxtQ"
   allowfullscreen></iframe>
 
+</div>
+
+</div>
+
 <div class="viewer-count">
-  👀 124 néző
-</div>
-
-</div>
-
+  👀 24 néző
 </div>
 
 <a href="https://discord.gg/mRB24ZRwFr" target="_blank" class="chat-btn">
