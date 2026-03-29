@@ -28,14 +28,20 @@ nav{
  padding:18px 40px;
  display:flex;
  align-items:center;
- background:rgba(0,0,0,0.4);
- backdrop-filter: blur(6px);
+
+ background:rgba(10,10,15,0.6);
+ backdrop-filter: blur(12px);
+ border-bottom:1px solid rgba(255,255,255,0.05);
+
+ box-shadow:0 0 20px rgba(0,0,0,0.4);
+
  transition:0.3s;
  z-index:1000;
 }
 
 nav.scrolled{
  background:rgba(0,0,0,0.9);
+ backdrop-filter: blur(20px);
 }
 
 .logo img{
@@ -136,7 +142,17 @@ nav.scrolled{
  font-size:82px;
  font-weight:900;
  letter-spacing:2px;
- text-shadow:0 0 30px #ff1e00;
+
+ background:linear-gradient(90deg,#ff1e00,#ff6a00,#ff1e00);
+ -webkit-background-clip:text;
+ -webkit-text-fill-color:transparent;
+
+ animation: glowMove 4s linear infinite;
+}
+
+@keyframes glowMove{
+ 0%{background-position:0%;}
+ 100%{background-position:200%;}
 }
 
 /* SPEED LIGHT */
