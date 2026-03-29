@@ -148,6 +148,27 @@ text-align:right;
 .team-logo img{
 width:140px;
 animation:teamPulse 3s ease-in-out infinite;
+transition:0.3s;
+}
+
+/* RED BULL GLOW */
+.team-logo img[src*="redbull"]{
+filter: drop-shadow(0 0 12px #ff1e00)
+        drop-shadow(0 0 25px #ff1e00);
+}
+
+/* WILLIAMS GLOW */
+.team-logo img[src*="williams"]{
+filter: drop-shadow(0 0 12px #00aaff)
+        drop-shadow(0 0 25px #00aaff);
+}
+
+/* HOVER BOOST */
+.team-logo img:hover{
+transform:scale(1.15);
+filter:
+drop-shadow(0 0 20px white)
+drop-shadow(0 0 40px currentColor);
 }
 
 @keyframes teamPulse{
