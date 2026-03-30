@@ -786,6 +786,40 @@ border-left:4px solid #cd7f32;
  100%{background-position:200%;}
 }
 
+#nextRace{
+ text-align:center;
+ padding:80px 20px;
+}
+
+.race-card{
+ display:inline-block;
+ padding:40px 60px;
+
+ background:rgba(255,255,255,0.03);
+ backdrop-filter:blur(10px);
+
+ border-radius:20px;
+
+ border:1px solid rgba(255,255,255,0.08);
+
+ box-shadow:0 0 30px rgba(255,215,0,0.2);
+}
+
+.race-info{
+ font-size:24px;
+ margin-bottom:20px;
+}
+
+#raceLeague{
+ color:#ffd700;
+ font-weight:bold;
+}
+
+#countdown{
+ font-size:40px;
+ font-weight:bold;
+}
+
 </style>
 </head>
 
@@ -877,6 +911,23 @@ Jelentkezz
 </div>
 
 </div>
+
+<section id="nextRace">
+
+<h2>🏁 Következő verseny</h2>
+
+<div class="race-card">
+
+  <div>
+    <div id="raceLeague">-</div>
+    <div id="raceTrack">-</div>
+  </div>
+
+  <div id="countdown">--:--:--</div>
+
+</div>
+
+</section>
 
 <!-- GAMES -->
 <section id="games">
@@ -1661,6 +1712,57 @@ window.addEventListener("load", ()=>{
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js");
 }
+
+async function loadNextRace(){
+
+ const now = new Date().toISOString();
+
+ const { data, error } = await window.supabaseClient
+   .from("races")
+   .select("*")
+   .gt("race_time", now)
+   .order("race_time", { ascending: true })
+   .limit(1);
+
+ if(error || data.length === 0) return;
+
+ const race = data[0];
+
+ document.getElementById("raceLeague").innerText =
+   race.league;
+
+ document.getElementById("raceTrack").innerText =
+   "📍 " + race.track;
+
+ startCountdown(race.race_time);
+}
+
+function startCountdown(time){
+
+ function update(){
+   const now = new Date();
+   const raceTime = new Date(time);
+
+   const diff = raceTime - now;
+
+   if(diff <= 0){
+     document.getElementById("countdown").innerText = "LIVE!";
+     return;
+   }
+
+   const h = Math.floor(diff / 1000 / 60 / 60);
+   const m = Math.floor((diff / 1000 / 60) % 60);
+   const s = Math.floor((diff / 1000) % 60);
+
+   document.getElementById("countdown").innerText =
+     `${h.toString().padStart(2,"0")}:${m.toString().padStart(2,"0")}:${s.toString().padStart(2,"0")}`;
+ }
+
+ update();
+ setInterval(update, 1000);
+}
+
+loadNextRace();
 
 </script>
 
