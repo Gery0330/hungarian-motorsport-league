@@ -918,7 +918,7 @@ Jelentkezz
 
 <div class="race-card">
 
-  <div>
+  <div class="race-info">
     <div id="raceLeague">-</div>
     <div id="raceTrack">-</div>
   </div>
@@ -1724,7 +1724,12 @@ async function loadNextRace(){
    .order("race_time", { ascending: true })
    .limit(1);
 
- if(error || data.length === 0) return;
+ if(error || data.length === 0){
+  document.getElementById("raceLeague").innerText = "Nincs verseny";
+  document.getElementById("raceTrack").innerText = "-";
+  document.getElementById("countdown").innerText = "--:--:--";
+  return;
+ }
 
  const race = data[0];
 
