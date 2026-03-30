@@ -72,8 +72,7 @@ async function hash(text){
  const hashed = await hash(password);
 
  // 🔐 IDE JÖN A HASH (lent adom)
- console.log(hashed);
- alert(hashed);
+ const correctHash = "6da04c089d5617c3d491734c037d4f0aed1a984d1dce1e0e603afdc7e86bf3d2";
 
  if(hashed !== correctHash){
    document.body.innerHTML = "Nincs hozzáférés";
