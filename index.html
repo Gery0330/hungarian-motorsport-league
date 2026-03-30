@@ -1444,6 +1444,21 @@ if (championship.includes("F1")) {
 
 }
 
+// 🔒 SPAM CHECK
+const email = document.querySelector("[name='email']").value;
+const championshipCheck = championship;
+
+const { data: existing } = await window.supabaseClient
+  .from("registrations")
+  .select("id")
+  .eq("email", email)
+  .eq("championship", championshipCheck);
+
+if(existing.length > 0){
+ alert("Ezzel az emaillel már jelentkeztél ebbe a ligába!");
+ return;
+}
+
 const formData = {
  championship: championship,
  full_name: document.querySelector("[name='full_name']").value,
@@ -1464,7 +1479,13 @@ const { error } = await window.supabaseClient
 
 if (error) {
  console.error(error);
- alert("Hiba történt a nevezés során!");
+
+ if(error.message.includes("duplicate")){
+   alert("Ezzel az emaillel már jelentkeztél ebbe a ligába!");
+ }else{
+   alert("Hiba történt a nevezés során!");
+ }
+
  return;
 }
 
