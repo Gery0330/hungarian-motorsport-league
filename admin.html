@@ -110,6 +110,8 @@ async function addRace(){
 
  alert("Verseny hozzáadva!");
  loadRaces();
+ loadRegistrations();
+ loadStandings();
 }
 
 async function loadRaces(){
@@ -144,6 +146,8 @@ async function deleteRace(id){
   .eq("id", id);
 
  loadRaces();
+ loadRegistrations();
+ loadStandings();
 }
 
 loadRaces();
