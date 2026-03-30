@@ -52,6 +52,12 @@ button{
 <h2>Versenyek</h2>
 <div id="raceList"></div>
 
+<h2>Jelentkezések</h2>
+<div id="regList"></div>
+
+<h2>Standings</h2>
+<div id="standingsList"></div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 
@@ -141,6 +147,91 @@ async function deleteRace(id){
 }
 
 loadRaces();
+loadRegistrations();
+loadStandings();
+
+async function loadRegistrations(){
+
+ const { data } = await window.supabaseClient
+  .from("registrations")
+  .select("*")
+  .order("id", { ascending:false });
+
+ const container = document.getElementById("regList");
+ container.innerHTML = "";
+
+ data.forEach(r => {
+
+  container.innerHTML += `
+   <div class="race">
+    <b>${r.full_name}</b> (${r.gamer_tag})<br>
+    ${r.championship} - ${r.platform}<br>
+    ${r.email}<br>
+    <button onclick="deleteRegistration('${r.id}')">Törlés</button>
+   </div>
+  `;
+
+ });
+}
+
+async function deleteRegistration(id){
+
+ await window.supabaseClient
+  .from("registrations")
+  .delete()
+  .eq("id", id);
+
+ loadRegistrations();
+}
+
+async function loadStandings(){
+
+ const { data } = await window.supabaseClient
+  .from("standings")
+  .select("*")
+  .order("points", { ascending:false });
+
+ const container = document.getElementById("standingsList");
+ container.innerHTML = "";
+
+ data.forEach(r => {
+
+  container.innerHTML += `
+   <div class="race">
+    <b>${r.driver_name}</b> (${r.team})<br>
+    ${r.championship}<br>
+    Pontok: ${r.points}<br>
+    <button onclick="editPoints('${r.id}', ${r.points})">Edit</button>
+    <button onclick="deleteStanding('${r.id}')">Törlés</button>
+   </div>
+  `;
+
+ });
+}
+
+async function deleteStanding(id){
+
+ await window.supabaseClient
+  .from("standings")
+  .delete()
+  .eq("id", id);
+
+ loadStandings();
+}
+
+async function editPoints(id, current){
+
+ const newPoints = prompt("Új pont:", current);
+
+ if(newPoints === null) return;
+
+ await window.supabaseClient
+  .from("standings")
+  .update({ points: newPoints })
+  .eq("id", id);
+
+ loadStandings();
+}
 
 </script>
 
