@@ -820,6 +820,33 @@ border-left:4px solid #cd7f32;
  font-weight:bold;
 }
 
+#raceList{
+ margin-top:30px;
+ display:flex;
+ flex-direction:column;
+ gap:12px;
+ align-items:center;
+}
+
+.race-item{
+ width:300px;
+ padding:14px 20px;
+
+ background:rgba(255,255,255,0.03);
+ border-radius:12px;
+
+ display:flex;
+ justify-content:space-between;
+
+ border:1px solid rgba(255,255,255,0.05);
+
+ font-size:14px;
+}
+
+.race-item span{
+ opacity:0.8;
+}
+
 </style>
 </head>
 
@@ -926,6 +953,8 @@ Jelentkezz
   <div id="countdown">--:--:--</div>
 
 </div>
+
+<div id="raceList"></div>
 
 </section>
 
@@ -1722,7 +1751,7 @@ async function loadNextRace(){
    .select("*")
    .gt("race_time", now)
    .order("race_time", { ascending: true })
-   .limit(1);
+   .limit(5);
 
  if(error || data.length === 0){
   document.getElementById("raceLeague").innerText = "Nincs verseny";
@@ -1733,6 +1762,26 @@ async function loadNextRace(){
 
  const race = data[0];
 
+ // 🔥 LISTA GENERÁLÁS
+ const listContainer = document.getElementById("raceList");
+ listContainer.innerHTML = "";
+ 
+ data.slice(1).forEach(r => {
+ 
+  const date = new Date(r.race_time);
+ 
+  const formatted =
+    date.toLocaleDateString() + " " +
+    date.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
+ 
+  listContainer.innerHTML += `
+    <div class="race-item">
+      <div>${r.league} • ${r.track}</div>
+      <span>${formatted}</span>
+    </div>
+  `;
+ });
+ 
  document.getElementById("raceLeague").innerText =
    race.league;
 
