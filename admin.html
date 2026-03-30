@@ -57,12 +57,29 @@ button{
 
 <script>
 
-const password = prompt("Admin jelszó:");
-
-if(password !== "hml2026"){
- document.body.innerHTML = "Nincs hozzáférés";
- throw new Error("No access");
+async function hash(text){
+ const encoder = new TextEncoder();
+ const data = encoder.encode(text);
+ const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+ const hashArray = Array.from(new Uint8Array(hashBuffer));
+ return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
 }
+
+(async () => {
+
+ const password = prompt("Admin jelszó:");
+
+ const hashed = await hash(password);
+
+ // 🔐 IDE JÖN A HASH (lent adom)
+ const correctHash = "7c4c0bb2f3b91d8c9cbe5c1b0b4e4c81f8c1e7b6b0a5c7cba9d8c2c2b2d3e1f4";
+
+ if(hashed !== correctHash){
+   document.body.innerHTML = "Nincs hozzáférés";
+   throw new Error("No access");
+ }
+
+})();
 
 async function addRace(){
 
