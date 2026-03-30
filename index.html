@@ -1873,6 +1873,15 @@ async function checkIfLive(){
 
 loadNextRace();
 
+// 🔐 ADMIN PANEL HOTKEY
+document.addEventListener("keydown", function(e){
+
+ if(e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "a"){
+   window.location.href = "admin.html";
+ }
+
+});
+
 </script>
 
 <div id="pageTransition"></div>
