@@ -847,6 +847,23 @@ border-left:4px solid #cd7f32;
  opacity:0.8;
 }
 
+.live-glow{
+ color:#ff1e00 !important;
+
+ text-shadow:
+ 0 0 10px #ff1e00,
+ 0 0 25px #ff1e00,
+ 0 0 50px rgba(255,30,0,0.8);
+
+ animation: livePulse 1s infinite;
+}
+
+@keyframes livePulse{
+ 0%{opacity:1;}
+ 50%{opacity:0.6;}
+ 100%{opacity:1;}
+}
+
 </style>
 </head>
 
@@ -1799,9 +1816,22 @@ function startCountdown(time){
 
    const diff = raceTime - now;
 
+   // 🔥 5 percen belül
+   if(diff <= 5 * 60 * 1000){
+    document.getElementById("countdown").classList.add("live-glow");
+   }
+   
    if(diff <= 0){
-     document.getElementById("countdown").innerText = "LIVE!";
-     return;
+    const el = document.getElementById("countdown");
+    el.innerText = "🔴 LIVE";
+    el.classList.add("live-glow");
+   
+    // 🔥 AUTO REDIRECT 3 mp után
+    setTimeout(()=>{
+      window.location.href = "live.html";
+    }, 3000);
+   
+    return;
    }
 
    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
