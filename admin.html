@@ -34,12 +34,44 @@ button{
  background:#111827;
  border-radius:10px;
 }
+
+.tabs{
+ display:flex;
+ gap:10px;
+ margin-bottom:30px;
+}
+
+.tabs button{
+ background:#111827;
+ border:1px solid rgba(255,255,255,0.1);
+}
+
+.tabs button:hover{
+ background:#ff1e00;
+}
+
+.tab-content{
+ display:none;
+}
+
+.tab-content.active{
+ display:block;
+}
+
 </style>
 </head>
 
 <body>
 
 <h1>ADMIN PANEL</h1>
+
+<div class="tabs">
+  <button onclick="showTab('races')">Races</button>
+  <button onclick="showTab('regs')">Registrations</button>
+  <button onclick="showTab('standings')">Standings</button>
+</div>
+
+<div id="tab-races" class="tab-content">
 
 <h2>Új verseny</h2>
 
@@ -51,12 +83,19 @@ button{
 
 <h2>Versenyek</h2>
 <div id="raceList"></div>
+</div>
+
+<div id="tab-regs" class="tab-content">
 
 <h2>Jelentkezések</h2>
 <div id="regList"></div>
+</div>
+
+<div id="tab-standings" class="tab-content">
 
 <h2>Standings</h2>
 <div id="standingsList"></div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
@@ -85,6 +124,8 @@ async function hash(text){
   return;
  }
 
+ showTab("races");
+ 
  loadRaces();
  loadRegistrations();
  loadStandings();
@@ -231,6 +272,16 @@ async function editPoints(id, current){
   .eq("id", id);
 
  loadStandings();
+}
+
+function showTab(tab){
+
+ document.querySelectorAll(".tab-content")
+  .forEach(el => el.classList.remove("active"));
+
+ document.getElementById("tab-" + tab)
+  .classList.add("active");
+
 }
 
 </script>
