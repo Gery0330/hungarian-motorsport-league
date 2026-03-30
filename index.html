@@ -1827,10 +1827,16 @@ function startCountdown(time){
     el.classList.add("live-glow");
    
     // 🔥 AUTO REDIRECT 3 mp után
-    setTimeout(()=>{
-      window.location.href = "live.html";
-    }, 3000);
-   
+    checkIfLive().then(isLive => {
+    
+     if(isLive){
+       setTimeout(()=>{
+         window.location.href = "live.html";
+       }, 3000);
+     }
+    
+    });
+    
     return;
    }
 
@@ -1845,6 +1851,24 @@ function startCountdown(time){
 
  update();
  setInterval(update, 1000);
+}
+
+async function checkIfLive(){
+
+ const API_KEY = "AIzaSyDIW-PRqPEd1etpQQX-1PGphP8U1uET6Hc";
+ const CHANNEL_ID = "UCJAnYRXk3HpfmXItsvMCxtQ";
+
+ const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&eventType=live&type=video&key=${API_KEY}`;
+
+ try{
+   const res = await fetch(url);
+   const data = await res.json();
+
+   return data.items.length > 0;
+ }catch(err){
+   console.error(err);
+   return false;
+ }
 }
 
 loadNextRace();
