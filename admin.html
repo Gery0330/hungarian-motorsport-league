@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<title>HML Admin</title>
+
+<style>
+body{
+ background:#020617;
+ color:white;
+ font-family:Arial;
+ padding:40px;
+}
+
+input, select{
+ display:block;
+ margin:10px 0;
+ padding:10px;
+ width:300px;
+}
+
+button{
+ padding:10px 20px;
+ background:#ff1e00;
+ color:white;
+ border:none;
+ cursor:pointer;
+ margin-top:10px;
+}
+
+.race{
+ margin-top:20px;
+ padding:15px;
+ background:#111827;
+ border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>ADMIN PANEL</h1>
+
+<h2>Új verseny</h2>
+
+<input id="league" placeholder="Liga (pl: F1 25)">
+<input id="track" placeholder="Pálya (pl: Spa)">
+<input id="time" type="datetime-local">
+
+<button onclick="addRace()">Hozzáadás</button>
+
+<h2>Versenyek</h2>
+<div id="raceList"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+
+<script>
+
+const password = prompt("Admin jelszó:");
+
+if(password !== "hml2026"){
+ document.body.innerHTML = "Nincs hozzáférés";
+ throw new Error("No access");
+}
+
+async function addRace(){
+
+ const league = document.getElementById("league").value;
+ const track = document.getElementById("track").value;
+ const time = document.getElementById("time").value;
+
+ if(!league || !track || !time){
+  alert("Tölts ki mindent!");
+  return;
+ }
+
+ const { error } = await window.supabaseClient
+  .from("races")
+  .insert([{ league, track, race_time: time }]);
+
+ if(error){
+  alert("Hiba!");
+  console.error(error);
+  return;
+ }
+
+ alert("Verseny hozzáadva!");
+ loadRaces();
+}
+
+async function loadRaces(){
+
+ const { data } = await window.supabaseClient
+  .from("races")
+  .select("*")
+  .order("race_time", { ascending: true });
+
+ const container = document.getElementById("raceList");
+ container.innerHTML = "";
+
+ data.forEach(r => {
+
+  container.innerHTML += `
+   <div class="race">
+    <b>${r.league}</b> - ${r.track}<br>
+    ${new Date(r.race_time).toLocaleString()}<br>
+    <button onclick="deleteRace('${r.id}')">Törlés</button>
+   </div>
+  `;
+
+ });
+
+}
+
+async function deleteRace(id){
+
+ await window.supabaseClient
+  .from("races")
+  .delete()
+  .eq("id", id);
+
+ loadRaces();
+}
+
+loadRaces();
+
+</script>
+
+</body>
+</html>
