@@ -93,9 +93,25 @@ button{
 
 <div id="tab-standings" class="tab-content">
 
-<h2>Standings</h2>
+<h3>Kategória</h3>
+
+<select id="categorySelect" onchange="loadStandings()">
+  <option>F1 23</option>
+  <option>F1 24</option>
+  <option>F1 25</option>
+  <option>Le Mans Ultimate</option>
+</select>
+
+<h3>Új pilóta</h3>
+
+<input id="driverName" placeholder="Pilóta neve">
+<input id="teamName" placeholder="Csapat">
+<input id="points" type="number" placeholder="Pontok">
+
+<button onclick="addDriver()">Hozzáadás</button>
+
+<h3>Pilóták</h3>
 <div id="standingsList"></div>
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
@@ -124,6 +140,8 @@ async function hash(text){
   return;
  }
 
+ document.getElementById("categorySelect").value = "F1 25";
+ 
  showTab("races");
  
  loadRaces();
@@ -227,9 +245,12 @@ async function deleteRegistration(id){
 
 async function loadStandings(){
 
+ const championship = document.getElementById("categorySelect").value;
+
  const { data } = await window.supabaseClient
   .from("standings")
   .select("*")
+  .eq("championship", championship)
   .order("points", { ascending:false });
 
  const container = document.getElementById("standingsList");
@@ -239,10 +260,14 @@ async function loadStandings(){
 
   container.innerHTML += `
    <div class="race">
-    <b>${r.driver_name}</b> (${r.team})<br>
-    ${r.championship}<br>
-    Pontok: ${r.points}<br>
-    <button onclick="editPoints('${r.id}', ${r.points})">Edit</button>
+    <b>${r.driver_name}</b><br>
+
+    Csapat:
+    <input value="${r.team}" onchange="updateTeam('${r.id}', this.value)"><br>
+
+    Pontok:
+    <input type="number" value="${r.points}" onchange="updatePoints('${r.id}', this.value)"><br>
+
     <button onclick="deleteStanding('${r.id}')">Törlés</button>
    </div>
   `;
@@ -281,6 +306,48 @@ function showTab(tab){
 
  document.getElementById("tab-" + tab)
   .classList.add("active");
+
+}
+
+async function addDriver(){
+
+ const name = document.getElementById("driverName").value;
+ const team = document.getElementById("teamName").value;
+ const points = document.getElementById("points").value;
+ const championship = document.getElementById("categorySelect").value;
+
+ if(!name || !team){
+  alert("Hiányzó adat!");
+  return;
+ }
+
+ await window.supabaseClient
+  .from("standings")
+  .insert([{
+    driver_name: name,
+    team: team,
+    points: points || 0,
+    championship: championship
+  }]);
+
+ loadStandings();
+}
+
+async function updateTeam(id, value){
+
+ await window.supabaseClient
+  .from("standings")
+  .update({ team: value })
+  .eq("id", id);
+
+}
+
+async function updatePoints(id, value){
+
+ await window.supabaseClient
+  .from("standings")
+  .update({ points: value })
+  .eq("id", id);
 
 }
 
