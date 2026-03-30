@@ -81,10 +81,14 @@ async function hash(text){
  const correctHash = "6da04c089d5617c3d491734c037d4f0aed1a984d1dce1e0e603afdc7e86bf3d2";
 
  if(hashed !== correctHash){
-   document.body.innerHTML = "Nincs hozzáférés";
-   throw new Error("No access");
+  document.body.innerHTML = "Nincs hozzáférés";
+  return;
  }
 
+ loadRaces();
+ loadRegistrations();
+ loadStandings();
+ 
 })();
 
 async function addRace(){
@@ -110,8 +114,6 @@ async function addRace(){
 
  alert("Verseny hozzáadva!");
  loadRaces();
- loadRegistrations();
- loadStandings();
 }
 
 async function loadRaces(){
@@ -146,13 +148,7 @@ async function deleteRace(id){
   .eq("id", id);
 
  loadRaces();
- loadRegistrations();
- loadStandings();
 }
-
-loadRaces();
-loadRegistrations();
-loadStandings();
 
 async function loadRegistrations(){
 
