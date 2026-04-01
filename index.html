@@ -348,21 +348,34 @@ form button{
 .cta-hero-btn{
  display:inline-block;
  margin-top:60px;
- padding:22px 70px;
- font-size:22px;
+ padding:26px 70px;
+
+ font-size:24px;
  font-weight:bold;
  text-decoration:none;
  color:white;
- background:#6a0000;
+
+ background:linear-gradient(90deg,#ff1e00,#ff3b1f);
+
  border-radius:14px;
- box-shadow:0 0 25px #6a000080;
- transition:.3s;
- animation:pulse 2s infinite;
+
+ box-shadow:
+ 0 0 25px #ff1e00,
+ 0 0 60px rgba(255,30,0,0.6);
+
+ transition:.35s;
+
+ animation:heroPulse 1.8s infinite;
 }
 
 .cta-hero-btn:hover{
- transform:scale(1.08);
- box-shadow:0 0 40px #ff1e00aa;
+ transform:scale(1.1);
+
+ box-shadow:
+ 0 0 40px #ff1e00,
+ 0 0 100px rgba(255,30,0,0.9);
+
+ background:linear-gradient(90deg,#ff3b1f,#ff1e00);
 }
 
 @keyframes pulse{
@@ -862,6 +875,12 @@ border-left:4px solid #cd7f32;
  0%{opacity:1;}
  50%{opacity:0.6;}
  100%{opacity:1;}
+}
+
+@keyframes heroPulse{
+ 0%{ box-shadow:0 0 15px #ff1e00; }
+ 50%{ box-shadow:0 0 50px #ff1e00, 0 0 100px rgba(255,30,0,0.7); }
+ 100%{ box-shadow:0 0 15px #ff1e00; }
 }
 
 </style>
