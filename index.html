@@ -359,23 +359,20 @@ form button{
 
  border-radius:14px;
 
+ /* 🔥 KISEBB, TISZTÁBB GLOW */
  box-shadow:
- 0 0 25px #ff1e00,
- 0 0 60px rgba(255,30,0,0.6);
+ 0 0 12px rgba(255,30,0,0.6),
+ inset 0 0 10px rgba(255,30,0,0.3);
 
- transition:.35s;
-
- animation:heroPulse 1.8s infinite;
+ transition:.3s;
 }
 
 .cta-hero-btn:hover{
- transform:scale(1.1);
+ transform:scale(1.08);
 
  box-shadow:
- 0 0 40px #ff1e00,
- 0 0 100px rgba(255,30,0,0.9);
-
- background:linear-gradient(90deg,#ff3b1f,#ff1e00);
+ 0 0 18px rgba(255,30,0,0.8),
+ inset 0 0 12px rgba(255,30,0,0.4);
 }
 
 @keyframes pulse{
@@ -875,12 +872,6 @@ border-left:4px solid #cd7f32;
  0%{opacity:1;}
  50%{opacity:0.6;}
  100%{opacity:1;}
-}
-
-@keyframes heroPulse{
- 0%{ box-shadow:0 0 15px #ff1e00; }
- 50%{ box-shadow:0 0 50px #ff1e00, 0 0 100px rgba(255,30,0,0.7); }
- 100%{ box-shadow:0 0 15px #ff1e00; }
 }
 
 .cta-hero-btn::after{
