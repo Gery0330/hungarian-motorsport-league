@@ -158,6 +158,22 @@ nav.scrolled{
  100%{background-position:200%;}
 }
 
+/* SPEED LIGHT */
+.lightbar{
+ position:absolute;
+ top:0;
+ left:-200px;
+ width:200px;
+ height:100%;
+ background:linear-gradient(90deg,transparent,#ff1e0033,transparent);
+ transform:skewX(-20deg);
+ animation:sweep 6s linear infinite;
+}
+
+@keyframes sweep{
+ to{ left:120%; }
+}
+
 /* SECTIONS */
 section{
  padding:90px 30px;
@@ -343,20 +359,23 @@ form button{
 
  border-radius:14px;
 
- /* 🔥 KISEBB, TISZTÁBB GLOW */
  box-shadow:
- 0 0 12px rgba(255,30,0,0.6),
- inset 0 0 10px rgba(255,30,0,0.3);
+ 0 0 25px #ff1e00,
+ 0 0 60px rgba(255,30,0,0.6);
 
- transition:.3s;
+ transition:.35s;
+
+ animation:heroPulse 1.8s infinite;
 }
 
 .cta-hero-btn:hover{
- transform:scale(1.08);
+ transform:scale(1.1);
 
  box-shadow:
- 0 0 18px rgba(255,30,0,0.8),
- inset 0 0 12px rgba(255,30,0,0.4);
+ 0 0 40px #ff1e00,
+ 0 0 100px rgba(255,30,0,0.9);
+
+ background:linear-gradient(90deg,#ff3b1f,#ff1e00);
 }
 
 @keyframes pulse{
@@ -858,6 +877,12 @@ border-left:4px solid #cd7f32;
  100%{opacity:1;}
 }
 
+@keyframes heroPulse{
+ 0%{ box-shadow:0 0 15px #ff1e00; }
+ 50%{ box-shadow:0 0 50px #ff1e00, 0 0 100px rgba(255,30,0,0.7); }
+ 100%{ box-shadow:0 0 15px #ff1e00; }
+}
+
 .cta-hero-btn::after{
  content:"";
  position:absolute;
@@ -947,6 +972,8 @@ Elfogadom
 </video>
 
 <div class="videoOverlay"></div>
+
+<div class="lightbar"></div>
 
 <div class="heroContent">
 <h1>Hungarian Motorsport League</h1>
@@ -1897,4 +1924,3 @@ document.addEventListener("keydown", function(e){
 <div id="pageTransition"></div>
 </body>
 </html>
-
