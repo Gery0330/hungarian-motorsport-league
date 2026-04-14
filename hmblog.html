@@ -254,7 +254,9 @@ input, textarea{
 
  <div class="top-actions">
   <button class="langbtn" onclick="toggleLang()">HU/EN</button>
-  <button class="langbtn" onclick="openProfile()">👤</button>
+  <button class="langbtn" onclick="openProfile()" id="profileBtn">
+   👤 <span id="profileName">User</span>
+  </button>
  </div>
 </div>
 
@@ -342,6 +344,9 @@ async function loadUser(){
    .maybeSingle();
  if(error){
   console.error(error);
+ if(profile && profile.username){
+  document.getElementById("profileName").innerText = profile.username;
+ }
  }
  
  currentProfile=profile;
@@ -378,6 +383,8 @@ async function saveProfile(){
  }
 
  currentProfile = { username: name };
+
+ document.getElementById("profileName").innerText = name;
  
  profileModal.style.display="none";
 }
