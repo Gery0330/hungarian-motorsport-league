@@ -94,6 +94,14 @@ body{
  background:#0f172a;
  border-radius:16px;
  overflow:hidden;
+
+ box-shadow:0 0 20px rgba(0,0,0,0.4);
+ transition:0.3s;
+}
+
+.post:hover{
+ transform:translateY(-3px);
+ box-shadow:0 0 30px rgba(0,0,0,0.6);
 }
 
 .post-header{
@@ -242,6 +250,17 @@ input, textarea{
  width:100%;
  height:auto;
  object-fit:cover;
+}
+
+#chat{
+ display:flex;
+ flex-direction:column;
+}
+
+span:hover{
+ opacity:0.8;
+ transform:scale(1.05);
+ transition:0.2s;
 }
 
 </style>
@@ -435,8 +454,10 @@ async function loadPosts(){
  const {data} = await window.supabaseClient
    .from("posts")
    .select(`
-     *,
-     profiles ( username )
+    *,
+    profiles ( username, avatar_url ),
+    comments ( text ),
+    likes ( id )
    `)
    .order("id",{ascending:false});
 
@@ -447,25 +468,33 @@ async function loadPosts(){
   div.className="post";
 
   div.innerHTML=`
-   <div class="post-header" style="display:flex;align-items:center;gap:8px;">
-    <img src="${p.profiles?.avatar_url || 'https://via.placeholder.com/30'}" 
-    style="width:30px;height:30px;border-radius:50%;">
-    <a href="profile.html?id=${p.user_id}">
+   <div class="post-header" style="display:flex;align-items:center;gap:10px;">
+    <img src="${p.profiles?.avatar_url || 'https://via.placeholder.com/30'}"
+    style="width:32px;height:32px;border-radius:50%;">
+    <div style="font-weight:bold;">
      ${p.profiles?.username || "User"}
-    </a>
+    </div>
    </div>
    <img src="${p.image||'https://via.placeholder.com/500'}">
    <div class="post-content">${p.text}</div>
-
-   <div style="padding:10px;">
-    <input placeholder="Komment..." 
-    onkeydown="addComment(event, ${p.id})">
-   </div>
    
-   <div style="padding:10px;">
+   <div style="padding:10px;display:flex;gap:15px;font-size:14px;">
     <span onclick="likePost(${p.id})" style="cursor:pointer;">
      ❤️ ${p.likes?.length || 0}
     </span>
+    <span style="opacity:0.7;">
+     💬 Komment
+    </span>
+   </div>
+
+   <div style="padding:10px;">
+    ${
+     (p.comments || []).map(c => `
+      <div style="margin-bottom:6px;font-size:13px;">
+       💬 ${c.text}
+      </div>
+     `).join("")
+    }
    </div>
   `;
 
@@ -570,7 +599,18 @@ async function loadChat(){
 
  data.forEach(m=>{
   const div=document.createElement("div");
-  div.innerText = m.text;
+  div.innerHTML = `
+   <div style="
+    background:${m.user_id === currentUser.id ? '#ff1e00' : '#222'};
+    padding:8px 12px;
+    margin:5px;
+    border-radius:12px;
+    max-width:70%;
+    align-self:${m.user_id === currentUser.id ? 'flex-end' : 'flex-start'};
+   ">
+    ${m.text}
+   </div>
+  `;
   chat.appendChild(div);
  });
 }
