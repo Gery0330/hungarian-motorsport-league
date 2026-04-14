@@ -335,15 +335,20 @@ async function loadUser(){
  const {data} = await window.supabaseClient.auth.getUser();
  currentUser = data.user;
 
- const {data:profile} = await window.supabaseClient
-  .from("profiles")
-  .select("*")
-  .eq("id",currentUser.id)
-  .single();
-
+ const {data:profile, error} = await window.supabaseClient
+   .from("profiles")
+   .select("*")
+   .eq("id",currentUser.id)
+   .maybeSingle();
+ if(error){
+  console.error(error);
+ }
+ 
  currentProfile=profile;
 
- if(!profile) profileModal.style.display="flex";
+ if(!profile || !profile.username){
+  profileModal.style.display="flex";
+ }
 }
 
 /* SAVE PROFILE */
