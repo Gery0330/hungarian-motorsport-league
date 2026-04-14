@@ -450,10 +450,23 @@ async function loadPosts(){
    <div class="post-header" style="display:flex;align-items:center;gap:8px;">
     <img src="${p.profiles?.avatar_url || 'https://via.placeholder.com/30'}" 
     style="width:30px;height:30px;border-radius:50%;">
-    ${p.profiles?.username || "User"}
+    <a href="profile.html?id=${p.user_id}">
+     ${p.profiles?.username || "User"}
+    </a>
    </div>
    <img src="${p.image||'https://via.placeholder.com/500'}">
    <div class="post-content">${p.text}</div>
+
+   <div style="padding:10px;">
+    <input placeholder="Komment..." 
+    onkeydown="addComment(event, ${p.id})">
+   </div>
+   
+   <div style="padding:10px;">
+    <span onclick="likePost(${p.id})" style="cursor:pointer;">
+     ❤️ ${p.likes?.length || 0}
+    </span>
+   </div>
   `;
 
   feed.appendChild(div);
@@ -498,7 +511,79 @@ async function logout(){
  location.reload();
 }
 
+async function likePost(postId){
+
+ const { data: existing } = await window.supabaseClient
+  .from("likes")
+  .select("*")
+  .eq("post_id", postId)
+  .eq("user_id", currentUser.id)
+  .maybeSingle();
+
+ if(existing){
+  await window.supabaseClient
+   .from("likes")
+   .delete()
+   .eq("id", existing.id);
+ } else {
+  await window.supabaseClient
+   .from("likes")
+   .insert([{ post_id:postId, user_id:currentUser.id }]);
+ }
+
+ loadPosts();
+}
+
+async function addComment(e, postId){
+ if(e.key !== "Enter") return;
+
+ await window.supabaseClient.from("comments").insert([{
+  text:e.target.value,
+  post_id:postId,
+  user_id:currentUser.id
+ }]);
+
+ e.target.value="";
+ loadPosts();
+}
+
+document.getElementById("chatInput").addEventListener("keydown", async e=>{
+ if(e.key !== "Enter") return;
+
+ await window.supabaseClient.from("messages").insert([{
+  text:e.target.value,
+  user_id:currentUser.id
+ }]);
+
+ e.target.value="";
+});
+
+async function loadChat(){
+
+ const { data } = await window.supabaseClient
+  .from("messages")
+  .select("*")
+  .order("id",{ascending:true});
+
+ const chat = document.getElementById("chat");
+ chat.innerHTML="";
+
+ data.forEach(m=>{
+  const div=document.createElement("div");
+  div.innerText = m.text;
+  chat.appendChild(div);
+ });
+}
+
+setInterval(loadChat, 2000);
+
 </script>
+
+<div id="chat" style="position:fixed;bottom:50px;width:100%;max-height:200px;overflow:auto;"></div>
+
+<div style="position:fixed;bottom:0;width:100%;background:#111;padding:10px;">
+ <input id="chatInput" placeholder="Üzenet..." style="width:80%;">
+</div>
 
 </body>
 </html>
