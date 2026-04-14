@@ -357,8 +357,8 @@ async function saveProfile(){
  const name = username.value.trim();
 
  // 🔥 VALIDÁCIÓ
- if(!/^[a-z0-9_]{3,20}$/.test(name)){
-   alert("Username: 3-20 karakter, csak kisbetű, szám és _");
+ if(!/^[A-Za-z0-9_]{3,20}$/.test(name)){
+   alert("Username: 3-20 karakter, betűk, számok és _");
    return;
  }
 
