@@ -157,10 +157,16 @@ async function loadApp(){
 // POSTS LOAD
 async function loadPosts(){
 
- const { data } = await supabase
+ const { data, error } = await supabase
    .from("posts")
    .select("*")
    .order("id", { ascending:false });
+ 
+ if(error){
+  console.error(error);
+  alert("Hiba a betöltésnél");
+  return;
+ }
 
  const feed = document.getElementById("feed");
  feed.innerHTML="";
