@@ -371,9 +371,12 @@ async function loadApp(){
 /* LOAD POSTS */
 async function loadPosts(){
  const {data} = await window.supabaseClient
-  .from("posts")
-  .select("*")
-  .order("id",{ascending:false});
+   .from("posts")
+   .select(`
+     *,
+     profiles ( username )
+   `)
+   .order("id",{ascending:false});
 
  feed.innerHTML="";
 
@@ -382,7 +385,9 @@ async function loadPosts(){
   div.className="post";
 
   div.innerHTML=`
-   <div class="post-header">${p.user_id}</div>
+   <div class="post-header">
+    ${p.profiles?.username || "User"}
+   </div>
    <img src="${p.image||'https://via.placeholder.com/500'}">
    <div class="post-content">${p.text}</div>
   `;
