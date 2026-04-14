@@ -368,10 +368,17 @@ async function saveProfile(){
  });
 
  if(error){
-  alert("Ez a felhasználónév már foglalt!");
+  if(error.message.toLowerCase().includes("duplicate")){
+    alert("Ez a felhasználónév már foglalt!");
+  } else {
+    alert("Hiba történt!");
+    console.error(error);
+  }
   return;
  }
 
+ currentProfile = { username: name };
+ 
  profileModal.style.display="none";
 }
 
@@ -422,6 +429,7 @@ async function sendPost(){
  postModal.style.display="none";
  postText.value="";
  loadPosts();
+ await loadPosts();
 }
 
 /* PROFILE */
