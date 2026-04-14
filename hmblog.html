@@ -353,10 +353,25 @@ async function loadUser(){
 
 /* SAVE PROFILE */
 async function saveProfile(){
- await window.supabaseClient.from("profiles").upsert({
+
+ const name = username.value.trim();
+
+ // 🔥 VALIDÁCIÓ
+ if(!/^[a-z0-9_]{3,20}$/.test(name)){
+   alert("Username: 3-20 karakter, csak kisbetű, szám és _");
+   return;
+ }
+
+ const { error } = await window.supabaseClient.from("profiles").upsert({
   id:currentUser.id,
-  username:username.value
+  username:name
  });
+
+ if(error){
+  alert("Ez a felhasználónév már foglalt!");
+  return;
+ }
+
  profileModal.style.display="none";
 }
 
