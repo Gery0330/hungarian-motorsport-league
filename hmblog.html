@@ -11,34 +11,61 @@
 <style>
 body{
  margin:0;
- font-family:Arial;
- background:#05070c;
+ font-family:"Segoe UI",sans-serif;
+ background:#0b0f18;
  color:white;
 }
 
-/* LOGIN */
+/* TOPBAR */
+.topbar{
+ position:fixed;
+ top:0;
+ width:100%;
+ height:60px;
+ background:#0f172a;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 20px;
+ border-bottom:1px solid rgba(255,255,255,0.08);
+ z-index:1000;
+}
+
+.logo{
+ font-weight:bold;
+ color:#ff1e00;
+}
+
+.user{
+ font-size:14px;
+ opacity:0.8;
+ cursor:pointer;
+}
+
+/* AUTH */
 .auth{
  height:100vh;
  display:flex;
  align-items:center;
  justify-content:center;
  flex-direction:column;
- gap:15px;
+ gap:10px;
 }
 
 .auth input{
  padding:12px;
  width:250px;
- border:none;
  border-radius:8px;
+ border:none;
 }
 
 .auth button{
- padding:12px 20px;
- background:#ff1e00;
+ padding:12px;
+ width:250px;
  border:none;
- color:white;
  border-radius:8px;
+ background:#ff1e00;
+ color:white;
  cursor:pointer;
 }
 
@@ -49,9 +76,10 @@ body{
  display:flex;
  flex-direction:column;
  align-items:center;
- gap:30px;
+ gap:25px;
 }
 
+/* POST CARD */
 .post{
  width:100%;
  max-width:500px;
@@ -60,149 +88,175 @@ body{
  overflow:hidden;
 }
 
+.post-header{
+ padding:12px;
+ font-weight:bold;
+ font-size:14px;
+ border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
 .post img{
  width:100%;
 }
 
 .post-content{
  padding:15px;
+ font-size:14px;
 }
 
-.add-post{
+/* CREATE POST */
+.create{
  position:fixed;
  bottom:20px;
  right:20px;
- width:60px;
- height:60px;
- border-radius:50%;
  background:#ff1e00;
- display:flex;
+ padding:15px;
+ border-radius:50%;
+ cursor:pointer;
+}
+
+/* MODAL */
+.modal{
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ background:rgba(0,0,0,0.8);
+ display:none;
  align-items:center;
  justify-content:center;
- font-size:28px;
- cursor:pointer;
+}
+
+.modal-box{
+ background:#0f172a;
+ padding:20px;
+ border-radius:12px;
+ display:flex;
+ flex-direction:column;
+ gap:10px;
+}
+
+.modal-box textarea{
+ width:300px;
+ height:100px;
 }
 </style>
 </head>
 
 <body>
 
+<div class="topbar">
+ <div class="logo">HMBlog</div>
+ <div class="user" onclick="logout()">Logout</div>
+</div>
+
 <!-- LOGIN -->
 <div class="auth" id="authBox">
-<h2>HMBlog Login</h2>
+<h2>HMBlog</h2>
 
 <input type="email" id="email" placeholder="Email">
 <input type="password" id="password" placeholder="Password">
 
-<button onclick="login()">Bejelentkezés</button>
-<button onclick="register()">Fiók létrehozása</button>
+<button onclick="login()">Login</button>
+<button onclick="register()">Register</button>
 </div>
 
 <!-- FEED -->
 <div class="feed" id="feed"></div>
 
-<div class="add-post" onclick="addPost()">+</div>
+<div class="create" onclick="openPost()">+</div>
+
+<!-- POST MODAL -->
+<div class="modal" id="modal">
+ <div class="modal-box">
+  <textarea id="postText" placeholder="Mit gondolsz?"></textarea>
+  <button onclick="sendPost()">Posztolás</button>
+ </div>
+</div>
 
 <script>
 
 // LOGIN
 async function login(){
-
- const email = document.getElementById("email").value;
- const password = document.getElementById("password").value;
+ const email = emailInput.value;
+ const password = passwordInput.value;
 
  const { error } = await window.supabaseClient.auth.signInWithPassword({
-   email,
-   password
+   email,password
  });
 
- if(error){
-   alert(error.message);
- } else {
-   loadApp();
- }
-
+ if(error) alert(error.message);
+ else loadApp();
 }
 
 // REGISTER
 async function register(){
-
- const email = document.getElementById("email").value;
- const password = document.getElementById("password").value;
+ const email = emailInput.value;
+ const password = passwordInput.value;
 
  const { error } = await window.supabaseClient.auth.signUp({
-   email,
-   password
+   email,password
  });
 
- if(error){
-   alert(error.message);
- } else {
-   alert("Sikeres regisztráció!");
- }
-
+ if(error) alert(error.message);
+ else alert("Sikeres!");
 }
 
-// APP LOAD
+// LOAD APP
 async function loadApp(){
-
- document.getElementById("authBox").style.display="none";
- document.getElementById("feed").style.display="flex";
-
+ authBox.style.display="none";
+ feed.style.display="flex";
  loadPosts();
 }
 
-// POSTS LOAD
+// LOAD POSTS
 async function loadPosts(){
+ const { data } = await window.supabaseClient
+  .from("posts")
+  .select("*")
+  .order("id",{ascending:false});
 
- const { data, error } = await window.supabaseClient
-   .from("posts")
-   .select("*")
-   .order("id", { ascending:false });
- 
- if(error){
-  console.error(error);
-  alert("Hiba a betöltésnél");
-  return;
- }
-
- const feed = document.getElementById("feed");
  feed.innerHTML="";
 
  data.forEach(p=>{
-
   const div = document.createElement("div");
   div.className="post";
 
   div.innerHTML=`
-    <img src="${p.image || 'https://via.placeholder.com/500'}">
-    <div class="post-content">${p.text}</div>
+   <div class="post-header">User</div>
+   <img src="${p.image || 'https://via.placeholder.com/500'}">
+   <div class="post-content">${p.text}</div>
   `;
 
   feed.appendChild(div);
  });
-
 }
 
-// ADD POST
-async function addPost(){
+// MODAL
+function openPost(){
+ modal.style.display="flex";
+}
 
- const text = prompt("Poszt szöveg:");
+async function sendPost(){
+ const text = postText.value;
 
- if(!text) return;
+ await window.supabaseClient.from("posts").insert([{text}]);
 
- await window.supabaseClient.from("posts").insert([{
-   text:text
- }]);
-
+ modal.style.display="none";
+ postText.value="";
  loadPosts();
 }
 
+// LOGOUT
+async function logout(){
+ await window.supabaseClient.auth.signOut();
+ location.reload();
+}
+
 // AUTO LOGIN
-window.supabaseClient.auth.getSession().then(({ data })=>{
- if(data.session){
-   loadApp();
- }
+window.supabaseClient.auth.getSession().then(({data})=>{
+ if(data.session) loadApp();
 });
 </script>
 
