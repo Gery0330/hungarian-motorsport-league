@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+</head>
+
+<body style="background:#0b0f18;color:white;font-family:sans-serif;">
+
+<h2 id="name"></h2>
+<div id="posts"></div>
+
+<script>
+
+const userId = new URLSearchParams(location.search).get("id");
+
+async function load(){
+
+ const { data: profile } = await window.supabaseClient
+  .from("profiles")
+  .select("*")
+  .eq("id", userId)
+  .single();
+
+ document.getElementById("name").innerText = profile.username;
+
+ const { data: posts } = await window.supabaseClient
+  .from("posts")
+  .select("*")
+  .eq("user_id", userId);
+
+ posts.forEach(p=>{
+  const div = document.createElement("div");
+  div.innerText = p.text;
+  document.getElementById("posts").appendChild(div);
+ });
+
+}
+
+load();
+
+</script>
+
+</body>
+</html>
