@@ -21,24 +21,32 @@ body{
  position:fixed;
  top:0;
  width:100%;
- height:60px;
+ height:70px;
  background:#0f172a;
  display:flex;
  align-items:center;
- justify-content:space-between;
- padding:0 20px;
+ justify-content:center;
  border-bottom:1px solid rgba(255,255,255,0.08);
  z-index:1000;
 }
 
 .logo{
- font-weight:bold;
- color:#ff1e00;
+ height:40px;
 }
 
-.user{
- font-size:14px;
- opacity:0.8;
+.top-actions{
+ position:absolute;
+ right:20px;
+ display:flex;
+ gap:10px;
+}
+
+.langbtn{
+ background:#ff1e00;
+ border:none;
+ padding:6px 10px;
+ color:white;
+ border-radius:6px;
  cursor:pointer;
 }
 
@@ -72,14 +80,13 @@ body{
 /* FEED */
 .feed{
  display:none;
- padding-top:80px;
+ padding-top:90px;
  display:flex;
  flex-direction:column;
  align-items:center;
  gap:25px;
 }
 
-/* POST CARD */
 .post{
  width:100%;
  max-width:500px;
@@ -91,7 +98,6 @@ body{
 .post-header{
  padding:12px;
  font-weight:bold;
- font-size:14px;
  border-bottom:1px solid rgba(255,255,255,0.05);
 }
 
@@ -101,17 +107,25 @@ body{
 
 .post-content{
  padding:15px;
- font-size:14px;
 }
 
-/* CREATE POST */
+/* FLOAT BUTTON */
 .create{
  position:fixed;
  bottom:20px;
  right:20px;
+
+ width:60px;
+ height:60px;
+
+ display:flex;
+ align-items:center;
+ justify-content:center;
+
  background:#ff1e00;
- padding:15px;
  border-radius:50%;
+
+ font-size:24px;
  cursor:pointer;
 }
 
@@ -137,29 +151,121 @@ body{
  gap:10px;
 }
 
-.modal-box textarea{
+.modal-box textarea,
+.modal-box input{
  width:300px;
- height:100px;
+ padding:10px;
 }
+
+/* 📱 MOBILE OPTIMIZATION */
+@media (max-width:768px){
+
+ /* TOPBAR */
+ .topbar{
+  height:60px;
+ }
+
+ .logo{
+  height:32px;
+ }
+
+ .top-actions{
+  right:10px;
+  gap:6px;
+ }
+
+ .langbtn{
+  padding:5px 8px;
+  font-size:12px;
+ }
+
+ /* AUTH */
+ .auth input,
+ .auth button{
+  width:85%;
+  max-width:300px;
+ }
+
+ /* FEED */
+ .feed{
+  padding-top:70px;
+  gap:18px;
+ }
+
+ /* POST */
+ .post{
+  width:92%;
+  border-radius:12px;
+ }
+
+ .post-header{
+  font-size:13px;
+  padding:10px;
+ }
+
+ .post-content{
+  font-size:13px;
+  padding:12px;
+ }
+
+ /* FLOAT BUTTON */
+ .create{
+  bottom:15px;
+  right:15px;
+  padding:14px;
+  font-size:20px;
+ }
+
+ /* MODAL */
+ .modal-box{
+  width:90%;
+  max-width:350px;
+ }
+
+ .modal-box textarea,
+ .modal-box input{
+  width:100%;
+ }
+
+}
+
+button{
+ touch-action:manipulation;
+}
+
+input, textarea{
+ font-size:16px;
+}
+
+.post img{
+ width:100%;
+ height:auto;
+ object-fit:cover;
+}
+
 </style>
 </head>
 
 <body>
 
 <div class="topbar">
- <div class="logo">HMBlog</div>
- <div class="user" onclick="logout()">Logout</div>
+ <img src="logo.png" class="logo">
+
+ <div class="top-actions">
+  <button class="langbtn" onclick="toggleLang()">HU/EN</button>
+  <button class="langbtn" onclick="openProfile()">👤</button>
+ </div>
 </div>
 
 <!-- LOGIN -->
 <div class="auth" id="authBox">
-<h2>HMBlog</h2>
+<h2 data-hu="Bejelentkezés" data-en="Login">Bejelentkezés</h2>
 
 <input type="email" id="email" placeholder="Email">
 <input type="password" id="password" placeholder="Password">
 
-<button onclick="login()">Login</button>
-<button onclick="register()">Register</button>
+<button onclick="login()" data-hu="Belépés" data-en="Login">Belépés</button>
+<button onclick="register()" data-hu="Regisztráció" data-en="Register">Regisztráció</button>
 </div>
 
 <!-- FEED -->
@@ -168,51 +274,97 @@ body{
 <div class="create" onclick="openPost()">+</div>
 
 <!-- POST MODAL -->
-<div class="modal" id="modal">
+<div class="modal" id="postModal">
  <div class="modal-box">
-  <textarea id="postText" placeholder="Mit gondolsz?"></textarea>
-  <button onclick="sendPost()">Posztolás</button>
+  <textarea id="postText" 
+  data-hu="Mit gondolsz?" 
+  data-en="What's on your mind?"
+  placeholder="Mit gondolsz?"></textarea>
+
+  <button onclick="sendPost()" data-hu="Posztolás" data-en="Post">Posztolás</button>
+ </div>
+</div>
+
+<!-- PROFILE MODAL -->
+<div class="modal" id="profileModal">
+ <div class="modal-box">
+  <input id="username" placeholder="Username">
+  <button onclick="saveProfile()" data-hu="Mentés" data-en="Save">Mentés</button>
  </div>
 </div>
 
 <script>
 
-// LOGIN
-async function login(){
- const email = emailInput.value;
- const password = passwordInput.value;
+let lang = localStorage.getItem("lang") || "hu";
+let currentUser=null;
+let currentProfile=null;
 
- const { error } = await window.supabaseClient.auth.signInWithPassword({
-   email,password
+/* LANGUAGE */
+function toggleLang(){
+ lang = lang==="hu"?"en":"hu";
+ localStorage.setItem("lang",lang);
+
+ document.querySelectorAll("[data-hu]").forEach(el=>{
+  el.innerText = el.getAttribute("data-"+lang);
  });
+}
 
+/* LOGIN */
+async function login(){
+ const {error} = await window.supabaseClient.auth.signInWithPassword({
+  email:email.value,
+  password:password.value
+ });
  if(error) alert(error.message);
  else loadApp();
 }
 
-// REGISTER
+/* REGISTER */
 async function register(){
- const email = emailInput.value;
- const password = passwordInput.value;
-
- const { error } = await window.supabaseClient.auth.signUp({
-   email,password
+ const {error} = await window.supabaseClient.auth.signUp({
+  email:email.value,
+  password:password.value
  });
-
  if(error) alert(error.message);
- else alert("Sikeres!");
+ else alert("OK");
 }
 
-// LOAD APP
+/* LOAD USER */
+async function loadUser(){
+ const {data} = await window.supabaseClient.auth.getUser();
+ currentUser = data.user;
+
+ const {data:profile} = await window.supabaseClient
+  .from("profiles")
+  .select("*")
+  .eq("id",currentUser.id)
+  .single();
+
+ currentProfile=profile;
+
+ if(!profile) profileModal.style.display="flex";
+}
+
+/* SAVE PROFILE */
+async function saveProfile(){
+ await window.supabaseClient.from("profiles").upsert({
+  id:currentUser.id,
+  username:username.value
+ });
+ profileModal.style.display="none";
+}
+
+/* LOAD APP */
 async function loadApp(){
  authBox.style.display="none";
  feed.style.display="flex";
+ await loadUser();
  loadPosts();
 }
 
-// LOAD POSTS
+/* LOAD POSTS */
 async function loadPosts(){
- const { data } = await window.supabaseClient
+ const {data} = await window.supabaseClient
   .from("posts")
   .select("*")
   .order("id",{ascending:false});
@@ -220,12 +372,12 @@ async function loadPosts(){
  feed.innerHTML="";
 
  data.forEach(p=>{
-  const div = document.createElement("div");
+  const div=document.createElement("div");
   div.className="post";
 
   div.innerHTML=`
-   <div class="post-header">User</div>
-   <img src="${p.image || 'https://via.placeholder.com/500'}">
+   <div class="post-header">${p.user_id}</div>
+   <img src="${p.image||'https://via.placeholder.com/500'}">
    <div class="post-content">${p.text}</div>
   `;
 
@@ -233,31 +385,33 @@ async function loadPosts(){
  });
 }
 
-// MODAL
-function openPost(){
- modal.style.display="flex";
-}
+/* POST */
+function openPost(){ postModal.style.display="flex"; }
 
 async function sendPost(){
- const text = postText.value;
-
- await window.supabaseClient.from("posts").insert([{text}]);
-
- modal.style.display="none";
+ await window.supabaseClient.from("posts").insert([{
+  text:postText.value,
+  user_id:currentUser.id
+ }]);
+ postModal.style.display="none";
  postText.value="";
  loadPosts();
 }
 
-// LOGOUT
-async function logout(){
- await window.supabaseClient.auth.signOut();
- location.reload();
+/* PROFILE */
+function openProfile(){
+ profileModal.style.display="flex";
+ if(currentProfile) username.value=currentProfile.username;
 }
 
-// AUTO LOGIN
+/* AUTO LOGIN */
 window.supabaseClient.auth.getSession().then(({data})=>{
  if(data.session) loadApp();
 });
+
+/* INIT LANG */
+toggleLang();
+
 </script>
 
 </body>
