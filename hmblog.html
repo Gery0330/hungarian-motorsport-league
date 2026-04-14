@@ -451,7 +451,7 @@ async function loadApp(){
 
 /* LOAD POSTS */
 async function loadPosts(){
- const {data} = await window.supabaseClient
+ const {data, error} = await window.supabaseClient
    .from("posts")
    .select(`
     *,
@@ -461,9 +461,19 @@ async function loadPosts(){
    `)
    .order("id",{ascending:false});
 
+ if(error){
+  console.error(error);
+  return;
+ }
+ 
+ if(!data){
+  console.log("no data");
+  return;
+ }
+ 
  feed.innerHTML="";
 
- data.forEach(p=>{
+ (data || []).forEach(p=>{
   const div=document.createElement("div");
   div.className="post";
 
@@ -495,6 +505,10 @@ async function loadPosts(){
       </div>
      `).join("")
     }
+   </div>
+   <div style="padding:10px;">
+    <input placeholder="Komment..." 
+    onkeydown="addComment(event, ${p.id})">
    </div>
   `;
 
@@ -576,15 +590,19 @@ async function addComment(e, postId){
  loadPosts();
 }
 
-document.getElementById("chatInput").addEventListener("keydown", async e=>{
- if(e.key !== "Enter") return;
+window.addEventListener("DOMContentLoaded", () => {
 
- await window.supabaseClient.from("messages").insert([{
-  text:e.target.value,
-  user_id:currentUser.id
- }]);
+ document.getElementById("chatInput").addEventListener("keydown", async e=>{
+  if(e.key !== "Enter") return;
 
- e.target.value="";
+  await window.supabaseClient.from("messages").insert([{
+   text:e.target.value,
+   user_id:currentUser.id
+  }]);
+
+  e.target.value="";
+ });
+
 });
 
 async function loadChat(){
