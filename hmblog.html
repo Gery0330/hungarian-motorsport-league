@@ -130,7 +130,7 @@ async function register(){
  const email = document.getElementById("email").value;
  const password = document.getElementById("password").value;
 
- const { error } = await supabase.auth.signUp({
+ const { error } = await window.supabaseClient.auth.signUp({
    email,
    password
  });
@@ -155,7 +155,7 @@ async function loadApp(){
 // POSTS LOAD
 async function loadPosts(){
 
- const { data, error } = await supabase
+ const { data, error } = await window.supabaseClient
    .from("posts")
    .select("*")
    .order("id", { ascending:false });
@@ -191,7 +191,7 @@ async function addPost(){
 
  if(!text) return;
 
- await supabase.from("posts").insert([{
+ await window.supabaseClient.from("posts").insert([{
    text:text
  }]);
 
@@ -199,7 +199,7 @@ async function addPost(){
 }
 
 // AUTO LOGIN
-supabase.auth.getSession().then(({ data })=>{
+window.supabaseClient.auth.getSession().then(({ data })=>{
  if(data.session){
    loadApp();
  }
