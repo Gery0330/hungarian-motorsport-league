@@ -254,9 +254,15 @@ input, textarea{
 
  <div class="top-actions">
   <button class="langbtn" onclick="toggleLang()">HU/EN</button>
-  <button class="langbtn" onclick="openProfile()" id="profileBtn">
-   👤 <span id="profileName">User</span>
-  </button>
+  <div id="profileBtn" onclick="toggleMenu()" style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+   <img id="avatarTop" src="https://via.placeholder.com/40" style="width:32px;height:32px;border-radius:50%;">
+   <span id="profileName">User</span>
+  </div>
+  
+  <div id="dropdown" style="display:none;position:absolute;top:70px;right:20px;background:#0f172a;padding:10px;border-radius:8px;">
+   <div onclick="openProfile()">Profil</div>
+   <div onclick="logout()">Logout</div>
+  </div>
  </div>
 </div>
 
@@ -292,6 +298,7 @@ input, textarea{
 <div class="modal" id="profileModal">
  <div class="modal-box">
   <input id="username" placeholder="Username">
+  <input type="file" id="avatarInput">
   <button onclick="saveProfile()" data-hu="Mentés" data-en="Save">Mentés</button>
  </div>
 </div>
@@ -354,6 +361,16 @@ async function loadUser(){
  if(!profile || !profile.username){
   profileModal.style.display="flex";
  }
+
+ if(profile){
+  if(profile.username){
+   profileName.innerText = profile.username;
+  }
+  if(profile.avatar_url){
+   avatarTop.src = profile.avatar_url;
+  }
+ }
+ 
 }
 
 /* SAVE PROFILE */
@@ -361,31 +378,47 @@ async function saveProfile(){
 
  const name = username.value.trim();
 
- // 🔥 VALIDÁCIÓ
  if(!/^[A-Za-z0-9_]{3,20}$/.test(name)){
    alert("Username: 3-20 karakter, betűk, számok és _");
    return;
  }
 
+ let avatarUrl = currentProfile?.avatar_url || null;
+
+ const file = avatarInput.files[0];
+
+ if(file){
+  const fileName = currentUser.id + ".png";
+
+  await window.supabaseClient.storage
+   .from("avatars")
+   .upload(fileName, file, { upsert:true });
+
+  avatarUrl = window.supabaseClient
+   .storage.from("avatars")
+   .getPublicUrl(fileName).data.publicUrl;
+ }
+
  const { error } = await window.supabaseClient.from("profiles").upsert({
   id:currentUser.id,
-  username:name
+  username:name,
+  avatar_url:avatarUrl
  });
 
  if(error){
   if(error.message.toLowerCase().includes("duplicate")){
-    alert("Ez a felhasználónév már foglalt!");
+    alert("Username foglalt!");
   } else {
-    alert("Hiba történt!");
-    console.error(error);
+    alert("Hiba!");
   }
   return;
  }
 
- currentProfile = { username: name };
+ currentProfile = { username:name, avatar_url:avatarUrl };
 
  document.getElementById("profileName").innerText = name;
- 
+ document.getElementById("avatarTop").src = avatarUrl || "https://via.placeholder.com/40";
+
  profileModal.style.display="none";
 }
 
@@ -414,7 +447,9 @@ async function loadPosts(){
   div.className="post";
 
   div.innerHTML=`
-   <div class="post-header">
+   <div class="post-header" style="display:flex;align-items:center;gap:8px;">
+    <img src="${p.profiles?.avatar_url || 'https://via.placeholder.com/30'}" 
+    style="width:30px;height:30px;border-radius:50%;">
     ${p.profiles?.username || "User"}
    </div>
    <img src="${p.image||'https://via.placeholder.com/500'}">
@@ -452,6 +487,16 @@ window.supabaseClient.auth.getSession().then(({data})=>{
 
 /* INIT LANG */
 toggleLang();
+
+function toggleMenu(){
+ const d = document.getElementById("dropdown");
+ d.style.display = d.style.display==="block"?"none":"block";
+}
+
+async function logout(){
+ await window.supabaseClient.auth.signOut();
+ location.reload();
+}
 
 </script>
 
