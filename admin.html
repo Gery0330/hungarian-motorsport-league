@@ -68,7 +68,6 @@ button{
 <div class="tabs">
   <button onclick="showTab('races')">Races</button>
   <button onclick="showTab('regs')">Registrations</button>
-  <button onclick="showTab('standings')">Standings</button>
 </div>
 
 <div id="tab-races" class="tab-content">
@@ -90,28 +89,6 @@ button{
 <h2>Jelentkezések</h2>
 <div id="regList"></div>
 </div>
-
-<div id="tab-standings" class="tab-content">
-
-<h3>Kategória</h3>
-
-<select id="categorySelect" onchange="loadStandings()">
-  <option>F1 23</option>
-  <option>F1 24</option>
-  <option>F1 25</option>
-  <option>Le Mans Ultimate</option>
-</select>
-
-<h3>Új pilóta</h3>
-
-<input id="driverName" placeholder="Pilóta neve">
-<input id="teamName" placeholder="Csapat">
-<input id="points" type="number" placeholder="Pontok">
-
-<button onclick="addDriver()">Hozzáadás</button>
-
-<h3>Pilóták</h3>
-<div id="standingsList"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
@@ -146,7 +123,6 @@ async function hash(text){
  
  loadRaces();
  loadRegistrations();
- loadStandings();
  
 })();
 
@@ -243,62 +219,6 @@ async function deleteRegistration(id){
  loadRegistrations();
 }
 
-async function loadStandings(){
-
- const championship = document.getElementById("categorySelect").value;
-
- const { data } = await window.supabaseClient
-  .from("standings")
-  .select("*")
-  .eq("championship", championship)
-  .order("points", { ascending:false });
-
- const container = document.getElementById("standingsList");
- container.innerHTML = "";
-
- data.forEach(r => {
-
-  container.innerHTML += `
-   <div class="race">
-    <b>${r.driver_name}</b><br>
-
-    Csapat:
-    <input value="${r.team}" onchange="updateTeam('${r.id}', this.value)"><br>
-
-    Pontok:
-    <input type="number" value="${r.points}" onchange="updatePoints('${r.id}', this.value)"><br>
-
-    <button onclick="deleteStanding('${r.id}')">Törlés</button>
-   </div>
-  `;
-
- });
-}
-
-async function deleteStanding(id){
-
- await window.supabaseClient
-  .from("standings")
-  .delete()
-  .eq("id", id);
-
- loadStandings();
-}
-
-async function editPoints(id, current){
-
- const newPoints = prompt("Új pont:", current);
-
- if(newPoints === null) return;
-
- await window.supabaseClient
-  .from("standings")
-  .update({ points: newPoints })
-  .eq("id", id);
-
- loadStandings();
-}
-
 function showTab(tab){
 
  document.querySelectorAll(".tab-content")
@@ -306,48 +226,6 @@ function showTab(tab){
 
  document.getElementById("tab-" + tab)
   .classList.add("active");
-
-}
-
-async function addDriver(){
-
- const name = document.getElementById("driverName").value;
- const team = document.getElementById("teamName").value;
- const points = document.getElementById("points").value;
- const championship = document.getElementById("categorySelect").value;
-
- if(!name || !team){
-  alert("Hiányzó adat!");
-  return;
- }
-
- await window.supabaseClient
-  .from("standings")
-  .insert([{
-    driver_name: name,
-    team: team,
-    points: points || 0,
-    championship: championship
-  }]);
-
- loadStandings();
-}
-
-async function updateTeam(id, value){
-
- await window.supabaseClient
-  .from("standings")
-  .update({ team: value })
-  .eq("id", id);
-
-}
-
-async function updatePoints(id, value){
-
- await window.supabaseClient
-  .from("standings")
-  .update({ points: value })
-  .eq("id", id);
 
 }
 
