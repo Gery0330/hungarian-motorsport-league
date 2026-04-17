@@ -135,17 +135,22 @@ async function loadStandings(tab){
  container.innerHTML="";
 
  (data || []).forEach(d=>{
-  container.innerHTML += `
-   <div style="margin:10px;padding:10px;background:#111;">
-    <b>${d.driver_name}</b><br>
-
-    <input value="${d.team}" 
-    onchange="updateTeam('${d.id}', this.value)">
-
-    <input type="number" value="${d.points}" 
-    onchange="updatePoints('${d.id}', this.value)">
-   </div>
-  `;
+   container.innerHTML += `
+    <div style="margin:10px;padding:10px;background:#111;">
+     <b>${d.driver_name}</b><br>
+ 
+     <input value="${d.team}" 
+     onchange="updateTeam('${d.id}', this.value)">
+ 
+     <input type="number" value="${d.points}" 
+     onchange="updatePoints('${d.id}', this.value)">
+ 
+     <button onclick="deleteDriver('${d.id}', '${tab}')"
+     style="margin-top:8px;background:#6a0000;">
+       ❌ Törlés
+     </button>
+    </div>
+   `;
  });
 
 }
