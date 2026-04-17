@@ -208,6 +208,18 @@ async function addDriver(tab){
  loadStandings(tab);
 }
 
+async function deleteDriver(id, tab){
+
+ if(!confirm("Biztos törlöd?")) return;
+
+ await window.supabaseClient
+  .from("standings")
+  .delete()
+  .eq("id", id);
+
+ loadStandings(tab);
+}
+
 </script>
 
 </body>
