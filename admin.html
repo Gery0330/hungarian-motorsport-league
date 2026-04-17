@@ -151,15 +151,21 @@ async function addRace(){
 
 async function loadRaces(){
 
- const { data } = await window.supabaseClient
+ const { data, error } = await window.supabaseClient
   .from("races")
   .select("*")
   .order("race_time", { ascending: true });
 
+ if(error){
+  console.error(error);
+  alert("Hiba a races betöltésnél!");
+  return;
+ }
+
  const container = document.getElementById("raceList");
  container.innerHTML = "";
 
- data.forEach(r => {
+ (data || []).forEach(r => {
 
   container.innerHTML += `
    <div class="race">
@@ -185,15 +191,21 @@ async function deleteRace(id){
 
 async function loadRegistrations(){
 
- const { data } = await window.supabaseClient
+ const { data, error } = await window.supabaseClient
   .from("registrations")
   .select("*")
   .order("id", { ascending:false });
 
+ if(error){
+  console.error(error);
+  alert("Hiba a registrations betöltésnél!");
+  return;
+ }
+
  const container = document.getElementById("regList");
  container.innerHTML = "";
 
- data.forEach(r => {
+ (data || []).forEach(r => {
 
   container.innerHTML += `
    <div class="race">
@@ -205,6 +217,7 @@ async function loadRegistrations(){
   `;
 
  });
+
 }
 
 async function deleteRegistration(id){
