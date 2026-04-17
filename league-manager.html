@@ -61,9 +61,53 @@ input{
  <button onclick="openTab('lmu')">LMU</button>
 </div>
 
-<div id="f123" class="tab"></div>
-<div id="f125" class="tab"></div>
-<div id="lmu" class="tab"></div>
+<div id="f123" class="tab">
+
+<h3>Új pilóta</h3>
+
+<input id="driver_f123" placeholder="Pilóta neve">
+<input id="team_f123" placeholder="Csapat">
+<input id="points_f123" type="number" placeholder="Pontok">
+
+<button onclick="addDriver('f123')">Hozzáadás</button>
+
+<hr>
+
+<div id="list_f123"></div>
+
+</div>
+
+<div id="f125" class="tab">
+
+<h3>Új pilóta</h3>
+
+<input id="driver_f125" placeholder="Pilóta neve">
+<input id="team_f125" placeholder="Csapat">
+<input id="points_f125" type="number" placeholder="Pontok">
+
+<button onclick="addDriver('f125')">Hozzáadás</button>
+
+<hr>
+
+<div id="list_f125"></div>
+
+</div>
+
+<div id="lmu" class="tab">
+
+<h3>Új pilóta</h3>
+
+<input id="driver_lmu" placeholder="Pilóta neve">
+<input id="team_lmu" placeholder="Csapat">
+<input id="points_lmu" type="number" placeholder="Pontok">
+
+<button onclick="addDriver('lmu')">Hozzáadás</button>
+
+<hr>
+
+<div id="list_lmu"></div>
+
+</div>
 
 <script>
 
@@ -87,10 +131,10 @@ async function loadStandings(tab){
   .eq("championship", map[tab])
   .order("points",{ascending:false});
 
- const container = document.getElementById(tab);
+ const container = document.getElementById("list_" + tab);
  container.innerHTML="";
 
- data.forEach(d=>{
+ (data || []).forEach(d=>{
   container.innerHTML += `
    <div style="margin:10px;padding:10px;background:#111;">
     <b>${d.driver_name}</b><br>
@@ -118,6 +162,45 @@ async function updatePoints(id,val){
   .from("standings")
   .update({points:val})
   .eq("id",id);
+}
+
+async function addDriver(tab){
+
+ const map = {
+  f123:"F1 23",
+  f125:"F1 25",
+  lmu:"Le Mans Ultimate"
+ };
+
+ const name = document.getElementById("driver_"+tab).value;
+ const team = document.getElementById("team_"+tab).value;
+ const points = document.getElementById("points_"+tab).value;
+
+ if(!name || !team){
+  alert("Tölts ki mindent!");
+  return;
+ }
+
+ const { error } = await window.supabaseClient
+  .from("standings")
+  .insert([{
+   driver_name:name,
+   team:team,
+   points:points || 0,
+   championship:map[tab]
+  }]);
+
+ if(error){
+  console.error(error);
+  alert("Hiba!");
+  return;
+ }
+
+ document.getElementById("driver_"+tab).value="";
+ document.getElementById("team_"+tab).value="";
+ document.getElementById("points_"+tab).value="";
+
+ loadStandings(tab);
 }
 
 </script>
