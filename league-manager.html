@@ -125,7 +125,7 @@ async function hash(text){
 
  const hashed = await hash(password);
 
- const correctHash = "6da04c089d5617c3d491734c037d4f0aed1a984d1dce1e0e603afdc7e86bf3d2";
+ const correctHash = await hash("V9#kT7!mQ2@xL4^pZ8$wR1&cY6");
 
  if(hashed !== correctHash){
   document.body.innerHTML = "Nincs hozzáférés";
