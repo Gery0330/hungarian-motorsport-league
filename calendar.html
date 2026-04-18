@@ -16,20 +16,40 @@ body{
 
 h1{
  text-align:center;
- margin-bottom:40px;
+ margin-bottom:20px;
+}
+
+.filter{
+ text-align:center;
+ margin-bottom:30px;
+}
+
+.filter button{
+ margin:0 10px;
+ padding:10px 20px;
+ border:none;
+ border-radius:8px;
+ background:#111827;
+ color:white;
+ cursor:pointer;
+}
+
+.filter button.active{
+ background:#ff1e00;
 }
 
 .race{
- background:#0f172a;
+ background:linear-gradient(145deg,#020617,#0f172a);
  padding:20px;
  margin:15px auto;
  max-width:700px;
  border-radius:12px;
  border-left:4px solid #ff1e00;
+ box-shadow:0 0 20px rgba(0,0,0,0.5);
 }
 
 .track{
- font-size:20px;
+ font-size:22px;
  font-weight:bold;
 }
 
@@ -37,12 +57,30 @@ h1{
  opacity:0.7;
  margin-top:5px;
 }
+
+.countdown{
+ margin-top:10px;
+ font-weight:bold;
+ color:#ff1e00;
+}
+
+.live{
+ color:#ff1e00;
+ text-shadow:0 0 15px #ff1e00;
+}
+
 </style>
 </head>
 
 <body>
 
 <h1 id="title">Liga naptár</h1>
+
+<div class="filter">
+<button onclick="setFilter('all')" class="active">Összes</button>
+<button onclick="setFilter('upcoming')">Közelgő</button>
+<button onclick="setFilter('past')">Múlt</button>
+</div>
 
 <div id="raceList"></div>
 
@@ -55,39 +93,73 @@ const league = params.get("league");
 
 document.getElementById("title").innerText = league + " naptár";
 
+let races = [];
+let filter = "all";
+
+function setFilter(f){
+ filter = f;
+
+ document.querySelectorAll(".filter button").forEach(b=>b.classList.remove("active"));
+ event.target.classList.add("active");
+
+ render();
+}
+
 async function loadCalendar(){
 
- const { data, error } = await window.supabaseClient
+ const { data } = await window.supabaseClient
    .from("races")
    .select("*")
    .eq("league", league)
    .order("race_time", { ascending:true });
 
+ races = data || [];
+
+ render();
+}
+
+function render(){
+
  const container = document.getElementById("raceList");
+ container.innerHTML = "";
 
- if(error){
-   container.innerHTML = "Hiba történt";
-   return;
- }
+ const now = new Date();
 
- if(data.length === 0){
-   container.innerHTML = "Nincs még verseny.";
-   return;
- }
+ races.forEach(r=>{
 
- data.forEach(r=>{
-   const date = new Date(r.race_time);
+   const raceTime = new Date(r.race_time);
+
+   if(filter === "upcoming" && raceTime < now) return;
+   if(filter === "past" && raceTime > now) return;
+
+   const diff = raceTime - now;
+
+   let status = "";
+   let countdown = "";
+
+   if(diff <= 0){
+     status = `<div class="live">🔴 LIVE / LEJÁRT</div>`;
+   } else {
+     const days = Math.floor(diff / (1000*60*60*24));
+     const hours = Math.floor((diff/(1000*60*60))%24);
+     const minutes = Math.floor((diff/(1000*60))%60);
+
+     countdown = `<div class="countdown">${days}d ${hours}h ${minutes}m</div>`;
+   }
 
    container.innerHTML += `
      <div class="race">
        <div class="track">🏁 ${r.track}</div>
-       <div class="date">${date.toLocaleString()}</div>
+       <div class="date">${raceTime.toLocaleString()}</div>
+       ${countdown}
+       ${status}
      </div>
    `;
  });
 }
 
 loadCalendar();
+setInterval(render, 60000);
 </script>
 
 </body>
