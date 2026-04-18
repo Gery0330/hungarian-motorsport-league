@@ -89,7 +89,12 @@ h1{
 
 <script>
 const params = new URLSearchParams(window.location.search);
-const league = params.get("league");
+let league = params.get("league");
+
+// 🔥 FIX LMU mismatch
+if(league === "Le Mans Ultimate"){
+ league = "LMU";
+}
 
 document.getElementById("title").innerText = league + " naptár";
 
