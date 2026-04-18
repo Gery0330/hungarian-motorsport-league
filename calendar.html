@@ -244,10 +244,39 @@ h1{
  0 0 60px rgba(255,0,0,0.1);
 }
 
+.back-btn{
+ position:fixed;
+ top:20px;
+ left:20px;
+
+ background:#111827;
+ color:white;
+ text-decoration:none;
+
+ padding:10px 16px;
+ border-radius:10px;
+
+ font-weight:bold;
+ font-size:14px;
+
+ box-shadow:0 0 15px rgba(0,0,0,0.5);
+ transition:.3s;
+
+ z-index:999;
+}
+
+.back-btn:hover{
+ background:#ff1e00;
+ transform:scale(1.05);
+ box-shadow:0 0 20px #ff1e00;
+}
+
 </style>
 </head>
 
 <body>
+
+<a href="index.html" class="back-btn">← Főoldal</a>
 
 <h1 style="display:flex;justify-content:center;align-items:center;gap:20px;">
 
