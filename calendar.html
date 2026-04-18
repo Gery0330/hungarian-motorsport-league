@@ -119,7 +119,10 @@ h1{
 
 .race-card:hover{
  transform:scale(1.03);
- box-shadow:0 0 25px rgba(0,0,0,0.8);
+
+ box-shadow:
+ 0 0 15px rgba(255,30,0,0.15),   /* 🔥 enyhe glow */
+ 0 6px 20px rgba(0,0,0,0.8);
 }
 
 .race-card img{
@@ -239,7 +242,12 @@ h1{
 
 .race-card{
  border-radius:20px;
- box-shadow:0 0 20px rgba(0,0,0,0.6);
+
+ box-shadow:
+ 0 0 10px rgba(255,30,0,0.08),   /* 🔥 nagyon halvány glow */
+ 0 4px 15px rgba(0,0,0,0.6);     /* depth */
+
+ transition:.3s;
 }
 
 .back-btn{
@@ -464,6 +472,11 @@ function getTrackImage(track){
   "Magyarország":"hungary.jpg",
   "Brazília":"brazil.jpg",
   "Katar":"qatar.jpg"
+  "Bahrein":"bahrein.jpg",
+  "Imola":"imola.jpg",
+  "Spanyolország":"barcelona.jpg",
+  "Las Vegas":"vegas.jpg",
+  "Brazília":"brazil.jpg"
  };
 
  return "tracks/" + (images[track] || "default.jpg");
