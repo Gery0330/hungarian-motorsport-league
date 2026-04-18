@@ -111,6 +111,32 @@ input{
 
 <script>
 
+async function hash(text){
+ const encoder = new TextEncoder();
+ const data = encoder.encode(text);
+ const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+ const hashArray = Array.from(new Uint8Array(hashBuffer));
+ return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
+(async () => {
+
+ const password = prompt("League Manager jelszó:");
+
+ const hashed = await hash(password);
+
+ const correctHash = "6da04c089d5617c3d491734c037d4f0aed1a984d1dce1e0e603afdc7e86bf3d2";
+
+ if(hashed !== correctHash){
+  document.body.innerHTML = "Nincs hozzáférés";
+  return;
+ }
+
+ // alapból első tab megnyitása
+ openTab("f123");
+
+})();
+
 function openTab(tab){
  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
  document.getElementById(tab).classList.add("active");
