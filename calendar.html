@@ -164,12 +164,36 @@ h1{
  opacity:0.8;
 }
 
+.nav-arrow{
+ background:#111827;
+ border:none;
+ color:white;
+ font-size:22px;
+ padding:10px 16px;
+ border-radius:8px;
+ cursor:pointer;
+ transition:.3s;
+}
+
+.nav-arrow:hover{
+ background:#ff1e00;
+ transform:scale(1.1);
+}
+
 </style>
 </head>
 
 <body>
 
-<h1 id="title">Liga naptár</h1>
+<h1 style="display:flex;justify-content:center;align-items:center;gap:20px;">
+
+<button onclick="prevLeague()" class="nav-arrow">←</button>
+
+<span id="title">Liga naptár</span>
+
+<button onclick="nextLeague()" class="nav-arrow">→</button>
+
+</h1>
 <div id="standingsContainer"></div>
 
 <div class="filter">
@@ -354,6 +378,31 @@ function getTrackImage(track){
  };
 
  return images[track] || "default.jpg";
+}
+
+const leagues = ["F1 23","F1 25","Le Mans Ultimate"];
+
+let currentLeagueIndex = leagues.indexOf(params.get("league"));
+
+if(currentLeagueIndex === -1){
+ currentLeagueIndex = 0;
+}
+
+function goToLeague(index){
+ const league = leagues[index];
+ window.location.href = "calendar.html?league=" + encodeURIComponent(league);
+}
+
+function prevLeague(){
+ let i = currentLeagueIndex - 1;
+ if(i < 0) i = leagues.length - 1;
+ goToLeague(i);
+}
+
+function nextLeague(){
+ let i = currentLeagueIndex + 1;
+ if(i >= leagues.length) i = 0;
+ goToLeague(i);
 }
 
 </script>
