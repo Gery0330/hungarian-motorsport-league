@@ -153,8 +153,8 @@ h1{
 
  display:flex;
  flex-direction:column;
- justify-content:center;   /* 🔥 középre */
- align-items:flex-start;   /* 🔥 balra */
+ justify-content:center;
+ align-items:flex-start;
 
  padding:20px;
 }
@@ -238,16 +238,6 @@ h1{
 
 .race-overlay > *{
  margin:0;
-}
-
-.race-card{
- border-radius:20px;
-
- box-shadow:
- 0 0 10px rgba(255,30,0,0.08),   /* 🔥 nagyon halvány glow */
- 0 4px 15px rgba(0,0,0,0.6);     /* depth */
-
- transition:.3s;
 }
 
 .back-btn{
@@ -471,12 +461,14 @@ function getTrackImage(track){
   "Austria":"austria.jpg",
   "Magyarország":"hungary.jpg",
   "Brazília":"brazil.jpg",
-  "Katar":"qatar.jpg"
+  "Katar":"qatar.jpg",
   "Bahrein":"bahrein.jpg",
   "Imola":"imola.jpg",
   "Spanyolország":"barcelona.jpg",
   "Las Vegas":"vegas.jpg",
-  "Brazília":"brazil.jpg"
+  "Ausztrália":"ausztral.jpg",
+  "Hollandia":"holland.jpg",
+  "Olaszország":"monza.jpg"
  };
 
  return "tracks/" + (images[track] || "default.jpg");
