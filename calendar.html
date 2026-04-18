@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HML Calendar</title>
+
+<style>
+body{
+ background:#05070c;
+ color:white;
+ font-family:Arial;
+ margin:0;
+ padding:40px;
+}
+
+h1{
+ text-align:center;
+ margin-bottom:40px;
+}
+
+.race{
+ background:#0f172a;
+ padding:20px;
+ margin:15px auto;
+ max-width:700px;
+ border-radius:12px;
+ border-left:4px solid #ff1e00;
+}
+
+.track{
+ font-size:20px;
+ font-weight:bold;
+}
+
+.date{
+ opacity:0.7;
+ margin-top:5px;
+}
+</style>
+</head>
+
+<body>
+
+<h1 id="title">Liga naptár</h1>
+
+<div id="raceList"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const league = params.get("league");
+
+document.getElementById("title").innerText = league + " naptár";
+
+async function loadCalendar(){
+
+ const { data, error } = await window.supabaseClient
+   .from("races")
+   .select("*")
+   .eq("league", league)
+   .order("race_time", { ascending:true });
+
+ const container = document.getElementById("raceList");
+
+ if(error){
+   container.innerHTML = "Hiba történt";
+   return;
+ }
+
+ if(data.length === 0){
+   container.innerHTML = "Nincs még verseny.";
+   return;
+ }
+
+ data.forEach(r=>{
+   const date = new Date(r.race_time);
+
+   container.innerHTML += `
+     <div class="race">
+       <div class="track">🏁 ${r.track}</div>
+       <div class="date">${date.toLocaleString()}</div>
+     </div>
+   `;
+ });
+}
+
+loadCalendar();
+</script>
+
+</body>
+</html>
