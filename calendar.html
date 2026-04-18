@@ -414,14 +414,14 @@ loadStandings();
 function getTrackImage(track){
 
  const images = {
-  "Spa":"spa.jpg",
+  "Belgium":"spa.jpg",
   "Austria":"austria.jpg",
   "Hungary":"hungary.jpg",
   "Brazil":"brazil.jpg",
   "Qatar":"qatar.jpg"
  };
 
- return images[track] || "default.jpg";
+ return "tracks/" + (images[track] || "default.jpg");
 }
 
 const leagues = ["F1 23","F1 25","Le Mans Ultimate"];
