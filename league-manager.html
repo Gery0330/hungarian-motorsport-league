@@ -33,6 +33,10 @@ body{
  background:#ff1e00;
 }
 
+.tabs button.active{
+ background:#ff1e00;
+}
+
 .tab{
  display:none;
 }
@@ -138,8 +142,20 @@ async function hash(text){
 })();
 
 function openTab(tab){
+
+ // TAB tartalom
  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
  document.getElementById(tab).classList.add("active");
+
+ // 🔥 GOMB KIEMELÉS
+ document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
+
+ document.querySelectorAll(".tabs button").forEach(b=>{
+   if(b.getAttribute("onclick").includes(tab)){
+     b.classList.add("active");
+   }
+ });
+
  loadStandings(tab);
 }
 
