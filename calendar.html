@@ -69,12 +69,40 @@ h1{
  text-shadow:0 0 15px #ff1e00;
 }
 
+.league-panel{
+ background:linear-gradient(145deg,#020617,#0f172a);
+ padding:30px;
+ border-radius:18px;
+ box-shadow:0 0 40px rgba(0,0,0,0.7);
+ border:1px solid #1f2937;
+ margin-bottom:40px;
+}
+
+.stand-row{
+ display:flex;
+ justify-content:space-between;
+ padding:12px 15px;
+ margin:8px 0;
+ border-radius:10px;
+ background:#111827;
+ font-weight:bold;
+}
+
+.top1{ border-left:4px solid gold; }
+.top2{ border-left:4px solid silver; }
+.top3{ border-left:4px solid #cd7f32; }
+
+.driver{ flex:1; text-align:left; }
+.team{ flex:1; text-align:center; opacity:0.7; }
+.points{ min-width:80px; text-align:right; color:#ff1e00; }
+
 </style>
 </head>
 
 <body>
 
 <h1 id="title">Liga naptár</h1>
+<div id="standingsContainer"></div>
 
 <div class="filter">
 <button onclick="setFilter('all')" class="active">Összes</button>
@@ -118,15 +146,25 @@ function setFilter(f){
 
 async function loadCalendar(){
 
- const { data } = await window.supabaseClient
+ const map = {
+  "F1 23":"F1 23",
+  "F1 25":"F1 25",
+  "Le Mans Ultimate":"LMU"
+ };
+ 
+ const dbLeague = map[params.get("league")] || params.get("league");
+ 
+ const { data, error } = await window.supabaseClient
    .from("races")
    .select("*")
-   .eq("league", league)
+   .eq("league", dbLeague)
    .order("race_time", { ascending:true });
-
- races = data || [];
-
- render();
+ 
+ if(error){
+  console.error(error);
+  document.getElementById("raceList").innerHTML = "Hiba: " + error.message;
+  return;
+ }
 }
 
 function render(){
@@ -171,6 +209,61 @@ function render(){
 
 loadCalendar();
 setInterval(render, 60000);
+
+async function loadStandings(){
+
+ const map = {
+  "F1 23":"F1 23",
+  "F1 25":"F1 25",
+  "Le Mans Ultimate":"LMU"
+ };
+
+ const dbLeague = map[params.get("league")] || params.get("league");
+
+ const { data, error } = await window.supabaseClient
+   .from("standings")
+   .select("*")
+   .eq("championship", dbLeague)
+   .order("points", { ascending:false });
+
+ const container = document.getElementById("standingsContainer");
+
+ if(error){
+  container.innerHTML = "Standings hiba";
+  return;
+ }
+
+ if(!data || data.length === 0){
+  container.innerHTML = "Nincs standings adat.";
+  return;
+ }
+
+ let html = `<div class="league-panel"><h3>${displayName} standings</h3>`;
+
+ data.forEach((row,index)=>{
+
+  let extra = "";
+  if(index === 0) extra="top1";
+  if(index === 1) extra="top2";
+  if(index === 2) extra="top3";
+
+  html += `
+  <div class="stand-row ${extra}">
+    <div>#${index+1}</div>
+    <div class="driver">${row.driver_name}</div>
+    <div class="team">${row.team}</div>
+    <div class="points">${row.points}</div>
+  </div>
+  `;
+ });
+
+ html += "</div>";
+
+ container.innerHTML = html;
+}
+
+loadStandings();
+
 </script>
 
 </body>
