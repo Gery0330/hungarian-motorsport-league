@@ -96,7 +96,13 @@ if(league === "Le Mans Ultimate"){
  league = "LMU";
 }
 
-document.getElementById("title").innerText = league + " naptár";
+let displayName = league;
+
+if(league === "LMU"){
+ displayName = "Le Mans Ultimate";
+}
+
+document.getElementById("title").innerText = displayName + " naptár";
 
 let races = [];
 let filter = "all";
