@@ -233,6 +233,9 @@ async function loadCalendar(){
   document.getElementById("raceList").innerHTML = "Hiba: " + error.message;
   return;
  }
+ 
+ races = data || [];
+ render();
 }
 
 function render(){
