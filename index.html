@@ -1611,7 +1611,7 @@ const { data: existing } = await window.supabaseClient
   .eq("email", email)
   .eq("championship", championshipCheck);
 
-if(existing.length > 0){
+if(existing && existing.length > 0){
  alert("Ezzel az emaillel már jelentkeztél ebbe a ligába!");
  return;
 }
