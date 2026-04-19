@@ -70,7 +70,19 @@ input{
 <h3>Új pilóta</h3>
 
 <input id="driver_f123" placeholder="Pilóta neve">
-<input id="team_f123" placeholder="Csapat">
+<select id="team_f123">
+ <option value="">Csapat kiválasztása</option>
+ <option>Red Bull</option>
+ <option>Mercedes</option>
+ <option>Ferrari</option>
+ <option>McLaren</option>
+ <option>Aston Martin</option>
+ <option>Alpine</option>
+ <option>Williams</option>
+ <option>AlphaTauri</option>
+ <option>Alfa Romeo</option>
+ <option>Haas</option>
+</select>
 <input id="points_f123" type="number" placeholder="Pontok">
 
 <button onclick="addDriver('f123')">Hozzáadás</button>
@@ -86,7 +98,19 @@ input{
 <h3>Új pilóta</h3>
 
 <input id="driver_f125" placeholder="Pilóta neve">
-<input id="team_f125" placeholder="Csapat">
+<select id="team_f125">
+ <option value="">Csapat kiválasztása</option>
+ <option>Red Bull</option>
+ <option>Mercedes</option>
+ <option>Ferrari</option>
+ <option>McLaren</option>
+ <option>Aston Martin</option>
+ <option>Alpine</option>
+ <option>Williams</option>
+ <option>RB</option>
+ <option>Kick Sauber</option>
+ <option>Haas</option>
+</select>
 <input id="points_f125" type="number" placeholder="Pontok">
 
 <button onclick="addDriver('f125')">Hozzáadás</button>
@@ -181,8 +205,9 @@ async function loadStandings(tab){
     <div style="margin:10px;padding:10px;background:#111;">
      <b>${d.driver_name}</b><br>
  
-     <input value="${d.team}" 
-     onchange="updateTeam('${d.id}', this.value)">
+     <select onchange="updateTeam('${d.id}', this.value)">
+      ${getTeamOptions(tab, d.team)}
+     </select>
  
      <input type="number" value="${d.points}" 
      onchange="updatePoints('${d.id}', this.value)">
@@ -195,6 +220,28 @@ async function loadStandings(tab){
    `;
  });
 
+}
+
+function getTeamOptions(tab, selected){
+
+ const teams = {
+  f123:[
+   "Red Bull","Mercedes","Ferrari","McLaren","Aston Martin",
+   "Alpine","Williams","AlphaTauri","Alfa Romeo","Haas"
+  ],
+  f125:[
+   "Red Bull","Mercedes","Ferrari","McLaren","Aston Martin",
+   "Alpine","Williams","RB","Kick Sauber","Haas"
+  ]
+ };
+
+ if(tab === "lmu"){
+   return `<option>${selected}</option>`;
+ }
+
+ return teams[tab].map(t=>`
+  <option ${t===selected?"selected":""}>${t}</option>
+ `).join("");
 }
 
 async function updateTeam(id,val){
