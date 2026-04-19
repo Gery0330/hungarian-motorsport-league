@@ -74,8 +74,17 @@ button{
 
 <h2>Új verseny</h2>
 
-<input id="league" placeholder="Liga (pl: F1 25)">
-<input id="track" placeholder="Pálya (pl: Spa)">
+<select id="league" onchange="updateTracks()">
+  <option value="">Liga kiválasztása</option>
+  <option value="F1 23">F1 23</option>
+  <option value="F1 25">F1 25</option>
+  <option value="LMU">LMU</option>
+</select>
+
+<select id="track">
+  <option value="">Először válassz ligát</option>
+</select>
+
 <input id="time" type="datetime-local">
 
 <button onclick="addRace()">Hozzáadás</button>
@@ -238,6 +247,45 @@ function showTab(tab){
  document.getElementById("tab-" + tab)
   .classList.add("active");
 
+}
+
+function updateTracks(){
+
+ const league = document.getElementById("league").value;
+ const trackSelect = document.getElementById("track");
+
+ let tracks = [];
+
+ if(league === "F1 23" || league === "F1 25"){
+  tracks = [
+   "Ausztrália","Kína","Japán","Bahrein","Szaúd-Arábia",
+   "Miami","Austin","Las Vegas",
+   "Olaszország","Imola","Monaco","Spanyolország",
+   "Kanada","Ausztria","Egyesült Királyság","Belgium",
+   "Magyarország","Hollandia","Azerbajdzsán","Szingapúr",
+   "Mexikó","Brazília","Katar","Egyesült Arab Emírségek",
+   "Franciaország","Portugália"
+  ];
+ }
+
+ if(league === "LMU"){
+  tracks = [
+   "LeMans","Portimao","Spa","Monza","Fuji",
+   "Bahrain","Austin","Interlagos","Losail","Imola"
+  ];
+ }
+
+ trackSelect.innerHTML = '<option value="">Pálya kiválasztása</option>';
+
+ tracks.forEach(t=>{
+  trackSelect.innerHTML += `<option value="${t}">${t}</option>`;
+ });
+
+}
+
+if(!league){
+ trackSelect.innerHTML = '<option>Először válassz ligát</option>';
+ return;
 }
 
 </script>
