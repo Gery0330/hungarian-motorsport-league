@@ -475,6 +475,7 @@ function setFilter(f){
  event.target.classList.add("active");
 
  render();
+ setTimeout(waitForImages, 100);
 }
 
 async function loadCalendar(){
@@ -501,6 +502,7 @@ async function loadCalendar(){
  
  races = data || [];
  render();
+ setTimeout(waitForImages, 100);
 }
 
 function render(){
@@ -655,7 +657,42 @@ function nextLeague(){
  goToLeague(i);
 }
 
-window.addEventListener("load", ()=>{
+function waitForImages(){
+
+ const images = document.images;
+ let loaded = 0;
+ const total = images.length;
+
+ if(total === 0){
+   hideLoader();
+   return;
+ }
+
+ for(let i = 0; i < total; i++){
+
+   if(images[i].complete){
+     loaded++;
+   } else {
+     images[i].addEventListener("load", check);
+     images[i].addEventListener("error", check);
+   }
+
+ }
+
+ function check(){
+   loaded++;
+   if(loaded === total){
+     hideLoader();
+   }
+ }
+
+ if(loaded === total){
+   hideLoader();
+ }
+
+}
+
+function hideLoader(){
  const loader = document.getElementById("loader");
 
  loader.style.transition = "opacity 0.6s ease";
@@ -664,7 +701,10 @@ window.addEventListener("load", ()=>{
  setTimeout(()=>{
    loader.style.display = "none";
  }, 600);
-});
+}
+
+// 🔥 FONTOS: render után hívd meg
+setTimeout(waitForImages, 500);
 
 </script>
 
