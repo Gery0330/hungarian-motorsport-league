@@ -254,11 +254,6 @@ function updateTracks(){
  const league = document.getElementById("league").value;
  const trackSelect = document.getElementById("track");
 
- if(!league){
-  trackSelect.innerHTML = '<option>Először válassz ligát</option>';
-  return;
- }
-
  let tracks = [];
 
  if(league === "F1 23" || league === "F1 25"){
