@@ -68,6 +68,23 @@ button{
 <div class="tabs">
   <button onclick="showTab('races')">Races</button>
   <button onclick="showTab('regs')">Registrations</button>
+  <button onclick="showTab('news')">News</button>
+</div>
+
+<div id="tab-news" class="tab-content">
+
+<h2>Új hír</h2>
+
+<input id="news_title" placeholder="Cím">
+<input id="news_league" placeholder="Liga (pl. F1 23)">
+
+<textarea id="news_content" placeholder="Tartalom" style="width:300px;height:120px;"></textarea>
+
+<button onclick="addNews()">Közzététel</button>
+
+<h2>Hírek</h2>
+<div id="newsList"></div>
+
 </div>
 
 <div id="tab-races" class="tab-content">
@@ -130,6 +147,7 @@ async function hash(text){
  
  loadRaces();
  loadRegistrations();
+ loadNews();
  
 })();
 
@@ -282,6 +300,68 @@ function updateTracks(){
  });
 
 }
+
+async function addNews(){
+
+ const title = document.getElementById("news_title").value;
+ const content = document.getElementById("news_content").value;
+ const league = document.getElementById("news_league").value;
+
+ if(!title || !content){
+  alert("Tölts ki mindent!");
+  return;
+ }
+
+ const { error } = await window.supabaseClient
+  .from("news")
+  .insert([{ title, content, league }]);
+
+ if(error){
+  console.error(error);
+  alert("Hiba!");
+  return;
+ }
+
+ document.getElementById("news_title").value="";
+ document.getElementById("news_content").value="";
+ document.getElementById("news_league").value="";
+
+ loadNews();
+}
+
+async function loadNews(){
+
+ const { data } = await window.supabaseClient
+  .from("news")
+  .select("*")
+  .order("created_at",{ascending:false});
+
+ const container = document.getElementById("newsList");
+ container.innerHTML = "";
+
+ (data || []).forEach(n=>{
+
+  container.innerHTML += `
+   <div class="race">
+     <b>${n.title}</b><br>
+     ${n.league || ""}<br><br>
+     ${n.content}<br>
+     <button onclick="deleteNews('${n.id}')">Törlés</button>
+   </div>
+  `;
+ });
+}
+
+async function deleteNews(id){
+
+ await window.supabaseClient
+  .from("news")
+  .delete()
+  .eq("id", id);
+
+ loadNews();
+}
+
 
 </script>
 
