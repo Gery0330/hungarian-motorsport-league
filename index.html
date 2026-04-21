@@ -940,6 +940,88 @@ border-left:4px solid #cd7f32;
  margin-bottom:15px;
 }
 
+.news-card{
+ background:rgba(255,255,255,0.03);
+ border:1px solid rgba(255,255,255,0.08);
+ border-radius:16px;
+
+ padding:20px;
+ margin-bottom:20px;
+
+ text-align:left;
+
+ transition:.3s;
+}
+
+.news-card:hover{
+ transform:translateY(-5px);
+ box-shadow:0 0 20px rgba(0,0,0,0.6);
+}
+
+.news-title{
+ font-size:20px;
+ font-weight:bold;
+ margin-bottom:8px;
+}
+
+.news-league{
+ font-size:12px;
+ opacity:0.6;
+ margin-bottom:10px;
+}
+
+.news-preview{
+ font-size:14px;
+ opacity:0.85;
+ line-height:1.5;
+}
+
+.read-more{
+ display:inline-block;
+ margin-top:12px;
+ color:#ff1e00;
+ cursor:pointer;
+ font-weight:bold;
+}
+
+/* MODAL */
+#newsModal{
+ display:none;
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+
+ background:rgba(0,0,0,0.7);
+ backdrop-filter:blur(8px);
+
+ justify-content:center;
+ align-items:center;
+
+ z-index:5000;
+}
+
+.news-modal-content{
+ background:#0f172a;
+ padding:30px;
+ border-radius:16px;
+
+ max-width:700px;
+ width:90%;
+
+ max-height:80vh;
+ overflow-y:auto;
+
+ text-align:left;
+}
+
+.close-news{
+ margin-top:20px;
+ cursor:pointer;
+ color:#aaa;
+}
+
 </style>
 </head>
 
@@ -1989,14 +2071,36 @@ async function loadNews(){
 
  (data || []).forEach(n=>{
 
+  const preview = n.content.length > 120
+   ? n.content.substring(0,120) + "..."
+   : n.content;
+
   container.innerHTML += `
-    <div class="race">
-      <b>${n.title}</b><br>
-      <small>${n.league || ""}</small><br><br>
-      ${n.content}
+    <div class="news-card">
+      <div class="news-title">${n.title}</div>
+      <div class="news-league">${n.league || ""}</div>
+      <div class="news-preview">${preview}</div>
+
+      <div class="read-more"
+           onclick="openNews('${n.title}','${n.league}','${encodeURIComponent(n.content)}')">
+        Tovább olvasom →
+      </div>
     </div>
   `;
  });
+}
+
+function openNews(title, league, content){
+
+ document.getElementById("modalTitle").innerText = title;
+ document.getElementById("modalLeague").innerText = league || "";
+ document.getElementById("modalContent").innerText = decodeURIComponent(content);
+
+ document.getElementById("newsModal").style.display = "flex";
+}
+
+function closeNews(){
+ document.getElementById("newsModal").style.display = "none";
 }
 
 loadNews();
@@ -2004,5 +2108,16 @@ loadNews();
 </script>
 
 <div id="pageTransition"></div>
+
+<div id="newsModal">
+  <div class="news-modal-content">
+    <h2 id="modalTitle"></h2>
+    <small id="modalLeague"></small>
+    <p id="modalContent"></p>
+
+    <div class="close-news" onclick="closeNews()">Bezárás</div>
+  </div>
+</div>
+
 </body>
 </html>
