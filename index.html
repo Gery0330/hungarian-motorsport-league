@@ -926,6 +926,20 @@ border-left:4px solid #cd7f32;
  100%{ box-shadow:0 0 15px #ff1e00; }
 }
 
+#news{
+ max-width:1000px;
+ margin:40px auto;
+ padding:20px;
+}
+
+#news h2{
+ margin-bottom:20px;
+}
+
+#news .race{
+ margin-bottom:15px;
+}
+
 </style>
 </head>
 
@@ -986,6 +1000,10 @@ Elfogadom
 <button class="langbtn" onclick="toggleLang()">HU / EN</button>
 </nav>
 
+<section id="news">
+  <h2>📰 Hírek</h2>
+  <div id="newsContainer"></div>
+</section>
 
 <div class="spacer"></div>
 
@@ -1957,6 +1975,31 @@ document.addEventListener("keydown", function(e){
 function openCalendar(league){
  window.location.href = "calendar.html?league=" + encodeURIComponent(league);
 }
+
+async function loadNews(){
+
+ const { data } = await window.supabaseClient
+  .from("news")
+  .select("*")
+  .order("created_at",{ascending:false})
+  .limit(5);
+
+ const container = document.getElementById("newsContainer");
+ container.innerHTML = "";
+
+ (data || []).forEach(n=>{
+
+  container.innerHTML += `
+    <div class="race">
+      <b>${n.title}</b><br>
+      <small>${n.league || ""}</small><br><br>
+      ${n.content}
+    </div>
+  `;
+ });
+}
+
+loadNews();
 
 </script>
 
