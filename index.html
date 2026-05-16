@@ -1991,18 +1991,7 @@ function startCountdown(time){
     const el = document.getElementById("countdown");
     el.innerText = "🔴 LIVE";
     el.classList.add("live-glow");
-   
-    // 🔥 AUTO REDIRECT 3 mp után
-    checkIfLive().then(isLive => {
-    
-     if(isLive){
-       setTimeout(()=>{
-         window.location.href = "live.html";
-       }, 3000);
-     }
-    
-    });
-    
+      
     return;
    }
 
