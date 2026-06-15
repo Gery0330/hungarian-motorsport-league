@@ -1022,6 +1022,55 @@ border-left:4px solid #cd7f32;
  color:#aaa;
 }
 
+.coming-soon{
+ position:relative;
+ overflow:hidden;
+}
+
+.coming-badge{
+ position:absolute;
+
+ top:10px;
+ right:-35px;
+
+ width:140px;
+
+ text-align:center;
+
+ background:#ff1e00;
+
+ transform:rotate(35deg);
+
+ font-size:11px;
+ font-weight:bold;
+
+ padding:5px;
+
+ animation:blinkComing 1s infinite;
+}
+
+@keyframes blinkComing{
+ 0%{opacity:1;}
+ 50%{opacity:.4;}
+ 100%{opacity:1;}
+}
+
+#f126Launch{
+ text-align:center;
+ padding:80px 20px 30px;
+}
+
+#f126Countdown{
+ font-size:42px;
+ font-weight:bold;
+
+ color:#ff1e00;
+
+ text-shadow:
+ 0 0 10px #ff1e00,
+ 0 0 25px rgba(255,30,0,0.8);
+}
+
 </style>
 </head>
 
@@ -1113,6 +1162,29 @@ Jelentkezz
 
 </div>
 
+<section id="f126Launch">
+
+<h2>🏎️ F1 26 SZEZONRAJT</h2>
+
+<div class="race-card">
+
+<div style="
+font-size:22px;
+margin-bottom:15px;
+color:#ff1e00;
+font-weight:bold;
+">
+2026. Június 25. • 20:00
+</div>
+
+<div id="f126Countdown">
+--:--:--:--
+</div>
+
+</div>
+
+</section>
+
 <section id="nextRace">
 
 <h2>🏁 Következő verseny</h2>
@@ -1139,9 +1211,24 @@ Ligáink
 </h2>
 
 <div class="games">
-<div class="card reveal" onclick="openCalendar('F1 23')">F1 23</div>
-<div class="card reveal" onclick="openCalendar('F1 25')">F1 25</div>
-<div class="card reveal" onclick="openCalendar('Le Mans Ultimate')">Le Mans Ultimate</div>
+
+<div class="card reveal" onclick="openCalendar('F1 23')">
+F1 23
+</div>
+
+<div class="card reveal" onclick="openCalendar('F1 25')">
+F1 25
+</div>
+
+<div class="card reveal coming-soon" onclick="openCalendar('F1 26')">
+F1 26
+<span class="coming-badge">HAMAROSAN</span>
+</div>
+
+<div class="card reveal" onclick="openCalendar('Le Mans Ultimate')">
+Le Mans Ultimate
+</div>
+
 </div>
 <div style="text-align:center; margin-top:60px;">
 
@@ -2089,6 +2176,49 @@ function openNews(title, league, content){
 function closeNews(){
  document.getElementById("newsModal").style.display = "none";
 }
+
+function startF126Countdown(){
+
+ const target =
+ new Date("2026-06-25T20:00:00");
+
+ function update(){
+
+   const now = new Date();
+
+   const diff = target - now;
+
+   if(diff <= 0){
+
+     document.getElementById("f126Countdown")
+       .innerText = "🏁 ELINDULT!";
+
+     return;
+   }
+
+   const days =
+    Math.floor(diff/(1000*60*60*24));
+
+   const hours =
+    Math.floor((diff/(1000*60*60))%24);
+
+   const minutes =
+    Math.floor((diff/(1000*60))%60);
+
+   const seconds =
+    Math.floor((diff/1000)%60);
+
+   document.getElementById("f126Countdown")
+     .innerText =
+     `${days}d ${hours}h ${minutes}m ${seconds}s`;
+ }
+
+ update();
+
+ setInterval(update,1000);
+}
+
+startF126Countdown();
 
 loadNews();
 
