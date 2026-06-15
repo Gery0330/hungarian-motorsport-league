@@ -76,7 +76,19 @@ button{
 <h2>Új hír</h2>
 
 <input id="news_title" placeholder="Cím">
-<input id="news_league" placeholder="Liga (pl. F1 23)">
+<select id="news_league">
+
+<option value="">Általános Hír</option>
+
+<option value="F1 23">F1 23</option>
+
+<option value="F1 25">F1 25</option>
+
+<option value="F1 26">F1 26</option>
+
+<option value="LMU">LMU</option>
+
+</select>
 
 <textarea id="news_content" placeholder="Tartalom" style="width:300px;height:120px;"></textarea>
 
@@ -275,7 +287,11 @@ function updateTracks(){
 
  let tracks = [];
 
- if(league === "F1 23" || league === "F1 25"){
+ if(
+  league === "F1 23" ||
+  league === "F1 25" ||
+  league === "F1 26"
+ ){
   tracks = [
    "Ausztrália","Kína","Japán","Bahrein","Szaúd-Arábia",
    "Miami","Austin","Las Vegas",
