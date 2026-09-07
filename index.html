@@ -1071,6 +1071,20 @@ border-left:4px solid #cd7f32;
  0 0 25px rgba(255,30,0,0.8);
 }
 
+#discordRegistration{
+  text-align:center;
+  padding:60px 20px;
+}
+
+#discordRegistration p{
+  margin:15px 0 25px;
+  opacity:.75;
+}
+
+#discordRegistration .btn{
+  display:inline-block;
+}
+
 </style>
 </head>
 
@@ -1233,327 +1247,27 @@ Csatlakozz a közösséghez!
 
 </section>
 
-<!-- REGISTRATION SYSTEM -->
-<section id="nevezes" style="background:#0b0f18;">
-<h2 data-hu="Nevezési rendszer"
-    data-en="Registration System">
-Nevezési rendszer
-</h2>
+<section id="discordRegistration">
 
-<form id="regForm" style="max-width:800px;margin:auto;text-align:left;">
+  <h2 data-hu="Nevezés"
+      data-en="Registration">
+    Nevezés
+  </h2>
 
-<label data-hu="Bajnokság"
-       data-en="Championship">
-Bajnokság
-</label>
+  <p data-hu="A nevezés a Discord szerveren történik."
+     data-en="Registration takes place on our Discord server.">
+    A nevezés a Discord szerveren történik.
+  </p>
 
-<div id="limitInfo" style="
-margin:10px 0 20px 0;
-padding:12px;
-background:#111827;
-border-radius:8px;
-display:none;
-font-weight:bold;
-"></div>
+  <a
+    href="https://discord.gg/mRB24ZRwFr"
+    target="_blank"
+    class="btn"
+    data-hu="Tovább a Discordra →"
+    data-en="Continue to Discord →">
+    Tovább a Discordra →
+  </a>
 
-<select id="championship" name="championship" required>
-<option value="" data-hu="Válassz..." data-en="Select...">Válassz...</option>
-<option value="F1 23">F1 23</option>
-<option value="F1 25">F1 25</option>
-<option value="Le Mans Ultimate">Le Mans Ultimate</option>
-</select>
-
-<label data-hu="Teljes név"
-       data-en="Full Name">
-Teljes név
-</label>
-<input type="text" name="full_name" required>
-
-<label data-hu="Játékbeli név"
-       data-en="GamerTag">
-Játékbeli név
-</label>
-<input type="text" name="gamer_tag" required>
- 
-<label data-hu="Discord név"
-       data-en="Discord Username">
-Discord név
-</label>
-<input type="text" name="discord_name" required>
-
-<label data-hu="Email"
-       data-en="Email">
-Email
-</label>
-<input type="email" name="email" required>
-
-<div id="f1ExtraSection" style="display:none;">
-
-<p style="font-size:14px; opacity:0.8;"
-   data-hu="Add meg a legjobb köridődet az alábbi pályákon (formátum: 0:00.000)"
-   data-en="Enter your best lap time on the following tracks (format: 0:00.000)">
-Add meg a legjobb köridődet az alábbi pályákon (formátum: 0:00.000)
-</p>
-
-<label data-hu="Spa-Francorchamps – Legjobb köridő"
-       data-en="Spa-Francorchamps – Best Lap Time">
-Spa-Francorchamps – Legjobb köridő
-</label>
-<input type="text" name="spa_time">
-
-<label data-hu="Imola – Legjobb köridő"
-       data-en="Imola – Best Lap Time">
-Imola – Legjobb köridő
-</label>
-<input type="text" name="imola_time">
-
-<label data-hu="Jeddah – Legjobb köridő"
-       data-en="Jeddah – Best Lap Time">
-Jeddah – Legjobb köridő
-</label>
-<input type="text" name="jeddah_time">
-
-<hr style="margin:25px 0; opacity:0.3;">
-
-<hr style="margin:25px 0; opacity:0.3;">
-
-<label data-hu="Jelentkezés típusa"
-       data-en="Registration Type">
-Jelentkezés típusa
-</label>
-
-<select name="f1_role" id="f1Role">
-<option value="" data-hu="Válassz..." data-en="Select...">Válassz...</option>
-<option value="Full Time"
-        data-hu="Fix pilóta (teljes szezon)"
-        data-en="Full Time Driver">
-Fix pilóta (teljes szezon)
-</option>
-<option value="Reserve"
-        data-hu="Tartalék pilóta"
-        data-en="Reserve Driver">
-Tartalék pilóta
-</option>
-</select>
-
-</div>
-
-<label data-hu="Platform"
-       data-en="Platform">
-Platform
-</label>
-<select name="platform" required>
-<option>PC</option>
-<option>PlayStation</option>
-<option>Xbox</option>
-</select>
-
-<div id="lemansCategorySection" style="display:none;">
-
-<label data-hu="Kategória választás"
-       data-en="Category Selection">
-Kategória választás
-</label>
-
-<select name="lemans_category" id="lemansCategory">
-<option value="">--</option>
-<option value="GT3">GT3</option>
-</select>
-
-</div>
-
-<label>
-<div class="rules-wrapper">
-
-<button type="button"
-        class="rules-toggle"
-        onclick="toggleRules()"
-        data-hu="📜 Szabályzat megtekintése"
-        data-en="📜 View Rules">
-📜 Szabályzat megtekintése
-</button>
-
-<div class="rules-content" id="rulesContent">
-
-<h3 data-hu="I. ÁLTALÁNOS ELVEK" 
-    data-en="I. GENERAL PRINCIPLES">
-I. ÁLTALÁNOS ELVEK
-</h3>
-
-<p data-hu="<b>Professzionális viselkedés</b><br>
-- Minden tag köteles sportszerűen, kulturáltan viselkedni<br>
-- Sértés, zaklatás, fenyegetés, megfélemlítés SZIGORÚAN TILOS<br>
-- Gyűlöletbeszéd AZONNALI KIZÁRÁS"
-   data-en="<b>Professional Conduct</b><br>
-- All members must behave in a sportsmanlike and respectful manner<br>
-- Insults, harassment, threats or intimidation are STRICTLY FORBIDDEN<br>
-- Hate speech results in IMMEDIATE EXCLUSION">
-<b>Professzionális viselkedés</b><br>
-- Minden tag köteles sportszerűen, kulturáltan viselkedni<br>
-- Sértés, zaklatás, fenyegetés, megfélemlítés SZIGORÚAN TILOS<br>
-- Gyűlöletbeszéd AZONNALI KIZÁRÁS
-</p>
-
-<p data-hu="<b>Kommunikáció</b><br>
-- Toxic, provokatív kommunikáció TILOS<br>
-- Verseny utáni balhé TILOS<br>
-- Vitás ügy HML Crew jelenlétében intézhető"
-   data-en="<b>Communication</b><br>
-- Toxic or provocative communication is FORBIDDEN<br>
-- Post-race conflicts are NOT allowed<br>
-- Disputes must be handled in the presence of HML Crew">
-<b>Kommunikáció</b><br>
-- Toxic, provokatív kommunikáció TILOS<br>
-- Verseny utáni balhé TILOS<br>
-- Vitás ügy HML Crew jelenlétében intézhető
-</p>
-
-<h3 data-hu="II. DISCORD HASZNÁLAT"
-    data-en="II. DISCORD USAGE">
-II. DISCORD HASZNÁLAT
-</h3>
-
-<p data-hu="- Csatornák rendeltetésszerű használata kötelező<br>
-- Spam, reklám, scam AZONNALI BAN<br>
-- Indokolatlan pingelés büntethető"
-   data-en="- Channels must be used properly<br>
-- Spam, advertisements or scams result in IMMEDIATE BAN<br>
-- Unnecessary pinging may be punished">
-- Csatornák rendeltetésszerű használata kötelező<br>
-- Spam, reklám, scam AZONNALI BAN<br>
-- Indokolatlan pingelés büntethető
-</p>
-
-<h3 data-hu="III. VOICE / STREAM"
-    data-en="III. VOICE / STREAM">
-III. VOICE / STREAM
-</h3>
-
-<p data-hu="- Zavaró zajkeltés TILOS<br>
-- Engedély nélküli felvétel TILOS<br>
-- Szerver hírnevét sértő tartalom TILOS"
-   data-en="- Disturbing noise is FORBIDDEN<br>
-- Recording without permission is FORBIDDEN<br>
-- Content damaging the server's reputation is PROHIBITED">
-- Zavaró zajkeltés TILOS<br>
-- Engedély nélküli felvétel TILOS<br>
-- Szerver hírnevét sértő tartalom TILOS
-</p>
-
-<h3 data-hu="IV. LIGA ÉS VERSENYSZABÁLYOK"
-    data-en="IV. LEAGUE & RACING RULES">
-IV. LIGA ÉS VERSENYSZABÁLYOK
-</h3>
-
-<p data-hu="- Cheat, bug abuse AZONNALI KIZÁRÁS<br>
-- Griefelés, trollkodás TILOS<br>
-- Trash talk TILOS"
-   data-en="- Cheating or bug abuse results in IMMEDIATE EXCLUSION<br>
-- Griefing or trolling is FORBIDDEN<br>
-- Trash talk is NOT allowed">
-- Cheat, bug abuse AZONNALI KIZÁRÁS<br>
-- Griefelés, trollkodás TILOS<br>
-- Trash talk TILOS
-</p>
-
-<h3 data-hu="V. BÜNTETÉSEK"
-    data-en="V. PENALTIES">
-V. BÜNTETÉSEK
-</h3>
-
-<p data-hu="- Figyelmeztetés<br>
-- Discord némítás<br>
-- Ideiglenes vagy végleges kizárás"
-   data-en="- Warning<br>
-- Discord mute<br>
-- Temporary or permanent ban">
-- Figyelmeztetés<br>
-- Discord némítás<br>
-- Ideiglenes vagy végleges kizárás
-</p>
-
-<h3 data-hu="VI. ELFOGADÁS"
-    data-en="VI. ACCEPTANCE">
-VI. ELFOGADÁS
-</h3>
-
-<p data-hu="A ligában való részvétellel kijelented, hogy elfogadod a szabályzatot."
-   data-en="By participating in the league, you declare that you accept these rules.">
-A ligában való részvétellel kijelented, hogy elfogadod a szabályzatot.
-</p>
-
-</div>
-
-<div class="discord-warning">
-
-<h3 
-data-hu="⚠ Discord használata kötelező!"
-data-en="⚠ Discord is mandatory!">
-⚠ Discord használata kötelező!
-</h3>
-
-<p
-data-hu="A bajnokságokkal kapcsolatos összes információ, futam időpont és eredmény a Discord szerveren kerül megosztásra. A nevezés leadásával vállalod, hogy csatlakozol a szerverhez."
-data-en="All championship information, race schedules and results are shared on our Discord server. By submitting your registration you agree to join the server.">
-A bajnokságokkal kapcsolatos összes információ, futam időpont és eredmény a Discord szerveren kerül megosztásra. A nevezés leadásával vállalod, hogy csatlakozol a szerverhez.
-</p>
-
-<div class="rules-accept">
-
-<input type="checkbox" id="acceptRules" required>
-
-<label for="acceptRules"
-data-hu="Elfogadom a szabályzatot"
-data-en="I accept the rules">
-Elfogadom a szabályzatot
-</label>
-
-</div>
-
-</div>
-
-<div style="display:flex; align-items:center; gap:10px; margin-top:10px;">
-
-<input type="checkbox" id="acceptPrivacy" required
-style="width:18px;height:18px;cursor:pointer;">
-
-<label for="acceptPrivacy">
-
-<span style="color:white;">
-Elfogadom az
-</span>
-
-<a href="adatkezeles.html"
-target="_blank"
-style="color:white;text-decoration:underline;">
-
-adatkezelési tájékoztatót
-
-</a>
-
-</label>
-
-</div>
-
-</div>
-
-</label>
-
-<button type="submit" class="btn submit-btn"
- data-hu="Nevezés elküldése"
- data-en="Submit Registration">
-Nevezés elküldése
-</button>
-
-<div id="successMsg"
-     data-hu="Sikeres nevezés! Átirányítás Discordra..."
-     data-en="Registration successful! Redirecting to Discord..."
-     style="display:none;margin-top:20px;
-padding:15px;background:#00aa55;border-radius:8px;">
-Sikeres nevezés! Átirányítás Discordra...
-</div>
-
-</form>
 </section>
 
 <footer>
@@ -1694,123 +1408,6 @@ function toggleLang(){
 function toggleRules(){
  const rules=document.getElementById("rulesContent");
  rules.classList.toggle("open");
-}
-
-const champSelect = document.getElementById("championship");
-const limitInfo = document.getElementById("limitInfo");
-const f1ExtraSection = document.getElementById("f1ExtraSection");
-
-champSelect.addEventListener("change", function() {
-
-    const championship = this.value;
-
-    if (!championship) {
-        limitInfo.style.display = "none";
-        f1ExtraSection.style.display = "none";
-        document.getElementById("lemansCategorySection").style.display = "none";
-        return;
-    }
-
-    // F1 extra mezők
-    if (championship.includes("F1")) {
-        f1ExtraSection.style.display = "block";
-        document.getElementById("f1Role").required = true;
-    } else {
-        f1ExtraSection.style.display = "none";
-        document.getElementById("f1Role").required = false;
-    }
-
-    // Le Mans kategória választás
-   if (championship === "Le Mans Ultimate") {
-       document.getElementById("lemansCategorySection").style.display = "block";
-       document.getElementById("lemansCategory").required = true;
-   } else {
-       document.getElementById("lemansCategorySection").style.display = "none";
-       document.getElementById("lemansCategory").required = false;
-   }
-    limitInfo.style.display = "none";
-});
-
-document.getElementById("regForm").addEventListener("submit", async function(e) {
-
-e.preventDefault();
-
-const championship = document.querySelector("[name='championship']").value;
-
-if (championship.includes("F1")) {
-
- const timePattern = /^[0-9]:[0-5][0-9]\.[0-9]{3}$/;
-
- const spa = document.querySelector("[name='spa_time']").value.trim();
- const imola = document.querySelector("[name='imola_time']").value.trim();
- const jeddah = document.querySelector("[name='jeddah_time']").value.trim();
-
- if(!spa || !imola || !jeddah){
-  alert("Az F1 nevezéshez minden köridőt ki kell tölteni!");
-  return;
- }
-
- if(!timePattern.test(spa) || !timePattern.test(imola) || !timePattern.test(jeddah)){
-  alert("Az idő formátuma hibás! Példa: 1:23.456");
-  return;
- }
-
-}
-
-// 🔒 SPAM CHECK
-const email = document.querySelector("[name='email']").value;
-const championshipCheck = championship;
-
-const { data: existing } = await window.supabaseClient
-  .from("registrations")
-  .select("id")
-  .eq("email", email)
-  .eq("championship", championshipCheck);
-
-if(existing && existing.length > 0){
- alert("Ezzel az emaillel már jelentkeztél ebbe a ligába!");
- return;
-}
-
-const formData = {
- championship: championship,
- full_name: document.querySelector("[name='full_name']").value,
- gamer_tag: document.querySelector("[name='gamer_tag']").value,
- discord_name: document.querySelector("[name='discord_name']").value,
- email: document.querySelector("[name='email']").value,
- platform: document.querySelector("[name='platform']").value,
- spa_time: document.querySelector("[name='spa_time']")?.value || null,
- imola_time: document.querySelector("[name='imola_time']")?.value || null,
- jeddah_time: document.querySelector("[name='jeddah_time']")?.value || null,
- lemans_category: document.querySelector("[name='lemans_category']")?.value || null,
- f1_role: document.querySelector("[name='f1_role']")?.value || null
-};
-
-const { error } = await window.supabaseClient
- .from("registrations")
- .insert([formData]);
-
-if (error) {
- console.error(error);
-
- if(error.message.includes("duplicate")){
-   alert("Ezzel az emaillel már jelentkeztél ebbe a ligába!");
- }else{
-   alert("Hiba történt a nevezés során!");
- }
-
- return;
-}
-
-document.getElementById("successMsg").style.display="block";
-document.getElementById("discordModal").style.display="flex";
-
-document.getElementById("regForm").reset();
-
-});
- 
- function closeModal(){
- document.getElementById("discordModal").style.display = "none";
 }
 
 let openedLeague = null;
